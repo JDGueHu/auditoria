@@ -1,0 +1,19 @@
+.centrar{ text-align: center; }
+.separarBottom{ margin-bottom: 2%; }
+.separarTop{ margin-top: 2%; }
+.anchoPanelRegistro{ width: 70%; margin: auto; }
+.colorMensajeError{ color: red; }
+.separarBottomNav{ margin-bottom: 0.5%; }
+.hr{margin: 0.6% 0%;border-bottom: 1px solid #dddddd;}
+.titulos{font-weight: normal;}
+.reducirMarge{ margin-bottom: 0%; }
+.mouse{ cursor: pointer; }
+.mouse:hover{ font-size: 16px;color: #337ab7; }
+.colorPrioridad{ color: orange; }
+.colorAlerta{ color: #337ab7; }
+
+
+@media screen and (max-width: 500px){
+	.separarBottom{ margin-bottom: 3%; }
+	.anchoPanelRegistro{ width: 100%; }
+}
