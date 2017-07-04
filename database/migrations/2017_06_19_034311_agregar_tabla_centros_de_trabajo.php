@@ -15,6 +15,11 @@ class AgregarTablaCentrosDeTrabajo extends Migration
     {
         Schema::create('centros_trabajo', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre')
+
+            $table->integer('riesgo_id')->unsigned();
+            $table->foreign('riesgo_id')->references('id')->on('riesgos');
+
             $table->timestamps();
         });
     }

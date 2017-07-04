@@ -22,8 +22,8 @@ class AgregarTablaEmpleados extends Migration
             $table->foreign('tipo_identificacion_id')->references('id')->on('tipos_identificacion');
 
             $table->integer("identificacion")->unique();
-            $table->string("nombres");
-            $table->string("apellidos");
+            $table->string("nombre");
+            $table->string("apellido");
             $table->string("grupo_sanguineo");
             $table->string("rh");
             $table->string("sexo");

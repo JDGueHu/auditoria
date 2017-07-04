@@ -15,6 +15,7 @@ class AgregarTablaTiposIdentificacion extends Migration
     {
         Schema::create('tipos_identificacion', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
             $table->timestamps();
         });
     }

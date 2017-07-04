@@ -15,6 +15,8 @@ class AgregarTablaRiesgos extends Migration
     {
         Schema::create('riesgos', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('nombre');
+            $table->decimal('tasa');
             $table->timestamps();
         });
     }

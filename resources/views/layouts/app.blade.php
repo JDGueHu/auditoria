@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/jquery_steps/css/jquery.steps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
@@ -82,6 +83,41 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('plugins/jquery/js/jquery-3.1.1.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('plugins/jquery_steps/js/jquery.steps.js') }}"></script>
+    <script src="{{ asset('plugins/jquery_validation/js/jquery.validate.js') }}"></script>
+            <script>
+            var form = $("#example-form");
+form.validate({
+    errorPlacement: function errorPlacement(error, element) { element.before(error); },
+    rules: {
+        confirm: {
+            equalTo: "#password"
+        }
+    }
+});
+form.children("div").steps({
+    headerTag: "h3",
+    bodyTag: "section",
+    transitionEffect: "slideLeft",
+    onStepChanging: function (event, currentIndex, newIndex)
+    {
+        form.validate().settings.ignore = ":disabled,:hidden";
+        return form.valid();
+    },
+    onFinishing: function (event, currentIndex)
+    {
+        form.validate().settings.ignore = ":disabled";
+        return form.valid();
+    },
+    onFinished: function (event, currentIndex)
+    {
+        alert("Submitted!");
+    }
+});
+        </script>
+
+
 </body>
 </html>
