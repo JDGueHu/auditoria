@@ -8,11 +8,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Calidad</title>
 
     <!-- Styles -->
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('plugins/jquery_steps/css/jquery.steps.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 
@@ -76,7 +76,6 @@
         </nav>
 
         <div class="container">
-            <h4>@yield('titulo')</h4>
             @yield('content')
         </div>
 
@@ -85,38 +84,6 @@
     <!-- Scripts -->
     <script src="{{ asset('plugins/jquery/js/jquery-3.1.1.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('plugins/jquery_steps/js/jquery.steps.js') }}"></script>
-    <script src="{{ asset('plugins/jquery_validation/js/jquery.validate.js') }}"></script>
-            <script>
-            var form = $("#example-form");
-form.validate({
-    errorPlacement: function errorPlacement(error, element) { element.before(error); },
-    rules: {
-        confirm: {
-            equalTo: "#password"
-        }
-    }
-});
-form.children("div").steps({
-    headerTag: "h3",
-    bodyTag: "section",
-    transitionEffect: "slideLeft",
-    onStepChanging: function (event, currentIndex, newIndex)
-    {
-        form.validate().settings.ignore = ":disabled,:hidden";
-        return form.valid();
-    },
-    onFinishing: function (event, currentIndex)
-    {
-        form.validate().settings.ignore = ":disabled";
-        return form.valid();
-    },
-    onFinished: function (event, currentIndex)
-    {
-        alert("Submitted!");
-    }
-});
-        </script>
 
 
 </body>
