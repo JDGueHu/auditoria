@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AgregarTablaCargos extends Migration
+class AgregarTablaNivelRiesgos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class AgregarTablaCargos extends Migration
      */
     public function up()
     {
-        Schema::create('cargos', function (Blueprint $table) {
+        Schema::create('nivelRiesgos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cargo')->unique();
+
+             $table->string('riesgo')->unique();
+             $table->float('valor', 8, 4);
+             $table->boolean('alive')->default(true);
+
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ class AgregarTablaCargos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cargos');
+        Schema::dropIfExists('nivelRiesgos');
     }
 }

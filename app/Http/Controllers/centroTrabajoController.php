@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class testController extends Controller
+class centroTrabajoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,7 +23,7 @@ class testController extends Controller
      */
     public function create()
     {
-        //
+        return view('configuracion.centroTrabajo.create');
     }
 
     /**

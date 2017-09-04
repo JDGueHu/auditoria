@@ -1144,8 +1144,8 @@ img {
   border-radius: 50%;
 }
 hr {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   border: 0;
   border-top: 1px solid #eee;
 }
@@ -2271,7 +2271,7 @@ th {
 .table > thead > tr > td,
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px;
+  padding: 4px;
   line-height: 1.42857143;
   vertical-align: top;
   border-top: 1px solid #ddd;
@@ -5459,7 +5459,7 @@ button.list-group-item-danger.active:focus {
   padding: 15px;
 }
 .panel-heading {
-  padding: 10px 15px;
+  padding: 3px 10px;
   border-bottom: 1px solid transparent;
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
@@ -5722,16 +5722,16 @@ button.list-group-item-danger.active:focus {
   border-color: #d6e9c6;
 }
 .panel-success > .panel-heading {
-  color: #3c763d;
-  background-color: #dff0d8;
-  border-color: #d6e9c6;
+  color: #ffffff;
+  background-color: #4cae4c;
+  border-color: #4cae4c;
 }
 .panel-success > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: #d6e9c6;
 }
 .panel-success > .panel-heading .badge {
   color: #dff0d8;
-  background-color: #3c763d;
+  background-color: #4cae4c;
 }
 .panel-success > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: #d6e9c6;

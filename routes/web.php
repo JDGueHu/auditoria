@@ -21,10 +21,16 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix'=>'configuracion'],function(){
 
-	Route::resource('cargos','cargosController');
-	Route::get('cargos/{id}/destroy',[
-		'uses' => 'cargosController@destroy',
-		'as' => 'cargos.destroy'
+	Route::resource('centroTrabajo','centroTrabajoController');
+	Route::get('centroTrabajo/{id}/destroy',[
+		'uses' => 'centroTrabajoController@destroy',
+		'as' => 'centroTrabajo.destroy'
+	]);
+
+	Route::resource('nivelRiesgos','nivelRiesgosController');
+	Route::get('nivelRiesgos/{id}/destroy',[
+		'uses' => 'nivelRiesgosController@destroy',
+		'as' => 'nivelRiesgos.destroy'
 	]);
 
 });

@@ -1,8 +1,9 @@
 .centrar{ text-align: center; }
+.separarBottomButtonn{ margin-bottom: 2.5%; }
 .separarBottom{ margin-bottom: 0.8%; }
+.separarTop{ margin-top: 0.5%; }
 .anchoPanelRegistro{ width: 70%; margin: auto; }
 .colorMensajeError{ color: red; }
-.separarBottomNav{ margin-bottom: 0.5%; }
 .hr{margin: 0.6% 0%;border-bottom: 1px solid #dddddd;}
 .titulos{font-weight: normal;}
 .reducirMarge{ margin-bottom: 0%; }
