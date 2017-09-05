@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class NivelRiesgo extends Model
 {
 	protected $table = "nivelRiesgos";
-	protected $fillable = ['initials','name','zone_type_id','zone_id'];
+	protected $fillable = ['riesgo','valor'];
+
+
+	public function CentrosTrabajo()
+	{
+		return $this->hasMany('App\CentroTrabajo', 'nivelRiesgo_id','id');
+	}
 }

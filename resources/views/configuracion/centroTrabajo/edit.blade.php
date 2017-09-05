@@ -4,10 +4,10 @@
 
 <ol class="breadcrumb">
   <li><a href="#">Centros de trabajo</a></li>
-  <li class="active">Crear</li>
+  <li class="active">Editar</li>
 </ol>
 
-{!! Form::open(['route' => 'centroTrabajo.store', 'method' => 'POST']) !!}
+{!! Form::model($centroTrabajo,['route' => ['centroTrabajo.update',$centroTrabajo->id], 'method' => 'PUT']) !!}
 
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
@@ -16,18 +16,18 @@
         <div class="row">   
             <div class="col-md-6 separarBottom">
                 {!! Form::label('identificador','Id centro de trabajo')  !!}
-                {!! Form::text('identificador',null, ['class' => 'form-control', 'id'=>'identificador'])  !!}
+                {!! Form::text('identificador', $centroTrabajo->identificador, ['class' => 'form-control', 'id'=>'identificador'])  !!}
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('centroTrabajo','Centro de operación')  !!}
-                {!! Form::text('centroTrabajo',null, ['class' => 'form-control', 'required', 'id'=>'centroTrabajo'])  !!}
+                {!! Form::text('centroTrabajo', $centroTrabajo->centroTrabajo, ['class' => 'form-control', 'required', 'id'=>'centroTrabajo'])  !!}
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6 separarBottom">
                 {!! Form::label('riesgo','Nivel de riesgo')  !!}
-                {!! Form::select('riesgo', $riesgos, null, ['class' => 'form-control separarBottom', 'required','id'=>'riesgo'])  !!} 
+                {!! Form::select('riesgo', $riesgos, $centroTrabajo->nivelRiesgo_id, ['class' => 'form-control separarBottom', 'required','id'=>'riesgo'])  !!} 
             </div>  
         </div>
 

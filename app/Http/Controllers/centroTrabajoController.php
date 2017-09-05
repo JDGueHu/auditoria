@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\CentroTrabajo;
+use App\NivelRiesgo;
 
 class centroTrabajoController extends Controller
 {
@@ -13,7 +15,10 @@ class centroTrabajoController extends Controller
      */
     public function index()
     {
-        //
+        $centrosTrabajo = CentroTrabajo::where('alive',true)->orderby('centroTrabajo')->get();
+
+        return view('configuracion.centroTrabajo.index')
+            ->with('centrosTrabajo',$centrosTrabajo);
     }
 
     /**
@@ -23,7 +28,10 @@ class centroTrabajoController extends Controller
      */
     public function create()
     {
-        return view('configuracion.centroTrabajo.create');
+        $riesgos = NivelRiesgo::where('alive',true)->pluck('riesgo','id');
+
+        return view('configuracion.centroTrabajo.create')
+            ->with('riesgos',$riesgos);
     }
 
     /**
@@ -34,7 +42,15 @@ class centroTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $centroTrabajo = new CentroTrabajo();
+
+        $centroTrabajo->identificador = $request->identificador;
+        $centroTrabajo->centroTrabajo = $request->centroTrabajo;
+        $centroTrabajo->nivelRiesgo_id = $request->riesgo;
+        $centroTrabajo->save();
+
+        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se creó exitosamente', 'success')->important();
+        return redirect()->route('centroTrabajo.index');
     }
 
     /**
@@ -45,7 +61,12 @@ class centroTrabajoController extends Controller
      */
     public function show($id)
     {
-        //
+        $riesgos = NivelRiesgo::where('alive',true)->pluck('riesgo','id');
+        $centroTrabajo = CentroTrabajo::find($id);
+
+        return view('configuracion.centroTrabajo.show')
+            ->with('centroTrabajo',$centroTrabajo)
+            ->with('riesgos',$riesgos);
     }
 
     /**
@@ -56,7 +77,12 @@ class centroTrabajoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $riesgos = NivelRiesgo::where('alive',true)->pluck('riesgo','id');
+        $centroTrabajo = CentroTrabajo::find($id);
+
+        return view('configuracion.centroTrabajo.edit')
+            ->with('centroTrabajo',$centroTrabajo)
+            ->with('riesgos',$riesgos);
     }
 
     /**
@@ -68,7 +94,15 @@ class centroTrabajoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $centroTrabajo = CentroTrabajo::find($id);
+
+        $centroTrabajo->identificador = $request->identificador;
+        $centroTrabajo->centroTrabajo = $request->centroTrabajo;
+        $centroTrabajo->nivelRiesgo_id = $request->riesgo;
+        $centroTrabajo->save();
+
+        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se modificó exitosamente', 'warning')->important();
+        return redirect()->route('centroTrabajo.index');
     }
 
     /**
@@ -79,6 +113,12 @@ class centroTrabajoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $centroTrabajo = CentroTrabajo::find($id);
+
+        $centroTrabajo->alive = false;
+        $centroTrabajo->save();
+
+        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('centroTrabajo.index');
     }
 }

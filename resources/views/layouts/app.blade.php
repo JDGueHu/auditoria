@@ -23,7 +23,7 @@
     <div id="app">
 
         @include('layouts.nav')
-        <div class="container">
+        <div class="container">        
             @include('flash::message')
             @yield('content')
         </div>
