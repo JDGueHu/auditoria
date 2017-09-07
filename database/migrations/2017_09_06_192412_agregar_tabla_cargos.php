@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AgregarTablaCentrosTrabajo extends Migration
+class AgregarTablaCargos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class AgregarTablaCentrosTrabajo extends Migration
      */
     public function up()
     {
-        Schema::create('centrosTrabajo', function (Blueprint $table) {
+        Schema::create('cargos', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('identificador')->nullable();
-            $table->string('centroTrabajo')->unique();
-
-            $table->integer('nivelRiesgo_id')->unsigned();
-            $table->foreign('nivelRiesgo_id')->references('id')->on('nivelRiesgos');
+            $table->string('codigo')->nullable();
+            $table->string('cargo')->unique();
 
             $table->boolean('alive')->default(true);
 
@@ -35,6 +32,6 @@ class AgregarTablaCentrosTrabajo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('centrosTrabajo');
+        Schema::dropIfExists('cargos');
     }
 }

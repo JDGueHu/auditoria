@@ -45,5 +45,5 @@
 
 @section('js')
 	<script src="{{ asset('js/table.js') }}"></script>
-	<script src="{{ asset('js/centroTrabajo/confirm.js') }}"></script>
+	<script src="{{ asset('js/confirm.js') }}"></script>
 @endsection

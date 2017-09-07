@@ -3,11 +3,11 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+  <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'nivelRiesgos.store', 'method' => 'POST']) !!}
+{!! Form::open(['route' => 'tiposDocumento.store', 'method' => 'POST']) !!} 
 
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
@@ -15,12 +15,12 @@
 
         <div class="row">   
             <div class="col-md-6 separarBottom">
-                {!! Form::label('riesgo','Riesgo')  !!}
-                {!! Form::text('riesgo',null, ['class' => 'form-control', 'id'=>'riesgo', 'required'])  !!}
+                {!! Form::label('sigla','Abreviatura')  !!}
+                {!! Form::text('sigla',null, ['class' => 'form-control', 'id'=>'sigla'])  !!}
             </div>
             <div class="col-md-6 separarBottom">
-                {!! Form::label('valor','Valor(%)')  !!}
-                {!! Form::number('valor',null, ['class' => 'form-control', 'required', 'id'=>'valor', 'step'=>'0.0001'])  !!}
+                {!! Form::label('tipoDocumento','Tipo de documento')  !!}
+                {!! Form::text('tipoDocumento',null, ['class' => 'form-control', 'required', 'id'=>'tipoDocumento'])  !!}
             </div>
         </div>
 
@@ -29,7 +29,7 @@
 
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
-<a style="text-decoration: none;" href="{{ route('nivelRiesgos.index') }}">
+<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 

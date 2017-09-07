@@ -19,8 +19,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Configuración<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
-            <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+            <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ route('cargos.index') }}">Cargos</a></li>
             <li><a href="{{ route('centroTrabajo.index') }}">Centros de trabajo</a></li>
+            <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+            
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>
@@ -29,7 +33,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
-              <li><a href="#">Empleados</a></li>
+              <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>

@@ -3,34 +3,34 @@
 @section('content')
 
 	<ol class="breadcrumb">
-	  <li><a id="modulo" href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+	  <li><a id="modulo" href="{{ route('cargos.index') }}">Cargos</a></li>
 	</ol>
 
 	
-	<a href="{{ route('nivelRiesgos.create') }}" class="btn btn-primary separarTop">Crear</a>
+	<a href="{{ route('cargos.create') }}" class="btn btn-primary separarTop">Crear</a>
 	<hr>
 	<div class="table-responsive">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>Riesgo</th>
-					<th>Valor(%)</th>
+					<th>Código</th>
+					<th>Cargo</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($nivelRiesgos as $nivelRiesgo)
+				@foreach($cargos as $cargo)
 					<tr>
-						<td>{{ $nivelRiesgo->riesgo }}</td>
-						<td>{{ $nivelRiesgo->valor }}</td>
+						<td>{{ $cargo->codigo }}</td>
+						<td>{{ $cargo->cargo }}</td>
 						<td>
-							<a title="Ver" href="{{ route('nivelRiesgos.show',$nivelRiesgo->id) }}" class="btn btn-default btn-xs">
+							<a title="Ver" href="{{ route('cargos.show',$cargo->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('nivelRiesgos.edit',$nivelRiesgo->id) }}" class="btn btn-warning btn-xs">
+							<a title="Editar" href="{{ route('cargos.edit',$cargo->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('nivelRiesgos.destroy',$nivelRiesgo->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a title="Eliminar" href="{{ route('cargos.destroy',$cargo->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

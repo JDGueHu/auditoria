@@ -4,10 +4,10 @@
 
 <ol class="breadcrumb">
   <li><a href="#">Empleados</a></li>
-  <li class="active">Crear</li>
+  <li class="active">Editar</li>
 </ol>
 
-{!! Form::open(['route' => 'empleados.store', 'method' => 'POST', 'id' => 'example-form']) !!}
+{!! Form::model($empleado,['route' => ['empleados.update',$empleado->id], 'method' => 'PUT']) !!}
 
 <div class="panel panel-primary">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana1" aria-expanded="true" aria-controls="ventana1">Datos básicos</div>
@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
-                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
+                    {!! Form::select('genero', ['F' => 'Femenino', 'M' => 'Masculino'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('edad','Edad')  !!}
-                    {!! Form::number('edad',null, ['class' => 'form-control', 'id'=>'edad', 'readonly'])  !!}
+                    {!! Form::number('edad',null, ['class' => 'form-control', 'required', 'id'=>'edad', 'readonly'])  !!}
                 </div>
             </div>
 
@@ -59,22 +59,22 @@
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('departamentoNacimiento','Departamento de nacimiento')  !!}
-                    {!! Form::text('departamentoNacimiento',null, ['class' => 'form-control','id'=>'departamentoNacimiento','readonly'])  !!}
+                    {!! Form::text('departamentoNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'departamentoNacimiento','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('paisNacimiento','País de nacimiento')  !!}
-                    {!! Form::text('paisNacimiento',null, ['class' => 'form-control', 'id'=>'paisNacimiento','readonly'])  !!}
+                    {!! Form::text('paisNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'paisNacimiento','readonly'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estadoCivil','Estado civil')  !!}
-                    {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], null, ['class' => 'form-control', 'placeholder' => 'Sleccione un estado civil','id'=>'estadoCivil'])  !!} 
+                    {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un estado civil','id'=>'estadoCivil'])  !!} 
                 </div> 
             </div>
 
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('numeroHijos','Número de hijos')  !!}
-                    {!! Form::number('numeroHijos',null, ['class' => 'form-control', 'id'=>'numeroHijos'])  !!}
+                    {!! Form::number('numeroHijos',null, ['class' => 'form-control', 'required', 'id'=>'numeroHijos'])  !!}
                 </div>  
             </div>
 
@@ -94,11 +94,11 @@
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('departamentoDireccion','Departamento')  !!}
-                    {!! Form::number('departamentoDireccion',null, ['class' => 'form-control', 'id'=>'departamentoDireccion','readonly'])  !!}
+                    {!! Form::number('departamentoDireccion',null, ['class' => 'form-control', 'required', 'id'=>'departamentoDireccion','readonly'])  !!}
                 </div>    
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('paisDireccion','Pais')  !!}
-                    {!! Form::number('paisDireccion',null, ['class' => 'form-control', 'id'=>'paisDireccion','readonly'])  !!}
+                    {!! Form::number('paisDireccion',null, ['class' => 'form-control', 'required', 'id'=>'paisDireccion','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('direccion','Dirección')  !!}
@@ -113,11 +113,11 @@
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('telefonoFijo','Teléfono fijo')  !!}
-                    {!! Form::number('telefonoFijo',null, ['class' => 'form-control', 'id'=>'telefonoFijo'])  !!}
+                    {!! Form::number('telefonoFijo',null, ['class' => 'form-control', 'required', 'id'=>'telefonoFijo'])  !!}
                 </div>    
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('telefonoCelular','Celular')  !!}
-                    {!! Form::number('telefonoCelular',null, ['class' => 'form-control', 'id'=>'telefonoCelular'])  !!}
+                    {!! Form::number('telefonoCelular',null, ['class' => 'form-control', 'required', 'id'=>'telefonoCelular'])  !!}
                 </div>  
             </div>
 
@@ -137,34 +137,34 @@
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('antiguedad','Antigüedad')  !!}
-                    {!! Form::number('antiguedad',null, ['class' => 'form-control', 'id'=>'antiguedad','readonly'])  !!}
+                    {!! Form::number('antiguedad',null, ['class' => 'form-control', 'required', 'id'=>'antiguedad','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('emailCorporativo','Email corporativo')  !!}
-                    {!! Form::email('emailCorporativo',null, ['class' => 'form-control', 'id'=>'emailCorporativo'])  !!}
+                    {!! Form::email('emailCorporativo',null, ['class' => 'form-control', 'required', 'id'=>'emailCorporativo'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('cargo','Cargo')  !!}
-                    {!! Form::select('cargo', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un cargo','id'=>'cargo'])  !!} 
+                    {!! Form::text('cargo',null, ['class' => 'form-control', 'required', 'id'=>'cargo'])  !!}
                 </div>  
             </div>
 
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('eps','EPS')  !!}
-                    {!! Form::text('eps',null, ['class' => 'form-control', 'id'=>'eps'])  !!}
+                    {!! Form::text('eps',null, ['class' => 'form-control', 'required', 'id'=>'eps'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('arl','ARL')  !!}
-                    {!! Form::text('arl',null, ['class' => 'form-control', 'id'=>'arl'])  !!}
+                    {!! Form::text('arl',null, ['class' => 'form-control', 'required', 'id'=>'arl'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                    {!! Form::text('fondoPensiones',null, ['class' => 'form-control', 'id'=>'fondoPensiones'])  !!}
+                    {!! Form::text('fondoPensiones',null, ['class' => 'form-control', 'required', 'id'=>'fondoPensiones'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                    {!! Form::text('fondoCesantias',null, ['class' => 'form-control', 'id'=>'fondoCesantias'])  !!}
+                    {!! Form::text('fondoCesantias',null, ['class' => 'form-control', 'required', 'id'=>'fondoCesantias'])  !!}
                 </div>  
             </div>
 
@@ -179,7 +179,7 @@
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tasa','Tasa')  !!}
-                    {!! Form::text('tasa',null, ['class' => 'form-control', 'id'=>'tasa', 'readonly'])  !!}
+                    {!! Form::text('tasa',null, ['class' => 'form-control', 'required', 'id'=>'tasa', 'readonly'])  !!}
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estado','Estado')  !!}
@@ -191,7 +191,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaRetiro','Fecha de retiro')  !!}
-                    {!! Form::text('fechaRetiro',null, ['class' => 'form-control', 'id'=>'fechaRetiro'])  !!}
+                    {!! Form::text('fechaRetiro',null, ['class' => 'form-control', 'required', 'id'=>'fechaRetiro'])  !!}
                 </div>   
             </div>
 
@@ -217,7 +217,7 @@
     </div>
 </div>
 
-<a style="text-decoration: none;" href="#">
+<a style="text-decoration: none;" href="{{ route('empleados.update') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}

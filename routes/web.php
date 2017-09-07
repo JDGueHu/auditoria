@@ -33,6 +33,18 @@ Route::group(['prefix'=>'configuracion'],function(){
 		'as' => 'nivelRiesgos.destroy'
 	]);
 
+	Route::resource('tiposDocumento','tiposDocumentoController');
+	Route::get('tiposDocumento/{id}/destroy',[
+		'uses' => 'tiposDocumentoController@destroy',
+		'as' => 'tiposDocumento.destroy'
+	]);
+
+	Route::resource('cargos','cargosController');
+	Route::get('cargos/{id}/destroy',[
+		'uses' => 'cargosController@destroy',
+		'as' => 'cargos.destroy'
+	]);
+
 });
 
 Route::group(['prefix'=>'administracion'],function(){
