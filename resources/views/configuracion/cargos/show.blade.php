@@ -9,6 +9,10 @@
 
 {!! Form::model($cargo) !!}
 
+<a style="text-decoration: none;" href="{{ route('cargos.index') }}">
+    {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
+</a>
+
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
     <div class="panel-body">

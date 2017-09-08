@@ -13,4 +13,9 @@ class CentroTrabajo extends Model
     {
         return $this->belongsTo('App\NivelRiesgo','nivelRiesgo_id');
     }
+
+	public function Empleados()
+	{
+		return $this->hasMany('App\Empleado', 'centro_trabajo_id','id');
+	}
 }

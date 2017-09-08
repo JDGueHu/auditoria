@@ -9,6 +9,11 @@
 
 {!! Form::model($nivelRiesgo,['route' => ['nivelRiesgos.update',$nivelRiesgo->id], 'method' => 'PUT']) !!}
 
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottom'])  !!}
+<a style="text-decoration: none;" href="{{ route('nivelRiesgos.index') }}">
+    {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
+</a>
+
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
     <div class="panel-body">

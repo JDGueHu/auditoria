@@ -9,6 +9,10 @@
 
 {!! Form::model($tipoDocumento) !!} 
 
+<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
+    {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
+</a>
+
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
     <div class="panel-body">
@@ -26,7 +30,6 @@
 
     </div>
 </div>
-
 
 <a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}

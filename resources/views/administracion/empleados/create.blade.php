@@ -3,11 +3,16 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="#">Empleados</a></li>
+  <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
   <li class="active">Crear</li>
 </ol>
 
 {!! Form::open(['route' => 'empleados.store', 'method' => 'POST', 'id' => 'example-form']) !!}
+
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarBottom'])  !!}
+<a style="text-decoration: none;" href="#">
+    {!! Form::button('Regresar',['class' => 'btn btn-default separarBottom'])  !!}
+</a>
 
 <div class="panel panel-primary">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana1" aria-expanded="true" aria-controls="ventana1">Datos básicos</div>
@@ -17,7 +22,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tipo_documento','Tipo documento')  !!}
-                    {!! Form::select('tipo_documento', ['CC' => 'Cédula de ciudadanía'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
+                    {!! Form::select('tipo_documento', $tiposDocumento, null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('identificacion','Número de identidad')  !!}
@@ -40,11 +45,11 @@
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
-                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'grupoSanguineo'])  !!} 
+                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaNacimiento','Fecha de nacimiento')  !!}
-                    {!! Form::text('fechaNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
+                    {!! Form::date('fechaNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('edad','Edad')  !!}
@@ -67,7 +72,7 @@
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estadoCivil','Estado civil')  !!}
-                    {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], null, ['class' => 'form-control', 'placeholder' => 'Sleccione un estado civil','id'=>'estadoCivil'])  !!} 
+                    {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado civil','id'=>'estadoCivil'])  !!} 
                 </div> 
             </div>
 
@@ -90,15 +95,15 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('ciudadDireccion','Ciudad')  !!}
-                    {!! Form::email('ciudadDireccion',null, ['class' => 'form-control', 'required', 'id'=>'ciudadDireccion'])  !!}
+                    {!! Form::text('ciudadDireccion',null, ['class' => 'form-control', 'required', 'id'=>'ciudadDireccion'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('departamentoDireccion','Departamento')  !!}
-                    {!! Form::number('departamentoDireccion',null, ['class' => 'form-control', 'id'=>'departamentoDireccion','readonly'])  !!}
+                    {!! Form::text('departamentoDireccion',null, ['class' => 'form-control', 'id'=>'departamentoDireccion','readonly'])  !!}
                 </div>    
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('paisDireccion','Pais')  !!}
-                    {!! Form::number('paisDireccion',null, ['class' => 'form-control', 'id'=>'paisDireccion','readonly'])  !!}
+                    {!! Form::text('paisDireccion',null, ['class' => 'form-control', 'id'=>'paisDireccion','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('direccion','Dirección')  !!}
@@ -133,11 +138,11 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaIngreso','Fecha de ingreso')  !!}
-                    {!! Form::text('fechaIngreso',null, ['class' => 'form-control', 'required', 'id'=>'fechaIngreso'])  !!}
+                    {!! Form::date('fechaIngreso',null, ['class' => 'form-control', 'required', 'id'=>'fechaIngreso'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('antiguedad','Antigüedad')  !!}
-                    {!! Form::number('antiguedad',null, ['class' => 'form-control', 'id'=>'antiguedad','readonly'])  !!}
+                    {!! Form::text('antiguedad',null, ['class' => 'form-control', 'id'=>'antiguedad','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('emailCorporativo','Email corporativo')  !!}
@@ -145,7 +150,7 @@
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('cargo','Cargo')  !!}
-                    {!! Form::select('cargo', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un cargo','id'=>'cargo'])  !!} 
+                    {!! Form::select('cargo', $cargos, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un cargo','id'=>'cargo'])  !!} 
                 </div>  
             </div>
 
@@ -171,7 +176,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('centroTrabajo','Centro de trabajo')  !!}
-                    {!! Form::select('centroTrabajo', ['' => '', 'Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
+                    {!! Form::select('centroTrabajo', $centrosTrabajo, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('riesgo','Riesgo')  !!}
@@ -191,7 +196,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaRetiro','Fecha de retiro')  !!}
-                    {!! Form::text('fechaRetiro',null, ['class' => 'form-control', 'id'=>'fechaRetiro'])  !!}
+                    {!! Form::date('fechaRetiro',null, ['class' => 'form-control', 'id'=>'fechaRetiro'])  !!}
                 </div>   
             </div>
 
@@ -199,28 +204,11 @@
     </div>
 </div>
 
-<div class="panel panel-primary">    
-    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana4" aria-expanded="false" aria-controls="ventana4">Formación</div>
-        <div class="collapse" id="ventana4">
-        <div class="panel-body">
-
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-primary">    
-    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana5" aria-expanded="false" aria-controls="ventana5">Exámenes</div>
-        <div class="collapse" id="ventana5">
-        <div class="panel-body">
-
-        </div>
-    </div>
-</div>
-
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
 <a style="text-decoration: none;" href="#">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
-{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
+
 {!! Form::close() !!}
 
 @endsection

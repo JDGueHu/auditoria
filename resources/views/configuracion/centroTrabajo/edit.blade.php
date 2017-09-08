@@ -3,11 +3,16 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="#">Centros de trabajo</a></li>
+  <li><a href="{{ route('centroTrabajo.index') }}">Centros de trabajo</a></li>
   <li class="active">Editar</li>
 </ol>
 
 {!! Form::model($centroTrabajo,['route' => ['centroTrabajo.update',$centroTrabajo->id], 'method' => 'PUT']) !!}
+
+<a style="text-decoration: none;" href="{{ route('centroTrabajo.index') }}">
+    {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
+</a>
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottom'])  !!}
 
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>

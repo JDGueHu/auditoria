@@ -13,18 +13,20 @@
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>Identificador</th>
+					<th>Identificación</th>
+					<th>Nombres</th>
+					<th>Apellidos</th>
 					<th>Centro de trabajo</th>
-					<th>Riesgo</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($empleados as $empleado)
 					<tr>
-						<td>{{ $empleados->identificador }}</td>
-						<td>{{ $centroTrabajo->centroTrabajo }}</td>
-						<td>{{ $centroTrabajo->NivelRiesgo->riesgo.' - '.$centroTrabajo->NivelRiesgo->valor.'%' }}</td>
+						<td>{{ $empleado->identificacion }}</td>
+						<td>{{ $empleado->nombres }}</td>
+						<td>{{ $empleado->apellidos }}</td>
+						<td>{{ $empleado->CentroTrabajo->centroTrabajo }}</td>
 						<td>
 							<a title="Ver" href="{{ route('empleados.show',$empleado->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
@@ -45,5 +47,5 @@
 
 @section('js')
 	<script src="{{ asset('js/table.js') }}"></script>
-	<script src="{{ asset('js/empleados/confirm.js') }}"></script>
+	<script src="{{ asset('js/confirm.js') }}"></script>
 @endsection

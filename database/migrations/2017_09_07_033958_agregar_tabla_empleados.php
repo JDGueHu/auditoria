@@ -17,22 +17,44 @@ class AgregarTablaEmpleados extends Migration
             $table->increments('id');
 
             $table->integer('tipoDocumento_id')->unsigned();
-            $table->foreign('identificacion')->references('id')->on('tiposDocumento');
+            $table->foreign('tipoDocumento_id')->references('id')->on('tiposDocumento');
 
-            $table->string('tipoDocumento')->unique();
+            $table->string('identificacion')->unique();
             $table->string('nombres');
             $table->string('apellidos');
             $table->string('genero');
             $table->string('grupoSanguineo');
             $table->date('fechaNacimiento');
             $table->string('ciudadNacimiento');
-            $table->string('departamentoNacimiento');
-            $table->string('paisNacimiento');
+            $table->string('departamentoNacimiento')->nullable();
+            $table->string('paisNacimiento')->nullable();
             $table->string('estadoCivil');
             $table->integer('numeroHijos')->nullable();
+            $table->string('ciudadDireccion');
+            $table->string('departamentoDireccion')->nullable();
+            $table->string('paisDireccion')->nullable();
+            $table->string('direccion');
+            $table->string('emailPersonal');
+            $table->string('telefonoFijo')->nullable();
+            $table->string('telefonoCelular');
+            $table->date('fechaIngreso');
+            $table->string('emailCorporativo')->nullable();
 
+            $table->integer('cargo_id')->unsigned();
+            $table->foreign('cargo_id')->references('id')->on('cargos');        
 
+            $table->string('eps')->nullable();
+            $table->string('arl')->nullable();
+            $table->string('fondoPensiones')->nullable();
+            $table->string('fondoCesantias')->nullable();
 
+            $table->integer('centro_trabajo_id')->unsigned();
+            $table->foreign('centro_trabajo_id')->references('id')->on('centrosTrabajo'); 
+
+            $table->string('estado');
+            $table->date('fechaRetiro')->nullable();
+
+            $table->boolean('alive')->default(true);
 
             $table->timestamps();
         });
