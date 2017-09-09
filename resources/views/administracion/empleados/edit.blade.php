@@ -52,7 +52,7 @@
                     {!! Form::date('fechaNacimiento',$empleado->fechaNacimiento, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('edad','Edad')  !!}
+                    {!! Form::label('edad','Edad (Años)')  !!}
                     {!! Form::number('edad',null, ['class' => 'form-control', 'id'=>'edad', 'readonly'])  !!}
                 </div>
             </div>
@@ -141,7 +141,7 @@
                     {!! Form::date('fechaIngreso',$empleado->fechaIngreso, ['class' => 'form-control', 'required', 'id'=>'fechaIngreso'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('antiguedad','Antigüedad')  !!}
+                    {!! Form::label('antiguedad','Antigüedad (días)')  !!}
                     {!! Form::text('antiguedad',null, ['class' => 'form-control', 'id'=>'antiguedad','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
@@ -239,6 +239,25 @@
         </div>
     </div>
 </div>
+
+<div class="panel panel-info">    
+    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana8" aria-expanded="false" aria-controls="ventana8">Seguimiento SST (Seguridad y salud en el trabajo)</div>
+        <div class="collapse" id="ventana8">
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info">    
+    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana9" aria-expanded="false" aria-controls="ventana9">Adjuntos</div>
+        <div class="collapse" id="ventana9">
+        <div class="panel-body">
+
+        </div>
+    </div>
+</div>
+
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
 <a style="text-decoration: none;" href="{{ route('empleados.index') }}">

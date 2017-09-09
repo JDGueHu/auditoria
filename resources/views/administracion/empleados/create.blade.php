@@ -10,7 +10,7 @@
 {!! Form::open(['route' => 'empleados.store', 'method' => 'POST', 'id' => 'example-form']) !!}
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarBottom'])  !!}
-<a style="text-decoration: none;" href="#">
+<a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarBottom'])  !!}
 </a>
 
@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
-                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
+                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino', 'Otro' => 'Otro'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
@@ -52,7 +52,7 @@
                     {!! Form::date('fechaNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('edad','Edad')  !!}
+                    {!! Form::label('edad','Edad (Años)')  !!}
                     {!! Form::number('edad',null, ['class' => 'form-control', 'id'=>'edad', 'readonly'])  !!}
                 </div>
             </div>
@@ -141,7 +141,7 @@
                     {!! Form::date('fechaIngreso',null, ['class' => 'form-control', 'required', 'id'=>'fechaIngreso'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('antiguedad','Antigüedad')  !!}
+                    {!! Form::label('antiguedad','Antigüedad (días)')  !!}
                     {!! Form::text('antiguedad',null, ['class' => 'form-control', 'id'=>'antiguedad','readonly'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
@@ -205,10 +205,15 @@
 </div>
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
-<a style="text-decoration: none;" href="#">
+<a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 
 {!! Form::close() !!}
 
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/empleados/create.js') }}"></script>
+    <script src="{{ asset('js/shared.js') }}"></script>
 @endsection

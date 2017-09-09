@@ -36,6 +36,15 @@
     <script src="{{ asset('plugins/dataTable/js/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('plugins/dataTable/js/dataTables.bootstrap.js') }}"></script>
     <script src="{{ asset('plugins/jquery_confirm/js/jquery-confirm.min.js') }}"></script>
+    <script>
+$(document).ready(function(){
+  $('.dropdown a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
     @yield('js') 
 
 </body>

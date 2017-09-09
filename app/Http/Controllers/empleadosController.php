@@ -93,7 +93,16 @@ class empleadosController extends Controller
      */
     public function show($id)
     {
-        //
+        $empleado = Empleado::find($id);
+        $tiposDocumento = TipoDocumento::where('alive',true)->pluck('tipoDocumento','id');
+        $cargos = Cargo::where('alive',true)->pluck('cargo', 'id');
+        $centrosTrabajo = CentroTrabajo::where('alive',true)->pluck('centroTrabajo', 'id');
+
+        return view('administracion.empleados.show')
+            ->with('empleado',$empleado)
+            ->with('centrosTrabajo',$centrosTrabajo)
+            ->with('cargos',$cargos)
+            ->with('tiposDocumento',$tiposDocumento);
     }
 
     /**
@@ -170,6 +179,8 @@ class empleadosController extends Controller
      */
     public function destroy($id)
     {
+        $empleado = Empleado::find($id);
+        
         $empleado->alive = false;
         $empleado->save();
 
