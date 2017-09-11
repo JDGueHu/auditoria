@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
-  <li class="active">Ver</li>
+  <li class="active">Detalles</li>
 </ol>
 
 {!! Form::model($nivelRiesgo) !!}

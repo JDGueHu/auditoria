@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('centroTrabajo.index') }}">Centros de trabajo</a></li>
-  <li class="active">Ver</li>
+  <li class="active">Detalles</li>
 </ol>
 
 {!! Form::model($centroTrabajo) !!}

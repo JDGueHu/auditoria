@@ -24,7 +24,7 @@
 						<td>{{ $eps->codigo }}</td>
 						<td>{{ $eps->eps }}</td>
 						<td>
-							<a title="Ver" href="{{ route('eps.show',$eps->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('eps.show',$eps->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
 							<a title="Editar" href="{{ route('eps.edit',$eps->id) }}" class="btn btn-warning btn-xs">

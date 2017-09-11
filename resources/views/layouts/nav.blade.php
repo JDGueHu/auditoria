@@ -1,6 +1,6 @@
 
   <nav class="navbar navbar-default">
-  <div class="container-fluid">
+  <div class="container-fluid ">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Brand</a>
+      <a class="navbar-brand" href="#">Logo</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,12 +17,12 @@
       <ul class="nav navbar-nav">
 
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración<b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs colorNavConfiguracion" aria-hidden="true"></i>&nbsp;Configuración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></b></a>
           <ul class="dropdown-menu multi-level">
               <!-- <li><a href="#">Action</a></li>   -->            
               <!-- <li class="divider"></li> -->
               <li class="dropdown-submenu">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Listas desplegables</a>
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;Listas desplegables&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i></a>
                   <ul class="dropdown-menu">
                       <li><a href="{{ route('arl.index') }}">ARL</a></li>
                       <li><a href="{{ route('cargos.index') }}">Cargos</a></li>
@@ -60,10 +60,10 @@
         </li> -->
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users colorNavAdministracion" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
-              <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
+              <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;Empleados</a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>

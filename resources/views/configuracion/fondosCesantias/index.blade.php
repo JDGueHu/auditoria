@@ -24,7 +24,7 @@
 						<td>{{ $fondoPensione->codigo }}</td>
 						<td>{{ $fondoPensione->fondosCesantias }}</td>
 						<td>
-							<a title="Ver" href="{{ route('fondosCesantias.show',$fondoPensione->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('fondosCesantias.show',$fondoPensione->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
 							<a title="Editar" href="{{ route('fondosCesantias.edit',$fondoPensione->id) }}" class="btn btn-warning btn-xs">

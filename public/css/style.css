@@ -11,6 +11,8 @@
 .mouse:hover{ font-size: 16px;color: #337ab7; }
 .colorPrioridad{ color: orange; }
 .colorAlerta{ color: #337ab7; }
+.colorNavConfiguracion{ color: #337ab7; }
+.colorNavAdministracion{ color: #28a745; }
 
 /* CSS para el multinivel de los dropdown en el navbar*/
 
@@ -32,7 +34,7 @@
     display: block;
 }
 
-.dropdown-submenu>a:after {
+/*.dropdown-submenu>a:after {
     display: block;
     content: " ";
     float: right;
@@ -48,7 +50,7 @@
 
 .dropdown-submenu:hover>a:after {
     border-left-color: #fff;
-}
+}*/
 
 .dropdown-submenu.pull-left {
     float: none;

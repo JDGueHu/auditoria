@@ -24,7 +24,7 @@
 						<td>{{ $cargo->codigo }}</td>
 						<td>{{ $cargo->cargo }}</td>
 						<td>
-							<a title="Ver" href="{{ route('cargos.show',$cargo->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('cargos.show',$cargo->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
 							<a title="Editar" href="{{ route('cargos.edit',$cargo->id) }}" class="btn btn-warning btn-xs">

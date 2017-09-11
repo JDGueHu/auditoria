@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('arl.index') }}">ARL</a></li>
-  <li class="active">Crear</li>
+  <li class="active">Detalles</li>
 </ol>
 
 

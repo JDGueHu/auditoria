@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('fondosCesantias.index') }}">Fondos de cesantías</a></li>
-  <li class="active">Ver</li>
+  <li class="active">Detalles</li>
 </ol>
 
 

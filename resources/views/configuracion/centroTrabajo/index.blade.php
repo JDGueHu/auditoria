@@ -26,7 +26,7 @@
 						<td>{{ $centroTrabajo->centroTrabajo }}</td>
 						<td>{{ $centroTrabajo->NivelRiesgo->riesgo.' - '.$centroTrabajo->NivelRiesgo->valor.'%' }}</td>
 						<td>
-							<a title="Ver" href="{{ route('centroTrabajo.show',$centroTrabajo->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('centroTrabajo.show',$centroTrabajo->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
 							<a title="Editar" href="{{ route('centroTrabajo.edit',$centroTrabajo->id) }}" class="btn btn-warning btn-xs">

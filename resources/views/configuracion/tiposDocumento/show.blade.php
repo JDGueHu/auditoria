@@ -4,7 +4,7 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
-  <li class="active">Ver</li>
+  <li class="active">Detalles</li>
 </ol>
 
 {!! Form::model($tipoDocumento) !!} 

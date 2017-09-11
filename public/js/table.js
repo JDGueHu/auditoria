@@ -1,10 +1,10 @@
 
 $(document).ready(function() {
     $('#example').DataTable({
-        "language": {
+        language: {
             lengthMenu: "Mostrar _MENU_ registros por página",
             zeroRecords: "No hay registros para mostrar",
-            info: "Mostrando página _PAGE_ de _PAGES_ de _MAX_ registros",
+            info: "Mostrando página _PAGE_ de _PAGES_ con _MAX_ registros",
             infoEmpty: "No hay registros disponibles",
             infoFiltered: "(Filtrado de _MAX_ registros totales)",
             sSearch: "Buscar",
@@ -15,7 +15,15 @@ $(document).ready(function() {
             last:       "Última"
         	}
         },
-        "pageLength": 9
+        pageLength: 9,
+        dom: 'Bfrtip',
+        buttons: [
+             //'copy', 
+             'csv', 
+             'excel', 
+             'pdf', 
+             //'print'
+         ]
     });
 
 } );

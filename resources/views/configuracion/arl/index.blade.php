@@ -24,7 +24,7 @@
 						<td>{{ $arl->codigo }}</td>
 						<td>{{ $arl->arl }}</td>
 						<td>
-							<a title="Ver" href="{{ route('arl.show',$arl->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('arl.show',$arl->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
 							<a title="Editar" href="{{ route('arl.edit',$arl->id) }}" class="btn btn-warning btn-xs">

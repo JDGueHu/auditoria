@@ -208,7 +208,7 @@
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana4" aria-expanded="false" aria-controls="ventana4">Contratación</div>
         <div class="collapse" id="ventana4">
         <div class="panel-body">
-
+             @include('administracion.contratacion.inlineCreate')
         </div>
     </div>
 </div>
