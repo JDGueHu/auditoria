@@ -3,16 +3,18 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
-  <li class="active">Crear</li>
+  <li><a href="{{ route('fondosPensiones.index') }}">Fondos de pensiones</a></li>
+  <li class="active">Editar</li>
 </ol>
 
-{!! Form::model($tipoDocumento,['route' => ['tiposDocumento.update',$tipoDocumento->id], 'method' => 'PUT']) !!}
+
+{!! Form::model($fondoPensiones,['route' => ['fondosPensiones.update',$fondoPensiones->id], 'method' => 'PUT']) !!}
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottom'])  !!}
-<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
+<a style="text-decoration: none;" href="{{ route('fondosPensiones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
+
 
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
@@ -20,12 +22,12 @@
 
         <div class="row">   
             <div class="col-md-6 separarBottom">
-                {!! Form::label('sigla','Código')  !!}
-                {!! Form::text('sigla',$tipoDocumento->sigla, ['class' => 'form-control', 'id'=>'sigla', 'required'])  !!}
+                {!! Form::label('codigo','Código')  !!}
+                {!! Form::text('codigo',$fondoPensiones->codigo, ['class' => 'form-control', 'id'=>'codigo'])  !!}
             </div>
             <div class="col-md-6 separarBottom">
-                {!! Form::label('tipoDocumento','Tipo de documento')  !!}
-                {!! Form::text('tipoDocumento',$tipoDocumento->tipoDocumento, ['class' => 'form-control', 'required', 'id'=>'tipoDocumento'])  !!}
+                {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
+                {!! Form::text('fondoPensiones',$fondoPensiones->fondosPensiones, ['class' => 'form-control', 'required', 'id'=>'fondoPensiones'])  !!}
             </div>
         </div>
 
@@ -34,7 +36,7 @@
 
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
-<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
+<a style="text-decoration: none;" href="{{ route('fondosPensiones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 

@@ -18,7 +18,7 @@ $( document ).ready(function() {
 
     /////////////////////////////////////////////////////////////////////////
 
-	//// Calcular antiguedad empleadoal seleccionar la fecha de de ingreso
+	//// Calcular antiguedad empleadoal seleccionar la fecha de ingreso
 	$( "#fechaIngreso" ).change(function() {
 
 		var fechaIngreso = $("#fechaIngreso").val();
@@ -32,5 +32,43 @@ $( document ).ready(function() {
     });
 
     /////////////////////////////////////////////////////////////////////////
+
+	///// Cargar el riesgo y su valor en el empleado
+	$( "#centroTrabajo" ).change(function(){
+	  	
+	  	var data = "centroTrabajo="+$("#centroTrabajo").val();
+		var pathname = window.location.pathname;
+		var url;
+
+	  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
+	  		url = '../../../administracion/empleados/cargarRiesgo';
+	  	}else{
+	  		url = '../../administracion/empleados/cargarRiesgo';
+	  	}
+
+	  	if($("#centroTrabajo").val() != ""){
+	  	  			
+			$.ajax({
+			  url: url,
+			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+			  type: 'POST',
+			  datatype:'json',
+			  data : data
+			}).done(function(response){
+
+				console.log(response);
+
+				$("#riesgo").val(response[0].riesgo);
+				$("#tasa").val(response[0].valor);
+					
+			});
+		}else{
+				$("#riesgo").val("");
+				$("#tasa").val("");
+		}
+
+	});
+
+	/////////////////////////////////////////////////////////////////////////
 
 });

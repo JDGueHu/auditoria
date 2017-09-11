@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Empleado;
 use App\TipoDocumento;
 use App\Cargo;
 use App\CentroTrabajo;
+use App\EPS;
+use App\ARL;
+use App\FondosPensiones;
+use App\FondosCesantias;
+use App\NivelRiesgo;
 
 class empleadosController extends Controller
 {
@@ -32,11 +38,19 @@ class empleadosController extends Controller
         $tiposDocumento = TipoDocumento::where('alive',true)->pluck('tipoDocumento','id');
         $cargos = Cargo::where('alive',true)->pluck('cargo', 'id');
         $centrosTrabajo = CentroTrabajo::where('alive',true)->pluck('centroTrabajo', 'id');
+        $epss = EPS::where('alive',True)->pluck('eps','id');
+        $arls = ARL::where('alive',True)->pluck('arl','id');
+        $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
+        $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
 
         return view('administracion.empleados.create')
             ->with('centrosTrabajo',$centrosTrabajo)
             ->with('cargos',$cargos)
-            ->with('tiposDocumento',$tiposDocumento);
+            ->with('tiposDocumento',$tiposDocumento)
+            ->with('epss',$epss)
+            ->with('arls',$arls)
+            ->with('fondosPensiones',$fondosPensiones)
+            ->with('fondosCesantias',$fondosCesantias);
     }
 
     /**
@@ -80,7 +94,7 @@ class empleadosController extends Controller
         $empleado->fechaRetiro = $request->fechaRetiro;
         $empleado->save();
 
-        flash('Empleado <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se creó exitosamente', 'success')->important();
+        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('empleados.edit',$empleado->id);
 
     }
@@ -97,12 +111,20 @@ class empleadosController extends Controller
         $tiposDocumento = TipoDocumento::where('alive',true)->pluck('tipoDocumento','id');
         $cargos = Cargo::where('alive',true)->pluck('cargo', 'id');
         $centrosTrabajo = CentroTrabajo::where('alive',true)->pluck('centroTrabajo', 'id');
+        $epss = EPS::where('alive',True)->pluck('eps','id');
+        $arls = ARL::where('alive',True)->pluck('arl','id');
+        $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
+        $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
 
         return view('administracion.empleados.show')
             ->with('empleado',$empleado)
             ->with('centrosTrabajo',$centrosTrabajo)
             ->with('cargos',$cargos)
-            ->with('tiposDocumento',$tiposDocumento);
+            ->with('tiposDocumento',$tiposDocumento)
+            ->with('epss',$epss)
+            ->with('arls',$arls)
+            ->with('fondosPensiones',$fondosPensiones)
+            ->with('fondosCesantias',$fondosCesantias);
     }
 
     /**
@@ -117,12 +139,20 @@ class empleadosController extends Controller
         $tiposDocumento = TipoDocumento::where('alive',true)->pluck('tipoDocumento','id');
         $cargos = Cargo::where('alive',true)->pluck('cargo', 'id');
         $centrosTrabajo = CentroTrabajo::where('alive',true)->pluck('centroTrabajo', 'id');
+        $epss = EPS::where('alive',True)->pluck('eps','id');
+        $arls = ARL::where('alive',True)->pluck('arl','id');
+        $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
+        $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
 
         return view('administracion.empleados.edit')
             ->with('empleado',$empleado)
             ->with('centrosTrabajo',$centrosTrabajo)
             ->with('cargos',$cargos)
-            ->with('tiposDocumento',$tiposDocumento);
+            ->with('tiposDocumento',$tiposDocumento)
+            ->with('epss',$epss)
+            ->with('arls',$arls)
+            ->with('fondosPensiones',$fondosPensiones)
+            ->with('fondosCesantias',$fondosCesantias);
     }
 
     /**
@@ -167,7 +197,7 @@ class empleadosController extends Controller
         $empleado->fechaRetiro = $request->fechaRetiro;
         $empleado->save();
 
-        flash('Empleado <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
+        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
         return redirect()->route('empleados.index');
     }
 
@@ -184,7 +214,21 @@ class empleadosController extends Controller
         $empleado->alive = false;
         $empleado->save();
 
-        flash('Empleado <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
         return redirect()->route('empleados.index');
+    }
+
+    public function cargarRiesgo(Request $request)
+    {
+        if($request->ajax()){    
+
+            $riesgo = DB::table('centrosTrabajo')
+                ->join('nivelRiesgos', 'centrosTrabajo.nivelRiesgo_id', '=', 'nivelRiesgos.id')
+                ->where('centrosTrabajo.id','=',$request->centroTrabajo)
+                ->select('centrosTrabajo.centroTrabajo', 'nivelRiesgos.riesgo', 'nivelRiesgos.valor')
+                ->get();
+
+            return response($riesgo);
+        }
     }
 }

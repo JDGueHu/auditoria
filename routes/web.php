@@ -45,6 +45,30 @@ Route::group(['prefix'=>'configuracion'],function(){
 		'as' => 'cargos.destroy'
 	]);
 
+	Route::resource('eps','epsController');
+	Route::get('eps/{id}/destroy',[
+		'uses' => 'epsController@destroy',
+		'as' => 'eps.destroy'
+	]);
+
+	Route::resource('arl','arlController');
+	Route::get('arl/{id}/destroy',[
+		'uses' => 'arlController@destroy',
+		'as' => 'arl.destroy'
+	]);
+
+	Route::resource('fondosPensiones','fondosPensionesController');
+	Route::get('fondosPensiones/{id}/destroy',[
+		'uses' => 'fondosPensionesController@destroy',
+		'as' => 'fondosPensiones.destroy'
+	]);
+
+	Route::resource('fondosCesantias','fondosCesantiasController');
+	Route::get('fondosCesantias/{id}/destroy',[
+		'uses' => 'fondosCesantiasController@destroy',
+		'as' => 'fondosCesantias.destroy'
+	]);
+
 });
 
 Route::group(['prefix'=>'administracion'],function(){
@@ -53,6 +77,10 @@ Route::group(['prefix'=>'administracion'],function(){
 	Route::get('empleados/{id}/destroy',[
 		'uses' => 'empleadosController@destroy',
 		'as' => 'empleados.destroy'
+	]);
+	Route::post('empleados/cargarRiesgo',[
+		'uses' => 'empleadosController@cargarRiesgo',
+		'as' => 'empleados.cargarRiesgo'
 	]);
 
 });

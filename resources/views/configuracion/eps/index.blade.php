@@ -3,34 +3,34 @@
 @section('content')
 
 	<ol class="breadcrumb">
-	  <li><a id="modulo" href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
+	  <li><a id="modulo" href="{{ route('eps.index') }}">EPS</a></li>
 	</ol>
 
 	
-	<a href="{{ route('tiposDocumento.create') }}" class="btn btn-primary separarTop">Crear</a>
+	<a href="{{ route('eps.create') }}" class="btn btn-primary separarTop">Crear</a>
 	<hr>
 	<div class="table-responsive">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
 					<th>Código</th>
-					<th>Tipo de documento</th>
+					<th>EPS</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($tiposDocumento as $tipoDocumento)
+				@foreach($epss as $eps)
 					<tr>
-						<td>{{ $tipoDocumento->sigla }}</td>
-						<td>{{ $tipoDocumento->tipoDocumento }}</td>
+						<td>{{ $eps->codigo }}</td>
+						<td>{{ $eps->eps }}</td>
 						<td>
-							<a title="Ver" href="{{ route('tiposDocumento.show',$tipoDocumento->id) }}" class="btn btn-default btn-xs">
+							<a title="Ver" href="{{ route('eps.show',$eps->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('tiposDocumento.edit',$tipoDocumento->id) }}" class="btn btn-warning btn-xs">
+							<a title="Editar" href="{{ route('eps.edit',$eps->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('tiposDocumento.destroy',$tipoDocumento->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a title="Eliminar" href="{{ route('eps.destroy',$eps->id) }}" class="btn btn-danger btn-xs confirm_F">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

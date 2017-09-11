@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-md-6 separarBottom">
                 {!! Form::label('riesgo','Nivel de riesgo')  !!}
-                {!! Form::select('riesgo', $riesgos, $centroTrabajo->nivelRiesgo_id, ['class' => 'form-control separarBottom', 'required','id'=>'riesgo'])  !!} 
+                {!! Form::select('riesgo', $riesgos, $centroTrabajo->nivelRiesgo_id, ['class' => 'form-control separarBottom', 'required','id'=>'riesgo', 'placeholder' => 'Sleccione un riesgo'])  !!} 
             </div>  
         </div>
 

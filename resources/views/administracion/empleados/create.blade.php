@@ -157,19 +157,19 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('eps','EPS')  !!}
-                    {!! Form::text('eps',null, ['class' => 'form-control', 'id'=>'eps'])  !!}
+                    {!! Form::select('eps', $epss, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una EPS','id'=>'eps'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('arl','ARL')  !!}
-                    {!! Form::text('arl',null, ['class' => 'form-control', 'id'=>'arl'])  !!}
+                    {!! Form::select('arl', $arls, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una ARL','id'=>'arl'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                    {!! Form::text('fondoPensiones',null, ['class' => 'form-control', 'id'=>'fondoPensiones'])  !!}
+                    {!! Form::select('fondoPensiones', $fondosPensiones, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                    {!! Form::text('fondoCesantias',null, ['class' => 'form-control', 'id'=>'fondoCesantias'])  !!}
+                    {!! Form::select('fondoCesantias', $fondosCesantias, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
                 </div>  
             </div>
 
@@ -183,22 +183,22 @@
                     {!! Form::text('riesgo',null, ['class' => 'form-control', 'required', 'id'=>'riesgo', 'readonly'])  !!}
                 </div> 
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('tasa','Tasa')  !!}
+                    {!! Form::label('tasa','Tasa (%)')  !!}
                     {!! Form::text('tasa',null, ['class' => 'form-control', 'id'=>'tasa', 'readonly'])  !!}
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estado','Estado')  !!}
-                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un estado','id'=>'estado'])  !!} 
+                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Activo', ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un estado','id'=>'estado'])  !!} 
                 </div> 
 
             </div>
 
-            <div class="row">
+<!--             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaRetiro','Fecha de retiro')  !!}
                     {!! Form::date('fechaRetiro',null, ['class' => 'form-control', 'id'=>'fechaRetiro'])  !!}
                 </div>   
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -214,6 +214,12 @@
 @endsection
 
 @section('js')
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
+        async defer></script>
+    <!-- Para cargar los datos por eventos  -->
     <script src="{{ asset('js/empleados/create.js') }}"></script>
+    <!-- Para codigo compartido del modulo  -->
+    <script src="{{ asset('js/empleados/shared.js') }}"></script>
+    <!-- Para google place  -->
     <script src="{{ asset('js/shared.js') }}"></script>
 @endsection

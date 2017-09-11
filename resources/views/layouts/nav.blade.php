@@ -12,43 +12,52 @@
       <a class="navbar-brand" href="#">Brand</a>
     </div>
 
-    <ul class="dropdown-menu">
-      <li><a tabindex="-1" href="#">HTML</a></li>
-      <li><a tabindex="-1" href="#">CSS</a></li>
-      <li class="dropdown-submenu">
-        <a class="test" tabindex="-1" href="#">New dropdown <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li><a tabindex="-1" href="#">2nd level dropdown</a></li>
-          <li class="dropdown-submenu">
-            <a class="test" href="#">Another dropdown <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">3rd level dropdown</a></li>
-              <li><a href="#">3rd level dropdown</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-    
-
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
 
-        <li class="dropdown">
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuración<b class="caret"></b></a>
+          <ul class="dropdown-menu multi-level">
+              <!-- <li><a href="#">Action</a></li>   -->            
+              <!-- <li class="divider"></li> -->
+              <li class="dropdown-submenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Listas desplegables</a>
+                  <ul class="dropdown-menu">
+                      <li><a href="{{ route('arl.index') }}">ARL</a></li>
+                      <li><a href="{{ route('cargos.index') }}">Cargos</a></li>
+                      <li><a href="{{ route('centroTrabajo.index') }}">Centros de trabajo</a></li>
+                      <li><a href="{{ route('eps.index') }}">EPS</a></li>
+                      <li><a href="{{ route('fondosCesantias.index') }}">Fondos de cesantias</a></li>
+                      <li><a href="{{ route('fondosPensiones.index') }}">Fondos de pensiones</a></li>
+                      <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+                      <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
+                      
+                      <!-- <li class="divider"></li> -->
+<!--                       <li class="dropdown-submenu">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                          <ul class="dropdown-menu">
+                             <li><a>Action</a></li>
+                          </ul>
+                      </li> -->
+                  </ul>
+              </li>
+          </ul>
+        </li>
+
+<!--         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Listas desplegables<span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <!--li role="separator" class="divider"></li-->
+            <li role="separator" class="divider"></li>
             <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
-            <!-- <li role="separator" class="divider"></li> -->
+            <li role="separator" class="divider"></li>
             <li><a href="{{ route('cargos.index') }}">Cargos</a></li>
             <li><a href="{{ route('centroTrabajo.index') }}">Centros de trabajo</a></li>
             <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
             
-            <!--li role="separator" class="divider"></li-->                
+            <li role="separator" class="divider"></li>                
           </ul>
-        </li>
+        </li> -->
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Administración<span class="caret"></span></a>

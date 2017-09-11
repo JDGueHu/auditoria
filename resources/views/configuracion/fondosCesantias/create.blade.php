@@ -3,16 +3,17 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('tiposDocumento.index') }}">Tipos de documento</a></li>
+  <li><a href="{{ route('fondosCesantias.index') }}">Fondos de cesantías</a></li>
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::model($tipoDocumento,['route' => ['tiposDocumento.update',$tipoDocumento->id], 'method' => 'PUT']) !!}
+{!! Form::open(['route' => 'fondosCesantias.store', 'method' => 'POST']) !!} 
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottom'])  !!}
-<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
+<a style="text-decoration: none;" href="{{ route('fondosCesantias.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
+
 
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
@@ -20,12 +21,12 @@
 
         <div class="row">   
             <div class="col-md-6 separarBottom">
-                {!! Form::label('sigla','Código')  !!}
-                {!! Form::text('sigla',$tipoDocumento->sigla, ['class' => 'form-control', 'id'=>'sigla', 'required'])  !!}
+                {!! Form::label('codigo','Código')  !!}
+                {!! Form::text('codigo',null, ['class' => 'form-control', 'id'=>'codigo'])  !!}
             </div>
             <div class="col-md-6 separarBottom">
-                {!! Form::label('tipoDocumento','Tipo de documento')  !!}
-                {!! Form::text('tipoDocumento',$tipoDocumento->tipoDocumento, ['class' => 'form-control', 'required', 'id'=>'tipoDocumento'])  !!}
+                {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
+                {!! Form::text('fondoCesantias',null, ['class' => 'form-control', 'required', 'id'=>'fondoCesantias'])  !!}
             </div>
         </div>
 
@@ -34,7 +35,7 @@
 
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
-<a style="text-decoration: none;" href="{{ route('tiposDocumento.index') }}">
+<a style="text-decoration: none;" href="{{ route('fondosCesantias.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 

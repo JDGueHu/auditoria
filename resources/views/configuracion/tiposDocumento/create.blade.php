@@ -21,7 +21,7 @@
 
         <div class="row">   
             <div class="col-md-6 separarBottom">
-                {!! Form::label('sigla','Abreviatura')  !!}
+                {!! Form::label('sigla','Código')  !!}
                 {!! Form::text('sigla',null, ['class' => 'form-control', 'id'=>'sigla'])  !!}
             </div>
             <div class="col-md-6 separarBottom">

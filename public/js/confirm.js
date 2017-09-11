@@ -6,4 +6,12 @@ $( document ).ready(function() {
         confirmButton: "Continuar",
 		cancelButton: "Cancelar",
 	});
+
+	$(".confirm_F").confirm({
+	    title: 'Eliminar',
+	    content: 'Va a eliminar uno de las' + ' ' + $("#modulo").text() + ' ¿Desea continuar?',
+        confirmButton: "Continuar",
+		cancelButton: "Cancelar",
+	});
+
 } );

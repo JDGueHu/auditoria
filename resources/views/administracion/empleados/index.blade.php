@@ -17,6 +17,7 @@
 					<th>Nombres</th>
 					<th>Apellidos</th>
 					<th>Centro de trabajo</th>
+					<th>Estado</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -27,6 +28,11 @@
 						<td>{{ $empleado->nombres }}</td>
 						<td>{{ $empleado->apellidos }}</td>
 						<td>{{ $empleado->CentroTrabajo->centroTrabajo }}</td>
+						@if($empleado->estado == 'Activo')
+							<td><span class="label label-success">{{ $empleado->estado }}</span></td>
+						@else
+							<td><span class="label label-danger">{{ $empleado->estado }}</span></td>
+						@endif
 						<td>
 							<a title="Ver" href="{{ route('empleados.show',$empleado->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>

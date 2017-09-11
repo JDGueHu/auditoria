@@ -157,19 +157,19 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('eps','EPS')  !!}
-                    {!! Form::text('eps',$empleado->eps, ['class' => 'form-control', 'id'=>'eps'])  !!}
+                    {!! Form::select('eps', $epss, $empleado->eps, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una EPS','id'=>'eps'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('arl','ARL')  !!}
-                    {!! Form::text('arl',$empleado->arl, ['class' => 'form-control', 'id'=>'arl'])  !!}
+                    {!! Form::select('arl', $arls, $empleado->arl, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una ARL','id'=>'arl'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                    {!! Form::text('fondoPensiones',$empleado->fondoPensiones, ['class' => 'form-control', 'id'=>'fondoPensiones'])  !!}
+                    {!! Form::select('fondoPensiones', $fondosPensiones, $empleado->fondoPensiones, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                    {!! Form::text('fondoCesantias',$empleado->fondoCesantias, ['class' => 'form-control', 'id'=>'fondoCesantias'])  !!}
+                    {!! Form::select('fondoCesantias', $fondosCesantias, $empleado->fondoCesantias, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
                 </div>  
             </div>
 
@@ -266,4 +266,18 @@
 
 {!! Form::close() !!}
 
+@endsection
+
+@section('js')
+    <!-- Libreria google place  -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
+        async defer></script>
+    <!-- Para cargar los datos automaticamente al cargar la vista de edicion  -->
+    <script src="{{ asset('js/empleados/edit.js') }}"></script>   
+    <!-- Para cargar los datos por eventos como en la vista de creación  -->
+    <script src="{{ asset('js/empleados/create.js') }}"></script> 
+    <!-- Para codigo compartido del modulo  -->
+    <script src="{{ asset('js/empleados/shared.js') }}"></script>
+    <!-- Para google place  -->
+    <script src="{{ asset('js/shared.js') }}"></script>
 @endsection
