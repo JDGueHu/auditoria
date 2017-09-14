@@ -56,8 +56,6 @@ $( document ).ready(function() {
 			  data : data
 			}).done(function(response){
 
-				console.log(response);
-
 				$("#riesgo").val(response[0].riesgo);
 				$("#tasa").val(response[0].valor);
 					

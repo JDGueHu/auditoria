@@ -10,9 +10,11 @@
 .mouse{ cursor: pointer; }
 .mouse:hover{ font-size: 16px;color: #337ab7; }
 .colorPrioridad{ color: orange; }
-.colorAlerta{ color: #337ab7; }
+.colorAlerta{ box-shadow: 0px 0px 0.5px 2px red; }
+.textoAlerta{ color:red; font-weight: normal; }
 .colorNavConfiguracion{ color: #337ab7; }
 .colorNavAdministracion{ color: #28a745; }
+.ocultar{display: none}
 
 /* CSS para el multinivel de los dropdown en el navbar*/
 

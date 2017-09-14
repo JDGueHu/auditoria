@@ -3,7 +3,7 @@
 @section('content')
 
 	<ol class="breadcrumb">
-	  <li><a id="modulo" href="{{ route('centroTrabajo.index') }}">Empleados</a></li>
+	  <li><a id="modulo" href="{{ route('centroTrabajo.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Empleados</a></li>
 	</ol>
 
 	

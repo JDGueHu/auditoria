@@ -3,36 +3,36 @@
 @section('content')
 
 	<ol class="breadcrumb">
-	  <li><a id="modulo" href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+	  <li><a id="modulo" href="{{ route('tiposContrato.index') }}">Tipos de contrato</a></li>
 	</ol>
 
 	
-	<a href="{{ route('nivelRiesgos.create') }}" class="btn btn-primary separarTop">Crear</a>
+	<a href="{{ route('tiposContrato.create') }}" class="btn btn-primary separarTop">Crear</a>
 	<a href="{{ route('listasDesplegables.index') }}" class="btn btn-default separarTop">Regresar</a>
-	
+
 	<hr>
 	<div class="table-responsive">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
-					<th>Riesgo</th>
-					<th>Valor(%)</th>
+					<th>Código</th>
+					<th>Tipo de contrato</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
-				@foreach($nivelRiesgos as $nivelRiesgo)
+				@foreach($tiposContrato as $tipoContrato)
 					<tr>
-						<td>{{ $nivelRiesgo->riesgo }}</td>
-						<td>{{ $nivelRiesgo->valor }}</td>
+						<td>{{ $tipoContrato->codigo }}</td>
+						<td>{{ $tipoContrato->tipoContrato }}</td>
 						<td>
-							<a title="Detalles" href="{{ route('nivelRiesgos.show',$nivelRiesgo->id) }}" class="btn btn-default btn-xs">
+							<a title="Detalles" href="{{ route('tiposContrato.show',$tipoContrato->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('nivelRiesgos.edit',$nivelRiesgo->id) }}" class="btn btn-warning btn-xs">
+							<a title="Editar" href="{{ route('tiposContrato.edit',$tipoContrato->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('nivelRiesgos.destroy',$nivelRiesgo->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a title="Eliminar" href="{{ route('tiposContrato.destroy',$tipoContrato->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('css')
+    <link href="{{ asset('plugins/dataTable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
+  <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Empleados</a></li>
   <li class="active">Editar</li>
 </ol>
 
@@ -22,7 +26,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tipo_documento','Tipo documento')  !!}
-                    {!! Form::select('tipo_documento', $tiposDocumento, $empleado->tipoDocumento_id, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
+                    {!! Form::select('tipo_documento', $tiposDocumento, $empleado->tipoDocumento_id, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('identificacion','Número de identidad')  !!}
@@ -41,11 +45,11 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
-                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], $empleado->genero, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
+                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], $empleado->genero, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un genero','id'=>'genero'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
-                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], $empleado->grupoSanguineo, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
+                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], $empleado->grupoSanguineo, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaNacimiento','Fecha de nacimiento')  !!}
@@ -165,18 +169,18 @@
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                    {!! Form::select('fondoPensiones', $fondosPensiones, $empleado->fondoPensiones, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
+                    {!! Form::select('fondoPensiones', $fondosPensiones, $empleado->fondoPensiones, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                    {!! Form::select('fondoCesantias', $fondosCesantias, $empleado->fondoCesantias, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
+                    {!! Form::select('fondoCesantias', $fondosCesantias, $empleado->fondoCesantias, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
                 </div>  
             </div>
 
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('centroTrabajo','Centro de trabajo')  !!}
-                    {!! Form::select('centroTrabajo', $centrosTrabajo, $empleado->centro_trabajo_id, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
+                    {!! Form::select('centroTrabajo', $centrosTrabajo, $empleado->centro_trabajo_id, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('riesgo','Riesgo')  !!}
@@ -188,9 +192,8 @@
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estado','Estado')  !!}
-                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], $empleado->estado, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un estado','id'=>'estado'])  !!} 
+                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], $empleado->estado, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un estado','id'=>'estado'])  !!} 
                 </div> 
-
             </div>
 
             <div class="row">
@@ -204,11 +207,78 @@
     </div>
 </div>
 
+<input type="hidden" value="{{ $empleado->id }}" name="empleado_id" id="empleado_id">
+
 <div class="panel panel-info">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana4" aria-expanded="false" aria-controls="ventana4">Contratación</div>
         <div class="collapse" id="ventana4">
         <div class="panel-body">
-             @include('administracion.contratacion.inlineCreate')
+
+            <div class="row">
+                <div class="col-md-4 separarBottom">
+                    {!! Form::label('tipoContrato','Tipo de contrato')  !!}
+                    {!! Form::select('tipoContrato', $tiposContrato, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de contrato','id'=>'tipoContrato'])  !!} 
+                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoContrato'])  !!}
+                </div> 
+                <div class="col-md-4 separarBottom">
+                    {!! Form::label('duracion','Duración (Meses)')  !!}
+                    {!! Form::number('duracion',null, ['class' => 'form-control', 'id'=>'duracion'])  !!}
+                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoDuracionContrato'])  !!}
+                </div> 
+                <div class="col-md-4 separarBottom">
+                    {!! Form::label('fechaInicio','Fecha inicio')  !!}
+                    {!! Form::date('fechaInicio',null, ['class' => 'form-control', 'id'=>'fechaInicio'])  !!}
+                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniContrato'])  !!}
+                </div> 
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 separarBottom">
+                    {!! Form::label('fechaFin','Fecha finalización')  !!}
+                    {!! Form::date('fechaFin',null, ['class' => 'form-control', 'id'=>'fechaFin'])  !!}
+                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinContrato'])  !!}
+                </div> 
+                <div class="col-md-8 separarBottom">
+                    {!! Form::label('detalles','Detalles')  !!}
+                    {{ Form::textarea('detalles', null, ['size' => '3x3','class' => 'form-control', 'placeholder' => 'Detalles de contratación','id'=>'detalles']) }}
+
+                </div> 
+            </div>
+
+            {!! Form::button('Agregar', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'addRow']) !!}
+
+            {!! Form::button('Eliminar', ['class'=>'btn btn-danger separarTop separarBottomButtonn', 'id'=>'removeRow']) !!}
+
+
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Tipo contrato</th>
+                <th>Duración</th>
+                <th>Fecha inicio</th>
+                <th>Fecha Fin</th>
+                <th>Acciones</th>
+            </tr>
+            <tbody>
+                @foreach($contratos as $contrato)
+                    <tr>
+                        <td>{{ $contrato->tipoContrato_id }}</td>
+                        <td>{{ $contrato->duracion }}</td>
+                        <td>{{ $contrato->fechaInicio }}</td>
+                        <td>{{ $contrato->fechaFin }}</td>
+                        <td>
+                            <a title="Eliminar" href="#" class="btn btn-danger btn-xs confirm_M">
+                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </thead>
+    </table>
+
+
         </div>
     </div>
 </div>
@@ -280,4 +350,6 @@
     <script src="{{ asset('js/empleados/shared.js') }}"></script>
     <!-- Para google place  -->
     <script src="{{ asset('js/shared.js') }}"></script>
+    <!-- Para tablas en submodulos  -->
+    <script src="{{ asset('js/tableInline.js') }}"></script>
 @endsection

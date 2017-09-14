@@ -44,8 +44,6 @@ $( document ).ready(function() {
 		  data : data
 		}).done(function(response){
 
-			console.log(response);
-
 			$("#riesgo").val(response[0].riesgo);
 			$("#tasa").val(response[0].valor);
 				
@@ -76,5 +74,106 @@ $( document ).ready(function() {
     });
 
     /////////////////////////////////////////////////////////////////////////
+
+
+	///// Crear nuevo contrato AJAX
+
+	$( "#centroTrabajo" ).change(function(){
+	  	
+	  	var data = "centroTrabajo="+$("#centroTrabajo").val();
+		var url = '../../../administracion/empleados/cargarRiesgo';
+
+	  	if($("#centroTrabajo").val() != ""){
+	  	  			
+			$.ajax({
+			  url: url,
+			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+			  type: 'POST',
+			  datatype:'json',
+			  data : data
+			}).done(function(response){
+
+				$("#riesgo").val(response[0].riesgo);
+				$("#tasa").val(response[0].valor);
+					
+			});
+		}else{
+				$("#riesgo").val("");
+				$("#tasa").val("");
+		}
+
+	});
+
+	/////////////////////////////////////////////////////////////////////////
+
+	///// Crear contrato AJAX - Subpanel
+	$( "#crearContrato" ).click(function(){
+
+		if($("#tipoContrato").val() == "" || $("#fechaInicio").val() == "" || $("#duracion").val() == ""){
+			if($("#tipoContrato").val() == ""){
+				$("#tipoContrato").addClass( "colorAlerta");
+				$("#requeridoTipoContrato").removeClass( "ocultar" );
+			}
+			
+			if($("#fechaInicio").val() == ""){
+				$("#fechaInicio").addClass( "colorAlerta");
+				$("#requeridoFechaIniContrato").removeClass( "ocultar" );
+			}
+
+			if($("#duracion").val() == ""){
+				$("#duracion").addClass( "colorAlerta");
+				$("#requeridoDuracionContrato").removeClass( "ocultar" );
+			}
+		}else{
+	  	
+	   	var data = "tipoContrato="+$("#tipoContrato").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&duracion="+$("#duracion").val()+"&detalles="+$("#detalles").val()+"&empleado_id="+$("#empleado_id").val();
+		var url = '../../../administracion/contratos/createAjax';
+
+			$.ajax({
+			  url: url,
+			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+			  type: 'POST',
+			  datatype:'json',
+			  data : data
+			}).done(function(response){
+
+				console.log(response);
+			});
+		}
+
+	});
+
+		///// Inputs subpanel Contratos
+
+		$( "#tipoContrato" ).change(function(){
+
+			if($("#tipoContrato").val() != ""){
+				$("#tipoContrato").removeClass( "colorAlerta");
+				$("#requeridoTipoContrato").addClass( "ocultar" );
+			}
+		});
+
+		$( "#fechaInicio" ).change(function(){
+
+			if($("#fechaInicio").val() != ""){
+				$("#fechaInicio").removeClass( "colorAlerta");
+				$("#requeridoFechaIniContrato").addClass( "ocultar" );
+			}
+		});
+
+		$( "#duracion" ).change(function(){
+
+			if($("#duracion").val() != ""){
+				$("#duracion").removeClass( "colorAlerta");
+				$("#requeridoDuracionContrato").addClass( "ocultar" );
+			}
+		});
+
+		/////////////////////////////////////////////
+
+	/////////////////////////////////////////////////////////////////////////
+
+
+
 
 });

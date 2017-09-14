@@ -69,6 +69,14 @@ Route::group(['prefix'=>'configuracion'],function(){
 		'as' => 'fondosCesantias.destroy'
 	]);
 
+	Route::resource('tiposContrato','tiposContratoController');
+	Route::get('tiposContrato/{id}/destroy',[
+		'uses' => 'tiposContratoController@destroy',
+		'as' => 'tiposContrato.destroy'
+	]);
+
+	Route::resource('listasDesplegables','listasDesplegablesController');
+
 });
 
 Route::group(['prefix'=>'administracion'],function(){
@@ -81,6 +89,16 @@ Route::group(['prefix'=>'administracion'],function(){
 	Route::post('empleados/cargarRiesgo',[
 		'uses' => 'empleadosController@cargarRiesgo',
 		'as' => 'empleados.cargarRiesgo'
+	]);
+
+	Route::resource('contratos','contratosController');
+	Route::get('contratos/{id}/destroy',[
+		'uses' => 'contratosController@destroy',
+		'as' => 'contratos.destroy'
+	]);
+	Route::post('contratos/createAjax',[
+		'uses' => 'contratosController@createAjax',
+		'as' => 'contratos.createAjax'
 	]);
 
 });

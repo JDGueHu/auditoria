@@ -13,6 +13,8 @@ use App\ARL;
 use App\FondosPensiones;
 use App\FondosCesantias;
 use App\NivelRiesgo;
+use App\TipoContrato;
+use App\Contrato;
 
 class empleadosController extends Controller
 {
@@ -115,6 +117,7 @@ class empleadosController extends Controller
         $arls = ARL::where('alive',True)->pluck('arl','id');
         $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
         $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
+       
 
         return view('administracion.empleados.show')
             ->with('empleado',$empleado)
@@ -143,6 +146,8 @@ class empleadosController extends Controller
         $arls = ARL::where('alive',True)->pluck('arl','id');
         $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
         $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
+        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
+        $contratos = Contrato::where('empleado_id','=',$id)->where('alive',true)->get();
 
         return view('administracion.empleados.edit')
             ->with('empleado',$empleado)
@@ -152,7 +157,9 @@ class empleadosController extends Controller
             ->with('epss',$epss)
             ->with('arls',$arls)
             ->with('fondosPensiones',$fondosPensiones)
-            ->with('fondosCesantias',$fondosCesantias);
+            ->with('fondosCesantias',$fondosCesantias)
+            ->with('tiposContrato',$tiposContrato)
+            ->with('contratos',$contratos);
     }
 
     /**

@@ -8,6 +8,8 @@
 
 	
 	<a href="{{ route('cargos.create') }}" class="btn btn-primary separarTop">Crear</a>
+	<a href="{{ route('listasDesplegables.index') }}" class="btn btn-default separarTop">Regresar</a>
+	
 	<hr>
 	<div class="table-responsive">
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">

@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('empleados.index') }}">Empleados</a></li>
+  <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Empleados</a></li>
   <li class="active">Crear</li>
 </ol>
 
@@ -22,7 +22,7 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tipo_documento','Tipo documento')  !!}
-                    {!! Form::select('tipo_documento', $tiposDocumento, null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
+                    {!! Form::select('tipo_documento', $tiposDocumento, null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('identificacion','Número de identidad')  !!}
@@ -41,11 +41,11 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
-                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino', 'Otro' => 'Otro'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
+                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino', 'Otro' => 'Otro'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un genero','id'=>'genero'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
-                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
+                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaNacimiento','Fecha de nacimiento')  !!}
@@ -150,33 +150,33 @@
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('cargo','Cargo')  !!}
-                    {!! Form::select('cargo', $cargos, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un cargo','id'=>'cargo'])  !!} 
+                    {!! Form::select('cargo', $cargos, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un cargo','id'=>'cargo'])  !!} 
                 </div>  
             </div>
 
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('eps','EPS')  !!}
-                    {!! Form::select('eps', $epss, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una EPS','id'=>'eps'])  !!}
+                    {!! Form::select('eps', $epss, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione una EPS','id'=>'eps'])  !!}
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('arl','ARL')  !!}
-                    {!! Form::select('arl', $arls, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione una ARL','id'=>'arl'])  !!}
+                    {!! Form::select('arl', $arls, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione una ARL','id'=>'arl'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                    {!! Form::select('fondoPensiones', $fondosPensiones, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
+                    {!! Form::select('fondoPensiones', $fondosPensiones, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un F. Pensiones','id'=>'fondoPensiones'])  !!}
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                    {!! Form::select('fondoCesantias', $fondosCesantias, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
+                    {!! Form::select('fondoCesantias', $fondosCesantias, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un F. Cesantías','id'=>'fondoCesantias'])  !!}
                 </div>  
             </div>
 
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('centroTrabajo','Centro de trabajo')  !!}
-                    {!! Form::select('centroTrabajo', $centrosTrabajo, null, ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
+                    {!! Form::select('centroTrabajo', $centrosTrabajo, null, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un centro de trabajo','id'=>'centroTrabajo'])  !!} 
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('riesgo','Riesgo')  !!}
@@ -188,7 +188,7 @@
                 </div> 
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('estado','Estado')  !!}
-                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Activo', ['class' => 'form-control', 'required', 'placeholder' => 'Sleccione un estado','id'=>'estado'])  !!} 
+                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Activo', ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un estado','id'=>'estado'])  !!} 
                 </div> 
 
             </div>
