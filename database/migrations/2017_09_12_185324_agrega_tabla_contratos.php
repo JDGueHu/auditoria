@@ -23,7 +23,7 @@ class AgregaTablaContratos extends Migration
             $table->foreign('tipoContrato_id')->references('id')->on('tiposContrato');
 
             $table->date('fechaInicio');
-            $table->integer('duracion');
+            $table->integer('duracion')->nullable();
             $table->date('fechaFin')->nullable();
             $table->string('detalles',800)->nullable();
 

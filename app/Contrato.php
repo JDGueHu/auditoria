@@ -13,4 +13,9 @@ class Contrato extends Model
         return $this->belongsTo('App\Empleado','empleado_id');
     }
 
+	public function tipoContrato()
+    {
+        return $this->belongsTo('App\TipoContrato','tipoContrato_id');
+    }
+
 }

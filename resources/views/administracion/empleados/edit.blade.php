@@ -17,7 +17,7 @@
 <a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarBottom'])  !!}
 </a>
-
+<h1>{{$empleado->nombres}} {{$empleado->apellidos}}</h1>
 <div class="panel panel-primary">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana1" aria-expanded="true" aria-controls="ventana1">Datos básicos</div>
         <div class="collapse in" id="ventana1">
@@ -33,17 +33,6 @@
                     {!! Form::number('identificacion',$empleado->identificacion, ['class' => 'form-control', 'required', 'id'=>'identificacion'])  !!}
                 </div>    
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('nombres','Nombres')  !!}
-                    {!! Form::text('nombres',$empleado->nombres, ['class' => 'form-control', 'required', 'id'=>'nombres'])  !!}
-                </div>
-                <div class="col-md-3 separarBottom">
-                    {!! Form::label('apellidos','Apellidos')  !!}
-                    {!! Form::text('apellidos',$empleado->apellidos, ['class' => 'form-control', 'required', 'id'=>'apellidos'])  !!}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
                     {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], $empleado->genero, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un genero','id'=>'genero'])  !!} 
                 </div>  
@@ -51,6 +40,9 @@
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
                     {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], $empleado->grupoSanguineo, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
                 </div>  
+            </div>
+
+            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaNacimiento','Fecha de nacimiento')  !!}
                     {!! Form::date('fechaNacimiento',$empleado->fechaNacimiento, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
@@ -59,9 +51,6 @@
                     {!! Form::label('edad','Edad (Años)')  !!}
                     {!! Form::number('edad',null, ['class' => 'form-control', 'id'=>'edad', 'readonly'])  !!}
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('ciudadNacimiento','Ciudad de nacimiento')  !!}
                     {!! Form::text('ciudadNacimiento',$empleado->ciudadNacimiento, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimiento'])  !!}
@@ -70,6 +59,9 @@
                     {!! Form::label('departamentoNacimiento','Departamento de nacimiento')  !!}
                     {!! Form::text('departamentoNacimiento',$empleado->departamentoNacimiento, ['class' => 'form-control','id'=>'departamentoNacimiento','readonly'])  !!}
                 </div>  
+            </div>
+
+            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('paisNacimiento','País de nacimiento')  !!}
                     {!! Form::text('paisNacimiento',$empleado->paisNacimiento, ['class' => 'form-control', 'id'=>'paisNacimiento','readonly'])  !!}
@@ -78,9 +70,6 @@
                     {!! Form::label('estadoCivil','Estado civil')  !!}
                     {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], $empleado->estadoCivil, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado civil','id'=>'estadoCivil'])  !!} 
                 </div> 
-            </div>
-
-            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('numeroHijos','Número de hijos')  !!}
                     {!! Form::number('numeroHijos',$empleado->numeroHijos, ['class' => 'form-control', 'id'=>'numeroHijos'])  !!}
@@ -214,70 +203,94 @@
         <div class="collapse" id="ventana4">
         <div class="panel-body">
 
-            <div class="row">
-                <div class="col-md-4 separarBottom">
-                    {!! Form::label('tipoContrato','Tipo de contrato')  !!}
-                    {!! Form::select('tipoContrato', $tiposContrato, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de contrato','id'=>'tipoContrato'])  !!} 
-                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoContrato'])  !!}
-                </div> 
-                <div class="col-md-4 separarBottom">
-                    {!! Form::label('duracion','Duración (Meses)')  !!}
-                    {!! Form::number('duracion',null, ['class' => 'form-control', 'id'=>'duracion'])  !!}
-                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoDuracionContrato'])  !!}
-                </div> 
-                <div class="col-md-4 separarBottom">
-                    {!! Form::label('fechaInicio','Fecha inicio')  !!}
-                    {!! Form::date('fechaInicio',null, ['class' => 'form-control', 'id'=>'fechaInicio'])  !!}
-                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniContrato'])  !!}
-                </div> 
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevo', 'data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
+
+            <!-- Modal Create-->
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Contrato</span></h5>
+                  </div>
+                  <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('tipoContrato','Tipo de contrato')  !!}
+                                {!! Form::select('tipoContrato', $tiposContrato, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de contrato','id'=>'tipoContrato'])  !!} 
+                                {!! Form::label('tipoContrato','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoContrato'])  !!}
+                            </div> 
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('duracion','Duración (Meses)')  !!}
+                                {!! Form::number('duracion',null, ['class' => 'form-control', 'id'=>'duracion','readonly'])  !!}
+                                {!! Form::label('duracion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoDuracionContrato'])  !!}
+                            </div> 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('fechaInicio','Fecha inicio')  !!}
+                                {!! Form::date('fechaInicio',null, ['class' => 'form-control', 'id'=>'fechaInicio','readonly'])  !!}
+                                {!! Form::label('fechaInicio','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniContrato'])  !!}
+                            </div> 
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('fechaFin','Fecha finalización')  !!}
+                                {!! Form::date('fechaFin',null, ['class' => 'form-control', 'id'=>'fechaFin','readonly'])  !!}
+                                {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinContrato'])  !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('estadContrato','Estado')  !!}
+                                {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], 'Activo', ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato'])  !!} 
+                                {!! Form::label('estadContrato','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoContrato'])  !!}
+                            </div> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('detalles','Detalles')  !!}
+                                {{ Form::textarea('detalles', null, ['size' => '3x3','class' => 'form-control', 'placeholder' => 'Detalles de contratación','id'=>'detalles']) }}
+                            </div> 
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary', 'id'=>'addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary', 'id'=>'editRow']) !!}
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 separarBottom">
-                    {!! Form::label('fechaFin','Fecha finalización')  !!}
-                    {!! Form::date('fechaFin',null, ['class' => 'form-control', 'id'=>'fechaFin'])  !!}
-                    {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinContrato'])  !!}
-                </div> 
-                <div class="col-md-8 separarBottom">
-                    {!! Form::label('detalles','Detalles')  !!}
-                    {{ Form::textarea('detalles', null, ['size' => '3x3','class' => 'form-control', 'placeholder' => 'Detalles de contratación','id'=>'detalles']) }}
 
-                </div> 
-            </div>
-
-            {!! Form::button('Agregar', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'addRow']) !!}
-
-            {!! Form::button('Eliminar', ['class'=>'btn btn-danger separarTop separarBottomButtonn', 'id'=>'removeRow']) !!}
-
-
-
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Tipo contrato</th>
-                <th>Duración</th>
-                <th>Fecha inicio</th>
-                <th>Fecha Fin</th>
-                <th>Acciones</th>
-            </tr>
-            <tbody>
-                @foreach($contratos as $contrato)
+            <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
                     <tr>
-                        <td>{{ $contrato->tipoContrato_id }}</td>
-                        <td>{{ $contrato->duracion }}</td>
-                        <td>{{ $contrato->fechaInicio }}</td>
-                        <td>{{ $contrato->fechaFin }}</td>
-                        <td>
-                            <a title="Eliminar" href="#" class="btn btn-danger btn-xs confirm_M">
-                                <i class="fa fa-trash-o" aria-hidden="true"></i>
-                            </a>
-                        </td>
+                        <th>Tipo contrato</th>
+                        <th>Estado</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Acciones</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </thead>
-    </table>
-
+                    <tbody>
+                        @foreach($contratos as $contrato)
+                            <tr>
+                                <td>{{ $contrato->tipoContrato->tipoContrato }}</td>
+                                <td>{{ $contrato->estado}}<span style="opacity: 0">-{{$contrato->id }}</span></td>
+                                <td>{{ $contrato->fechaInicio }}</td>
+                                <td>{{ $contrato->fechaFin }}</td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetail">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroy">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
 
         </div>
     </div>
@@ -342,14 +355,14 @@
     <!-- Libreria google place  -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
         async defer></script>
+    <!-- Para codigo compartido del modulo  -->
+    <script src="{{ asset('js/empleados/shared.js') }}"></script>
+    <!-- Para fechas  -->
+    <script src="{{ asset('js/shared.js') }}"></script>
     <!-- Para cargar los datos automaticamente al cargar la vista de edicion  -->
     <script src="{{ asset('js/empleados/edit.js') }}"></script>   
     <!-- Para cargar los datos por eventos como en la vista de creación  -->
     <script src="{{ asset('js/empleados/create.js') }}"></script> 
-    <!-- Para codigo compartido del modulo  -->
-    <script src="{{ asset('js/empleados/shared.js') }}"></script>
-    <!-- Para google place  -->
-    <script src="{{ asset('js/shared.js') }}"></script>
     <!-- Para tablas en submodulos  -->
-    <script src="{{ asset('js/tableInline.js') }}"></script>
+    <script src="{{ asset('js/tableInlineContrato.js') }}"></script>
 @endsection

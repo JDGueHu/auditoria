@@ -92,7 +92,6 @@ $( document ).ready(function() {
 			  datatype:'json',
 			  data : data
 			}).done(function(response){
-
 				$("#riesgo").val(response[0].riesgo);
 				$("#tasa").val(response[0].valor);
 					
@@ -106,74 +105,82 @@ $( document ).ready(function() {
 
 	/////////////////////////////////////////////////////////////////////////
 
-	///// Crear contrato AJAX - Subpanel
-	$( "#crearContrato" ).click(function(){
+});
 
-		if($("#tipoContrato").val() == "" || $("#fechaInicio").val() == "" || $("#duracion").val() == ""){
-			if($("#tipoContrato").val() == ""){
-				$("#tipoContrato").addClass( "colorAlerta");
-				$("#requeridoTipoContrato").removeClass( "ocultar" );
-			}
-			
-			if($("#fechaInicio").val() == ""){
-				$("#fechaInicio").addClass( "colorAlerta");
-				$("#requeridoFechaIniContrato").removeClass( "ocultar" );
-			}
 
-			if($("#duracion").val() == ""){
-				$("#duracion").addClass( "colorAlerta");
-				$("#requeridoDuracionContrato").removeClass( "ocultar" );
-			}
-		}else{
-	  	
-	   	var data = "tipoContrato="+$("#tipoContrato").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&duracion="+$("#duracion").val()+"&detalles="+$("#detalles").val()+"&empleado_id="+$("#empleado_id").val();
-		var url = '../../../administracion/contratos/createAjax';
+	function validaTipoContratoIndefinidoAjax(){  /// Funcion asincrona
+		
+		var indefinido;
 
+	  	if($("#tipoContrato").val() != ""){
+	  	  			
 			$.ajax({
-			  url: url,
+			  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
 			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-			  type: 'POST',
-			  datatype:'json',
-			  data : data
+			  type: 'GET',
 			}).done(function(response){
-
-				console.log(response);
+				validaTipoContratoIndefinido(response)					
 			});
+		}else{
+			validaTipoContratoIndefinido(3);
 		}
 
-	});
+	}
 
-		///// Inputs subpanel Contratos
+	function validaTipoContratoIndefinido(val){
 
-		$( "#tipoContrato" ).change(function(){
+		if(val != 3){document.getElementById("fechaInicio").removeAttribute("readonly");}
+		else{
+			document.getElementById("fechaInicio").setAttribute("readonly","readonly");
+			$("#fechaInicio").val("");
+		}
 
-			if($("#tipoContrato").val() != ""){
-				$("#tipoContrato").removeClass( "colorAlerta");
-				$("#requeridoTipoContrato").addClass( "ocultar" );
+		if(val == 1){
+		 	document.getElementById("fechaInicio").removeAttribute("readonly");
+		 	document.getElementById("duracion").setAttribute("readonly","readonly");
+		 	$("#duracion").val( "" );
+		}else if(val == 0){
+		 	//document.getElementById("duracion").removeAttribute("readonly");
+		 }else{
+	 		document.getElementById("duracion").setAttribute("readonly","readonly");
+
+	 		$("#requeridoTipoContrato").addClass( "ocultar" );
+	 		$("#requeridoDuracionContrato").addClass( "ocultar" );
+	 		$("#requeridoFechaIniContrato").addClass( "ocultar" );
+	 		$("#requeridoEstadoContrato").addClass( "ocultar" );
+		 }
+	}
+
+	function validaTipoContratoFechaAjax(){  /// Funcion asincrona
+		
+		var indefinido;
+
+	  	if($("#tipoContrato").val() != ""){
+	  	  			
+			$.ajax({
+			  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+			  type: 'GET',
+			}).done(function(response){
+				validaTipoContratoFecha(response)					
+			});
+		}else{
+			validaTipoContratoFecha(3);
+		}
+
+	}
+
+	function validaTipoContratoFecha(val){
+
+		if(val == 0){
+			if($("#fechaInicio").val() == ""){
+				document.getElementById("duracion").setAttribute("readonly","readonly");
+				$("#duracion").val( "" );
+			}else{
+		 	document.getElementById("duracion").removeAttribute("readonly");
 			}
-		});
-
-		$( "#fechaInicio" ).change(function(){
-
-			if($("#fechaInicio").val() != ""){
-				$("#fechaInicio").removeClass( "colorAlerta");
-				$("#requeridoFechaIniContrato").addClass( "ocultar" );
-			}
-		});
-
-		$( "#duracion" ).change(function(){
-
-			if($("#duracion").val() != ""){
-				$("#duracion").removeClass( "colorAlerta");
-				$("#requeridoDuracionContrato").addClass( "ocultar" );
-			}
-		});
-
-		/////////////////////////////////////////////
-
-	/////////////////////////////////////////////////////////////////////////
-
-
-
-
-});
+	    }else{
+	 		document.getElementById("duracion").setAttribute("readonly","readonly");
+			$("#duracion").val( "" );
+		 }
+	}

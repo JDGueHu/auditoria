@@ -12,7 +12,7 @@
 <a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarBottom'])  !!}
 </a>
-
+<h1>{{$empleado->nombres}} {{$empleado->apellidos}}</h1>
 <div class="panel panel-primary">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana1" aria-expanded="true" aria-controls="ventana1">Datos básicos</div>
         <div class="collapse in" id="ventana1">
@@ -21,31 +21,23 @@
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tipo_documento','Tipo documento')  !!}
-                    {!! Form::select('tipo_documento', $tiposDocumento, $empleado->tipoDocumento_id, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
+                    {!! Form::select('tipo_documento', $tiposDocumento, $empleado->tipoDocumento_id, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
                 </div>
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('identificacion','Número de identidad')  !!}
                     {!! Form::number('identificacion',$empleado->identificacion, ['class' => 'form-control', 'required', 'id'=>'identificacion'])  !!}
                 </div>    
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('nombres','Nombres')  !!}
-                    {!! Form::text('nombres',$empleado->nombres, ['class' => 'form-control', 'required', 'id'=>'nombres'])  !!}
-                </div>
-                <div class="col-md-3 separarBottom">
-                    {!! Form::label('apellidos','Apellidos')  !!}
-                    {!! Form::text('apellidos',$empleado->apellidos, ['class' => 'form-control', 'required', 'id'=>'apellidos'])  !!}
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-3 separarBottom">
                     {!! Form::label('genero','Género')  !!}
-                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], $empleado->genero, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un genero','id'=>'genero'])  !!} 
+                    {!! Form::select('genero', ['Femenino' => 'Femenino', 'Masculino' => 'Masculino'], $empleado->genero, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un genero','id'=>'genero'])  !!} 
                 </div>  
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('grupoSanguineo','Grupo sanguíneo y Factor RH')  !!}
-                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], $empleado->grupoSanguineo, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Sleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
+                    {!! Form::select('grupoSanguineo', ['O+' => 'O+', 'O-' => 'O-','A+' => 'A+', 'A-' => 'A-','B+' => 'B+', 'B-' => 'B-','AB+' => 'AB+', 'AB-' => 'AB-'], $empleado->grupoSanguineo, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un grupo sanguíneo','id'=>'grupoSanguineo'])  !!} 
                 </div>  
+            </div>
+
+            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('fechaNacimiento','Fecha de nacimiento')  !!}
                     {!! Form::date('fechaNacimiento',$empleado->fechaNacimiento, ['class' => 'form-control', 'required', 'id'=>'fechaNacimiento'])  !!}
@@ -54,9 +46,6 @@
                     {!! Form::label('edad','Edad (Años)')  !!}
                     {!! Form::number('edad',null, ['class' => 'form-control', 'id'=>'edad', 'readonly'])  !!}
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('ciudadNacimiento','Ciudad de nacimiento')  !!}
                     {!! Form::text('ciudadNacimiento',$empleado->ciudadNacimiento, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimiento'])  !!}
@@ -65,6 +54,9 @@
                     {!! Form::label('departamentoNacimiento','Departamento de nacimiento')  !!}
                     {!! Form::text('departamentoNacimiento',$empleado->departamentoNacimiento, ['class' => 'form-control','id'=>'departamentoNacimiento','readonly'])  !!}
                 </div>  
+            </div>
+
+            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('paisNacimiento','País de nacimiento')  !!}
                     {!! Form::text('paisNacimiento',$empleado->paisNacimiento, ['class' => 'form-control', 'id'=>'paisNacimiento','readonly'])  !!}
@@ -73,9 +65,6 @@
                     {!! Form::label('estadoCivil','Estado civil')  !!}
                     {!! Form::select('estadoCivil', ['Casad@' => 'Casad@', 'Divorciad@' => 'Divorciad@', 'Solter@' => 'Solter@',  'Union libre' => 'Union libre'], $empleado->estadoCivil, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado civil','id'=>'estadoCivil'])  !!} 
                 </div> 
-            </div>
-
-            <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('numeroHijos','Número de hijos')  !!}
                     {!! Form::number('numeroHijos',$empleado->numeroHijos, ['class' => 'form-control', 'id'=>'numeroHijos'])  !!}

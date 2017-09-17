@@ -13,9 +13,9 @@
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>Empleado</th>
+                    <th>Identificación empleado</th>
                     <th>Tipo Contrato</th>
-                    <th>Duración</th>
+                    <th>Duración (Meses)</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
                     <th>Acciones</th>
@@ -24,8 +24,8 @@
             <tbody>
                 @foreach($contratos as $contrato)
                     <tr>
-                        <td>{{ $contrato->empleado_id }}</td>    
-                        <td>{{ $contrato->tipoContrato_id }}</td>    
+                        <td>{{ $contrato->Empleado->identificacion }}</td>    
+                        <td>{{ $contrato->tipoContrato->tipoContrato }}</td>    
                         <td>{{ $contrato->duracion }}</td>
                         <td>{{ $contrato->fechaInicio }}</td>
                         <td>{{ $contrato->fechaFin }}</td>

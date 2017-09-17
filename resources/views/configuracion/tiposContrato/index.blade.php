@@ -17,6 +17,7 @@
 				<tr>
 					<th>Código</th>
 					<th>Tipo de contrato</th>
+					<th>¿Término indefinido?</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -25,6 +26,11 @@
 					<tr>
 						<td>{{ $tipoContrato->codigo }}</td>
 						<td>{{ $tipoContrato->tipoContrato }}</td>
+						@if($tipoContrato->terminoIndefinido)
+							<td><i style="color:#5cb85c" class="fa fa-check" aria-hidden="true"></i></td>
+						@else
+							<td><i style="color:#d43f3a" class="fa fa-times" aria-hidden="true"></i></td>
+						@endif
 						<td>
 							<a title="Detalles" href="{{ route('tiposContrato.show',$tipoContrato->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>

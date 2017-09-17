@@ -75,6 +75,11 @@ Route::group(['prefix'=>'configuracion'],function(){
 		'as' => 'tiposContrato.destroy'
 	]);
 
+	Route::get('tiposContrato/{id}/indefinido',[
+		'uses' => 'tiposContratoController@indefinido',
+		'as' => 'tiposContrato.indefinido'
+	]);
+
 	Route::resource('listasDesplegables','listasDesplegablesController');
 
 });

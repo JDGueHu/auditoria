@@ -20,13 +20,17 @@
     <div class="panel-body">
 
         <div class="row">   
-            <div class="col-md-6 separarBottom">
+            <div class="col-md-4 separarBottom">
                 {!! Form::label('codigo','Código')  !!}
                 {!! Form::text('codigo',null, ['class' => 'form-control', 'id'=>'codigo'])  !!}
             </div>
-            <div class="col-md-6 separarBottom">
+            <div class="col-md-4 separarBottom">
                 {!! Form::label('tipoContrato','Tipo de contrato')  !!}
                 {!! Form::text('tipoContrato',null, ['class' => 'form-control', 'required', 'id'=>'tipoContrato'])  !!}
+            </div>
+            <div class="col-md-4 separarBottom">
+                <label for="terminoIndefinido">¿Termino indefinido?</label>
+                {!! Form::checkbox('terminoIndefinido', 'value', false, ['class' => 'form-control checkbox', 'id'=>'terminoIndefinido'])!!}
             </div>
         </div>
 

@@ -50,7 +50,15 @@ class contratosController extends Controller
      */
     public function show($id)
     {
-        //
+
+        $contrato = DB::table('contratos')
+            ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
+            ->where('contratos.id','=',$id)
+            ->where('tiposContrato.alive',true)
+            ->select('contratos.id','tiposContrato.id as idTipo','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado')
+            ->get();
+
+        return $contrato;
     }
 
     /**
@@ -84,7 +92,12 @@ class contratosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $contrato = Contrato::find($id);
+
+        $contrato->alive=false;
+        $contrato->save();
+
+        return response($id);
     }
 
 
@@ -100,10 +113,19 @@ class contratosController extends Controller
             $contrato->duracion = $request->duracion; 
             $contrato->fechaFin = $request->fechaFin; 
             $contrato->detalles = $request->detalles; 
-            //$contrato->save();
+            $contrato->estado = $request->estadContrato; 
+            $contrato->save();
 
-            return response((String)$contrato->id);
+            $contrato = DB::table('contratos')
+                ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
+                ->where('contratos.id','=',$contrato->id)
+                ->where('tiposContrato.alive',true)
+                ->select('contratos.id','tiposContrato.tipoContrato','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado')
+                ->get();
+
+            return response($contrato);
             //->json($contratos)
         }
     }
+
 }
