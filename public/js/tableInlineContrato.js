@@ -29,7 +29,7 @@ $(document).ready(function() {
     	$("#fechaInicio").val("");
     	$("#fechaFin").val("");
     	$("#duracion").val("");
-    	$("#estadContrato ").val("");
+    	$("#estadContrato ").val('Activo');
     	$("#detalles").val("");
 
 		$("#tipoContrato").prop( "disabled", false );
