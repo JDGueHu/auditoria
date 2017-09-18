@@ -76,7 +76,7 @@ $( document ).ready(function() {
     /////////////////////////////////////////////////////////////////////////
 
 
-	///// Crear nuevo contrato AJAX
+	///// Cargar riesgo del centro de trabajo
 
 	$( "#centroTrabajo" ).change(function(){
 	  	

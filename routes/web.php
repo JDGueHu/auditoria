@@ -105,5 +105,14 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'contratosController@createAjax',
 		'as' => 'contratos.createAjax'
 	]);
+	Route::get('contratos/{id}/showAjax',[
+		'uses' => 'contratosController@showAjax',
+		'as' => 'contratos.showAjax'
+	]);
+	Route::get('contratos/{id}/destroyAjax',[
+		'uses' => 'contratosController@destroyAjax',
+		'as' => 'contratos.destroyAjax'
+	]);
+
 
 });

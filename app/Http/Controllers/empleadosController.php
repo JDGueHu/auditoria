@@ -97,7 +97,7 @@ class empleadosController extends Controller
         $empleado->save();
 
         flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('empleados.edit',$empleado->id);
+        return redirect()->route('empleados.show',$empleado->id);
 
     }
 
@@ -117,7 +117,8 @@ class empleadosController extends Controller
         $arls = ARL::where('alive',True)->pluck('arl','id');
         $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
         $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
-       
+        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
+        $contratos = Contrato::where('empleado_id','=',$id)->where('alive',true)->get();      
 
         return view('administracion.empleados.show')
             ->with('empleado',$empleado)
@@ -127,7 +128,9 @@ class empleadosController extends Controller
             ->with('epss',$epss)
             ->with('arls',$arls)
             ->with('fondosPensiones',$fondosPensiones)
-            ->with('fondosCesantias',$fondosCesantias);
+            ->with('fondosCesantias',$fondosCesantias)
+            ->with('tiposContrato',$tiposContrato)
+            ->with('contratos',$contratos);
     }
 
     /**
@@ -146,8 +149,6 @@ class empleadosController extends Controller
         $arls = ARL::where('alive',True)->pluck('arl','id');
         $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
         $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
-        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
-        $contratos = Contrato::where('empleado_id','=',$id)->where('alive',true)->get();
 
         return view('administracion.empleados.edit')
             ->with('empleado',$empleado)
@@ -157,9 +158,7 @@ class empleadosController extends Controller
             ->with('epss',$epss)
             ->with('arls',$arls)
             ->with('fondosPensiones',$fondosPensiones)
-            ->with('fondosCesantias',$fondosCesantias)
-            ->with('tiposContrato',$tiposContrato)
-            ->with('contratos',$contratos);
+            ->with('fondosCesantias',$fondosCesantias);
     }
 
     /**

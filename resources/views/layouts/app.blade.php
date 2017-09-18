@@ -13,13 +13,14 @@
     <!-- STYLES -->
     <link href="{{ asset('plugins/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    
+
     <!-- Styles - dataTables -->
     <link href="{{ asset('plugins/dataTable/css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('plugins/dataTable/css/buttons.dataTables.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('plugins/jquery_confirm/css/jquery-confirm.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
     @yield('css') 
 
 </head>
@@ -37,7 +38,7 @@
     <!-- Scripts -->
     <script src="{{ asset('plugins/jquery/js/jquery-3.1.1.js') }}"></script>
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.js') }}"></script>
-   
+
 
     <script src="{{ asset('plugins/dataTable/js/jquery.dataTables.min.js') }}"></script>    
     <script src="{{ asset('plugins/dataTable/js/dataTables.buttons.min.js') }}"></script>

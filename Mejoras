@@ -4,3 +4,5 @@
 - Modificar el drop down de las listas desplegables para que sea una interfaz y no un elemento extenso en la vista 
 - Agregar Try Catch
 - Iconografía
+- Validacion de campos ocultos
+- Agregar tooltip

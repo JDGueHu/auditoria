@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Contrato;
+use App\Empleado;
+use App\TipoContrato;
 
 class contratosController extends Controller
 {
@@ -27,8 +29,17 @@ class contratosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {   
+        $empleados = DB::table('empleados')
+            ->join('tiposDocumento','empleados.tipoDocumento_id','=','tiposDocumento.id')
+            ->where('empleados.alive',true)
+            ->select('tiposDocumento.tipoDocumento','empleados.identificacion','empleados.nombres','empleados.apellidos')
+            ->get();
+        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
+
+        return view('administracion.contratos.create')
+            ->with('empleados',$empleados)
+            ->with('tiposContrato',$tiposContrato);
     }
 
     /**
@@ -39,7 +50,22 @@ class contratosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contrato = new Contrato();
+
+        $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+        $contrato->empleado_id = $empleado[0]->id;
+        $contrato->tipoContrato_id = $request->tipoContrato;
+        $contrato->fechaInicio = $request->fechaInicio;
+        $contrato->duracion = $request->duracion;
+        $contrato->fechaFin = $request->fechaFin;
+        $contrato->detalles = $request->detalles;
+        $contrato->estado = $request->estadContrato;
+        $contrato->save();
+
+        flash('Contrato de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
+        return redirect()->route('contratos.index');
+        //dd($empleado[0]->nombres);
     }
 
     /**
@@ -51,14 +77,6 @@ class contratosController extends Controller
     public function show($id)
     {
 
-        $contrato = DB::table('contratos')
-            ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
-            ->where('contratos.id','=',$id)
-            ->where('tiposContrato.alive',true)
-            ->select('contratos.id','tiposContrato.id as idTipo','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado')
-            ->get();
-
-        return $contrato;
     }
 
     /**
@@ -92,12 +110,7 @@ class contratosController extends Controller
      */
     public function destroy($id)
     {
-        $contrato = Contrato::find($id);
 
-        $contrato->alive=false;
-        $contrato->save();
-
-        return response($id);
     }
 
 
@@ -126,6 +139,29 @@ class contratosController extends Controller
             return response($contrato);
             //->json($contratos)
         }
+    }
+
+    public function destroyAjax($id)
+    {
+        $contrato = Contrato::find($id);
+
+        $contrato->alive=false;
+        $contrato->save();
+
+        return response($id);
+    }
+
+    public function showAjax($id)
+    {
+
+        $contrato = DB::table('contratos')
+            ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
+            ->where('contratos.id','=',$id)
+            ->where('tiposContrato.alive',true)
+            ->select('contratos.id','tiposContrato.id as idTipo','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado')
+            ->get();
+
+        return $contrato;
     }
 
 }

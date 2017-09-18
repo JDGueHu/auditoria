@@ -105,29 +105,35 @@ $(document).ready(function() {
 	// Agregar y eliminar items en tabla
 		 
     $('#example tbody').on( 'click', '.buttonDestroy', function () {
-        if ( $(this).parents('tr').hasClass('eliminar') ) {
-    		$(this).parents('tr').removeClass('eliminar');
+
+		var validate = confirm('Va a eliminar un contrato ¿Desea continuar?');
+
+		if (validate == true) {
+	        if ( $(this).parents('tr').hasClass('eliminar') ) {
+	    		$(this).parents('tr').removeClass('eliminar');
+			}
+			else {
+	            t.$('tr.eliminar').removeClass('eliminar');
+	            $(this).parents('tr').addClass('eliminar');
+			}	
+
+	    	var  cadena = $(this).parents('tr').children().eq(1).text();
+	    	var array = cadena.split("-");
+
+			$.ajax({
+				  url: '../../../administracion/contratos/'+array[1]+'/destroyAjax',
+				  type: 'GET'
+				}).done(function(response){
+					//console.log(response);
+				  t.row('.eliminar').remove().draw( false );
+				});
 		}
-		else {
-            t.$('tr.eliminar').removeClass('eliminar');
-            $(this).parents('tr').addClass('eliminar');
-		}	
-
-    	var  cadena = $(this).parents('tr').children().eq(1).text();
-    	var array = cadena.split("-");
-
-		$.ajax({
-			  url: '../../../administracion/contratos/'+array[1]+'/destroy',
-			  type: 'GET'
-			}).done(function(response){
-				//console.log(response);
-			  t.row('.eliminar').remove().draw( false );
-			});
 
     } );
 
     ///////////////////////////////////////////////////////////
 
+    /// Crear contrato
 
 	function crearContratoAjax(){  /// Funcion asincrona
 
@@ -224,14 +230,13 @@ $(document).ready(function() {
 
 ///////////// Detalle de contrato
 
-		 
     $('#example tbody').on( 'click', '.buttonDetail', function () {
 
     	var  cadena = $(this).parents('tr').children().eq(1).text();
     	var array = cadena.split("-");
 
 		$.ajax({
-			  url: '../../../administracion/contratos/'+array[1],
+			  url: '../../administracion/contratos/'+array[1]+'/showAjax',
 			  type: 'GET'
 			}).done(function(response){
 
@@ -252,10 +257,10 @@ $(document).ready(function() {
 	        	$("#duracion").val(response[0].duracion);
 	        	$("#estadContrato").val(response[0].estado);
 	        	$("#detalles").val(response[0].detalles);
-	        	
 
 			});
-
     } );
+
+/////////////////////////////////////////////////
 
 } );
