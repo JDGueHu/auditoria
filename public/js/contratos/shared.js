@@ -16,10 +16,19 @@ $(document).ready(function() {
 	// Consultar si el contrato es indefinido
 	function validaCampoTipoContrato(){  
 
+	  	var pathname = window.location.pathname;
+	  	var url;
+
+	  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
+	  		url = '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+	  	}else{
+	  		url = '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+	  	}
+
 	  	if($("#tipoContrato").val() != ""){
 	  	  			
 			$.ajax({
-			  url: '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+			  url: url,
 			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
 			  type: 'GET',
 			}).done(function(response){
@@ -73,9 +82,18 @@ $(document).ready(function() {
 		var indefinido;
 
 	  	if($("#tipoContrato").val() != ""){
+
+		  	var pathname = window.location.pathname;
+		  	var url;
+
+		  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
+		  		url = '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+		  	}else{
+		  		url = '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+		  	}
 	  	  			
 			$.ajax({
-			  url: '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+			  url: url,
 			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
 			  type: 'GET',
 			}).done(function(response){
@@ -137,7 +155,7 @@ $(document).ready(function() {
 			var dias = diasMes(fecha.getMonth()+1,fecha.getFullYear());
 			fecha.setMonth(fecha.getMonth() + parseFloat($("#duracion").val()),fecha.getDate() + parseInt(dias*($("#duracion").val() - parseInt($("#duracion").val()))));
 
-			var dd = fecha.getDate();
+			var dd = fecha.getDate()+1;
 			var mm = fecha.getMonth()+1; //January is 0!
 			var yyyy = fecha.getFullYear();
 			 if(dd<10){
@@ -182,12 +200,22 @@ $(document).ready(function() {
 
 	function validarTipoContratoCrear(){  /// Funcion asincrona
 
+	  	var pathname = window.location.pathname;
+	  	var url;
+
+	  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
+	  		url = '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+	  	}else{
+	  		url = '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
+	  	}
+console.log(url);
+
 		if($("#tipoContrato").val() == ""){
 			$("#tipoContrato").focus();
 			$("#requeridoTipoContrato").removeClass( "ocultar" );
 		}else{
 			$.ajax({
-			  url: '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+			  url: url,
 			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
 			  type: 'GET',
 			}).done(function(response){
@@ -197,7 +225,7 @@ $(document).ready(function() {
 	}
 
 	function validarContrato(val){
-
+		console.log("Entro");
 		if(val == 1){
 			document.getElementById("duracion").setAttribute("readonly","readonly");
 			if($("#fechaInicio").val() == "" || $("#estadContrato").val() == ""){		 	
@@ -213,7 +241,7 @@ $(document).ready(function() {
 				}
 
 			}else{
-				$("#crearContrato").submit();
+				$("#contrato").submit();
 			}
 		}else{
 
@@ -234,7 +262,7 @@ $(document).ready(function() {
 					$("#requeridoFechaIniContrato").removeClass( "ocultar" );
 				}
 			}else{
-				$("#crearContrato").submit();
+				$("#contrato").submit();
 			}
 		}
 

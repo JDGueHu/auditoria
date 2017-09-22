@@ -7,7 +7,7 @@
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'contratos.store', 'method' => 'POST','id'=>'crearContrato']) !!} 
+{!! Form::open(['route' => 'contratos.store', 'method' => 'POST','id'=>'contrato']) !!} 
 
 {!! Form::button('Guardar', ['class'=>'btn btn-primary', 'id'=>'botonEditarTop']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}

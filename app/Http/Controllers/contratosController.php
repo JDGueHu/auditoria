@@ -75,8 +75,18 @@ class contratosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-
+    {   
+        $contrato = DB::table('contratos')
+            ->join('empleados','contratos.empleado_id','=','empleados.id')
+            ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+            ->where('contratos.id',$id)
+            ->select('empleados.nombres','empleados.apellidos','empleados.identificacion','contratos.*','tiposDocumento.tipoDocumento')
+            ->get();
+        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
+//dd($contrato[0]->nombres);
+        return view('administracion.contratos.show')
+            ->with('contrato',$contrato)
+            ->with('tiposContrato',$tiposContrato);
     }
 
     /**
@@ -87,7 +97,17 @@ class contratosController extends Controller
      */
     public function edit($id)
     {
-        //
+        $contrato = DB::table('contratos')
+            ->join('empleados','contratos.empleado_id','=','empleados.id')
+            ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+            ->where('contratos.id',$id)
+            ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','empleados.identificacion','contratos.*','tiposDocumento.tipoDocumento')
+            ->get();
+        $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
+//dd($contrato[0]);
+        return view('administracion.contratos.edit')
+            ->with('contrato',$contrato)
+            ->with('tiposContrato',$tiposContrato);
     }
 
     /**
@@ -99,7 +119,20 @@ class contratosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $contrato = Contrato::find($id);
+        $empleado = Empleado::find($request->empleado_id);
+
+        $contrato->empleado_id = $request->empleado_id;
+        $contrato->tipoContrato_id = $request->tipoContrato;
+        $contrato->fechaInicio = $request->fechaInicio;
+        $contrato->duracion = $request->duracion;
+        $contrato->fechaFin = $request->fechaFin;
+        $contrato->detalles = $request->detalles;
+        $contrato->estado = $request->estadContrato;
+        $contrato->save();
+
+        flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
+        return redirect()->route('contratos.index');
     }
 
     /**
@@ -110,7 +143,14 @@ class contratosController extends Controller
      */
     public function destroy($id)
     {
+        $contrato = Contrato::find($id);
+        $empleado = Empleado::find($contrato->empleado_id);
 
+        $contrato->alive = false;
+        $contrato->save();
+
+        flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('contratos.index');
     }
 
 
