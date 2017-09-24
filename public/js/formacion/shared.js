@@ -152,105 +152,110 @@ $(document).ready(function() {
 
 	function crearFormacion(val){
 
-	if ($("#tipoIdentificacion").val() == "" || $("#tipoEstudio").val() == "" || $("#intExt").val() == "" || $("#nivelEstudio_id").val() == "" || $("#areaEstudio_id").val() == "" || $("#titulacion").val() == "" || $("#institucionEducativa").val() == "" || $("#estado").val() == "" || $("#fechaInicio").val() == "" || ($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado') || $("#ciudadNacimiento").val() == ""){
+		if ($("#tipoIdentificacion").val() == "" || $("#tipoEstudio").val() == "" || $("#intExt").val() == "" || $("#nivelEstudio_id").val() == "" || $("#areaEstudio_id").val() == "" || $("#titulacion").val() == "" || $("#institucionEducativa").val() == "" || $("#estado").val() == "" || $("#fechaInicio").val() == "" || ($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado') || $("#ciudadNacimiento").val() == ""){
 
-    	if($("#tipoIdentificacion").val() == ""){
-    		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
-    		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
-    	}
+	    	if($("#tipoIdentificacion").val() == ""){
+	    		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
+	    		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
+	    	}
 
-    	if($("#tipoEstudio").val() == ""){
-    		$("#requeridoTipoFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#tipoEstudio").val() == ""){
+	    		$("#requeridoTipoFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#intExt").val() == ""){
-    		$("#requeridoCategoriaFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#intExt").val() == ""){
+	    		$("#requeridoCategoriaFormacion").removeClass( "ocultar" );
+	    	}
 
-     	if($("#nivelEstudio_id").val() == ""){
-    		$("#requeridoNivelEstudio").removeClass( "ocultar" );
-    	}
+	     	if($("#nivelEstudio_id").val() == ""){
+	    		$("#requeridoNivelEstudio").removeClass( "ocultar" );
+	    	}
 
-    	if($("#areaEstudio_id").val() == ""){
-    		$("#requeridoAreaFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#areaEstudio_id").val() == ""){
+	    		$("#requeridoAreaFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#titulacion").val() == ""){
-    		$("#requeridoTitulacionFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#titulacion").val() == ""){
+	    		$("#requeridoTitulacionFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#institucionEducativa").val() == ""){
-    		$("#requeridoInstitucionEducativaFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#institucionEducativa").val() == ""){
+	    		$("#requeridoInstitucionEducativaFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#estado").val() == ""){
-    		$("#requeridoEstadoFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#estado").val() == ""){
+	    		$("#requeridoEstadoFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#fechaInicio").val() == ""){
-    		$("#requeridoFechaIniFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#fechaInicio").val() == ""){
+	    		$("#requeridoFechaIniFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado'){
-    		document.getElementById("fechaFin").setAttribute("required","required");
-    		$("#requeridoFechaFinFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado'){
+	    		document.getElementById("fechaFin").setAttribute("required","required");
+	    		$("#requeridoFechaFinFormacion").removeClass( "ocultar" );
+	    	}
 
-    	if($("#ciudadNacimiento").val() == ""){
-    		$("#requeridoCiudadFormacion").removeClass( "ocultar" );
-    	}
+	    	if($("#ciudadNacimiento").val() == ""){
+	    		$("#requeridoCiudadFormacion").removeClass( "ocultar" );
+	    	}
 
-    }else{
+	    }else{
 
-	  	var pathname = window.location.pathname;
-	  	var url;
-	  	var data;
+		  	var pathname = window.location.pathname;
 
-	  	var data = "tipoIdentificacion="+$("#tipoIdentificacion").val()+"&identificacion="+$("#identificacion").val()+"&tipoEstudio="+$("#tipoEstudio").val()+"&intExt="+$("#intExt").val()+"&nivelEstudio_id="+$("#nivelEstudio_id").val()+"&areaEstudio_id="+$("#areaEstudio_id").val()+"&titulacion="+$("#titulacion").val()+"&institucionEducativa="+$("#institucionEducativa").val()+"&estado="+$("#estado").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&ciudadNacimiento="+$("#ciudadNacimiento").val();
+		  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
 
-	  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
-	  		url = '../../../administracion/formaciones/crearFormacionAjax';
-	  	}else{
-	  		url = '../../administracion/formaciones/crearFormacionAjax';
-	  	}
+		  		$('#editFormacion').submit();
 
-		$.ajax({
-		  url: url,
-		  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-		  type: 'POST',
-		  data: data
-		}).done(function(response){
+		  	}else{
 
-			var pathname = window.location.pathname;
-			pathname = pathname.substring(0, pathname.length - 7)
-			console.log(pathname);
-			$.confirm({
-			    title: 'Formación almacenda',
-			    content: 'Se guardó la formación exitosamente ¿Desea agregar otra formación?',
-			    buttons: {
-			        confirm: function () {
-			            $("#tipoEstudio").val('');
-			            $("#intExt").val('');
-			            document.getElementById("intExt").setAttribute("disabled","disabled");
-			            $("#nivelEstudio_id").val('');
-			            document.getElementById("nivelEstudio_id").setAttribute("disabled","disabled");
-			            $("#areaEstudio_id").val('');
-			            $("#titulacion").val('');
-			            $("#institucionEducativa").val('');
-			            $("#estado").val('');
-			            $("#fechaInicio").val('');
-			            document.getElementById("fechaFin").setAttribute("readonly","readonly");
-			            $("#fechaFin").val('');
-			            $("#ciudadNacimiento").val('');
-			        },
-			        cancel: function () {
-			            window.location.replace(pathname);
-			        }
-			    }
-			});
-      
-		});
-    }
+		  		var data = "tipoIdentificacion="+$("#tipoIdentificacion").val()+"&identificacion="+$("#identificacion").val()+"&tipoEstudio="+$("#tipoEstudio").val()+"&intExt="+$("#intExt").val()+"&nivelEstudio_id="+$("#nivelEstudio_id").val()+"&areaEstudio_id="+$("#areaEstudio_id").val()+"&titulacion="+$("#titulacion").val()+"&institucionEducativa="+$("#institucionEducativa").val()+"&estado="+$("#estado").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&ciudadNacimiento="+$("#ciudadNacimiento").val();
+
+				$.ajax({
+				  url: '../../administracion/formaciones/crearFormacionAjax',
+				  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+				  type: 'POST',
+				  data: data
+				}).done(function(response){
+
+					var pathname = window.location.pathname;
+					pathname = pathname.substring(0, pathname.length - 7)
+					//console.log(pathname);
+					$.confirm({
+					    title: 'Formación almacenda',
+					    content: 'Se guardó la formación exitosamente ¿Desea agregar otra formación?',
+					    buttons: {
+			    	        somethingElse: {
+				            text: 'Formación almacenada',
+				            btnClass: 'btn btn-success',
+				            action: function(){
+					            $("#tipoEstudio").val('');
+					            $("#intExt").val('');
+					            document.getElementById("intExt").setAttribute("disabled","disabled");
+					            $("#nivelEstudio_id").val('');
+					            document.getElementById("nivelEstudio_id").setAttribute("disabled","disabled");
+					            $("#areaEstudio_id").val('');
+					            $("#titulacion").val('');
+					            $("#institucionEducativa").val('');
+					            $("#estado").val('');
+					            $("#fechaInicio").val('');
+					            document.getElementById("fechaFin").setAttribute("readonly","readonly");
+					            $("#fechaFin").val('');
+					            $("#ciudadNacimiento").val('');
+				            	}
+				        	},
+					        cancel: function () {
+					            window.location.replace(pathname);
+					        }
+					    }
+					});
+		      
+				});
+		  	}
+
+
+	    }
 
 	}
 

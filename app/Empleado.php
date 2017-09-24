@@ -13,4 +13,14 @@ class Empleado extends Model
     {
         return $this->belongsTo('App\CentroTrabajo','centro_trabajo_id');
     }
+
+	public function Contratos()
+	{
+		return $this->hasMany('App\Contrato', 'empleado_id','id');
+	}
+
+	public function Formaciones()
+	{
+		return $this->hasMany('App\Contrato', 'empleado_id','id');
+	}
 }

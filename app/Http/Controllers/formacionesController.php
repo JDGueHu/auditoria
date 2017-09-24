@@ -64,7 +64,22 @@ class formacionesController extends Controller
      */
     public function show($id)
     {
-        //
+        $areasformacion = AreaEstudio::where('alive',true)->pluck('areaEstudio','id');
+        $nivelesFormacion = NivelEstudio::where('alive',true)->orderby('orden')->pluck('nivelEstudio','id');
+
+        $formacion = DB::table('formaciones')
+        ->join('empleados','formaciones.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
+        ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
+        ->where('formaciones.alive',true)
+        ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','nivelesEstudio.id as nivelEstudio','formaciones.*')
+        ->get();
+
+        return view('administracion.formaciones.show')
+            ->with('formacion',$formacion)
+            ->with('areasformacion',$areasformacion)
+            ->with('nivelesFormacion',$nivelesFormacion);
     }
 
     /**
@@ -75,7 +90,22 @@ class formacionesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $areasformacion = AreaEstudio::where('alive',true)->pluck('areaEstudio','id');
+        $nivelesFormacion = NivelEstudio::where('alive',true)->orderby('orden')->pluck('nivelEstudio','id');
+
+        $formacion = DB::table('formaciones')
+        ->join('empleados','formaciones.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
+        ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
+        ->where('formaciones.alive',true)
+        ->select('empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','nivelesEstudio.id as nivelEstudio','formaciones.*')
+        ->get();
+
+        return view('administracion.formaciones.edit')
+            ->with('formacion',$formacion)
+            ->with('areasformacion',$areasformacion)
+            ->with('nivelesFormacion',$nivelesFormacion);
     }
 
     /**
@@ -87,7 +117,25 @@ class formacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+            $formacion = Formacion::find($id);
+            $empleado = Empleado::find($request->empleado_id);
+            
+            //dd($request);
+            $formacion->empleado_id = $empleado->id;
+            $formacion->tipoEstudio = $request->tipoEstudio; 
+            $formacion->intExt = $request->intExt; 
+            $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
+            $formacion->areaEstudio_id = $request->areaEstudio_id; 
+            $formacion->titulacion = $request->titulacion; 
+            $formacion->estado = $request->estado; 
+            $formacion->institucionEducativa = $request->institucionEducativa; 
+            $formacion->fechaInicio = $request->fechaInicio; 
+            $formacion->fechaFin = $request->fechaFin; 
+            $formacion->ciudadEstudio = $request->ciudadNacimiento; 
+            $formacion->save();
+
+        flash('Formación de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
+        return redirect()->route('formaciones.index');
     }
 
     /**
@@ -98,7 +146,14 @@ class formacionesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $formacion = Formacion::find($id);
+        $empleado = Empleado::find($formacion->empleado_id);
+
+        $formacion->alive = false;
+        $formacion->save();
+
+        flash('Formacion de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('formaciones.index');
     }
 
     public function nivelFormacionAjax()
@@ -127,7 +182,7 @@ class formacionesController extends Controller
             $formacion->fechaInicio = $request->fechaInicio; 
             $formacion->fechaFin = $request->fechaFin; 
             $formacion->ciudadEstudio = $request->ciudadNacimiento; 
-            //$formacion->save();
+            $formacion->save();
 
 
             return response()->json($formacion);
