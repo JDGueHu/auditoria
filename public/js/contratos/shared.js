@@ -208,7 +208,7 @@ $(document).ready(function() {
 	  	}else{
 	  		url = '../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido';
 	  	}
-console.log(url);
+//console.log(url);
 
 		if($("#tipoContrato").val() == ""){
 			$("#tipoContrato").focus();

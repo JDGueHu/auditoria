@@ -18,7 +18,6 @@ class fondosPensionesController extends Controller
 
         return view('configuracion.fondosPensiones.index')
             ->with('fondosPensiones',$fondosPensiones);
-
     }
 
     /**

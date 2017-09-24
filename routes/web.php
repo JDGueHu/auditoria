@@ -82,6 +82,20 @@ Route::group(['prefix'=>'configuracion'],function(){
 
 	Route::resource('listasDesplegables','listasDesplegablesController');
 
+
+	Route::resource('nivelesEstudio','nivelesEstudioController');
+	Route::get('nivelesEstudio/{id}/destroy',[
+		'uses' => 'nivelesEstudioController@destroy',
+		'as' => 'nivelesEstudio.destroy'
+	]);
+
+	Route::resource('areasEstudio','areasEstudioController');
+	Route::get('areasEstudio/{id}/destroy',[
+		'uses' => 'areasEstudioController@destroy',
+		'as' => 'areasEstudio.destroy'
+	]);
+
+
 });
 
 Route::group(['prefix'=>'administracion'],function(){
@@ -114,5 +128,17 @@ Route::group(['prefix'=>'administracion'],function(){
 		'as' => 'contratos.destroyAjax'
 	]);
 
-
+	Route::resource('formaciones','formacionesController');
+	Route::get('formaciones/{id}/destroy',[
+		'uses' => 'formacionesController@destroy',
+		'as' => 'formaciones.destroy'
+	]);
+	Route::get('formaciones/{id}/nivelFormacionAjax',[
+		'uses' => 'formacionesController@nivelFormacionAjax',
+		'as' => 'formaciones.nivelFormacionAjax'
+	]);
+	Route::post('formaciones/crearFormacionAjax',[
+		'uses' => 'formacionesController@crearFormacionAjax',
+		'as' => 'formaciones.crearFormacionAjax'
+	]);
 });

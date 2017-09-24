@@ -9,7 +9,7 @@ $( document ).ready(function() {
 
 	$(".confirm_F").confirm({
 	    title: 'Eliminar',
-	    content: 'Va a eliminar uno de las' + ' ' + $(this).attr("name") + ' ¿Desea continuar?',
+	    content: 'Va a eliminar uno de las' + ' ' + $("#modulo").text() + ' ¿Desea continuar?',
         confirmButton: "Continuar",
 		cancelButton: "Cancelar",
 	});

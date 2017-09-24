@@ -76,6 +76,7 @@
             <!--li role="separator" class="divider"></li-->
               <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Empleados</a></li>
               <li><a href="{{ route('contratos.index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;&nbsp;Contratos</a></li>
+              <li><a href="{{ route('formaciones.index') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;&nbsp;Formacion</a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>

@@ -20,7 +20,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Contrato</span></h5>
+            <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Empleado</span></h5>
           </div>
           <div class="modal-body">     
                 @include('layouts.buscarEmpleado', $empleados)

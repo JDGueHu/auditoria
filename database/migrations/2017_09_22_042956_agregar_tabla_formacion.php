@@ -13,11 +13,14 @@ class AgregarTablaFormacion extends Migration
      */
     public function up()
     {
-        Schema::create('formacion', function (Blueprint $table) {
+        Schema::create('formaciones', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->integer('empleado_id')->unsigned();
+            $table->foreign('empleado_id')->references('id')->on('empleados');
+
             $table->string('tipoEstudio'); // Si es formacion academica o complementaria
-            $table->string('intExt')->nullable();  // Si es un estudio interno o externo
+            $table->string('intExt');  // Si es un estudio interno o externo
 
             $table->integer('nivelEstudio_id')->unsigned();
             $table->foreign('nivelEstudio_id')->references('id')->on('nivelesEstudio');
