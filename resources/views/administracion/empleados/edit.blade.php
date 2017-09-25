@@ -22,8 +22,8 @@
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana1" aria-expanded="true" aria-controls="ventana1">Datos básicos</div>
         <div class="collapse in" id="ventana1">
         <div class="panel-body">
-            <input type="hiddeen" id="nombres" name="nombres" value="{{ $empleado->nombres }}">
-            <input type="hiddeen" id="apellidos" name="apellidos" value="{{ $empleado->apellidos }}">
+            <input type="hidden" id="nombres" name="nombres" value="{{ $empleado->nombres }}">
+            <input type="hidden" id="apellidos" name="apellidos" value="{{ $empleado->apellidos }}">
             <div class="row">
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('tipo_documento','Tipo documento')  !!}

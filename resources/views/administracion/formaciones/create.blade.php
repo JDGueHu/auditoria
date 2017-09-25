@@ -92,7 +92,7 @@
             </div> 
             <div class="col-md-4 separarBottom">
                 {!! Form::label('fechaInicio','Fecha de inicio')  !!}
-                {!! Form::date('fechaNacimfechaInicioiento',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicio'])  !!}
+                {!! Form::date('fechaInicio',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicio'])  !!}
                 {!! Form::label('fechaInicio','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniFormacion'])  !!}
             </div>
             <div class="col-md-4 separarBottom">

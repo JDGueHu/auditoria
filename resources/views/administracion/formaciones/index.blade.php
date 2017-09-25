@@ -16,7 +16,7 @@
                     <th>Identificación</th>
                     <th>Nombres</th>
                     <th>Apellidos</th>
-					<th>Tipo</th>
+					<th>Tipo formación</th>
 					<th>Clasificación</th>
 					<th>Nivel de formación</th>
 					<th>Área de formación</th>

@@ -23,4 +23,9 @@ class Empleado extends Model
 	{
 		return $this->hasMany('App\Contrato', 'empleado_id','id');
 	}
+
+	public function Examenes()
+	{
+		return $this->hasMany('App\Examen', 'empleado_id','id');
+	}
 }

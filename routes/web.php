@@ -141,4 +141,21 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'formacionesController@crearFormacionAjax',
 		'as' => 'formaciones.crearFormacionAjax'
 	]);
+
+	Route::resource('restriccionesMedicas','restriccionesMedicasController');
+	Route::post('restriccionesMedicas/createAjax',[
+		'uses' => 'restriccionesMedicasController@createAjax',
+		'as' => 'restriccionesMedicas.createAjax'
+	]);
+	Route::get('restriccionesMedicas/{id}/destroyAjax',[
+		'uses' => 'restriccionesMedicasController@destroyAjax',
+		'as' => 'restriccionesMedicas.destroyAjax'
+	]);
+
+	Route::resource('examenes','examenesController');
+	Route::get('examenes/{id}/destroy',[
+		'uses' => 'examenesController@destroy',
+		'as' => 'examenes.destroy'
+	]);
+
 });
