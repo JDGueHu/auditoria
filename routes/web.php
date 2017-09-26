@@ -158,4 +158,15 @@ Route::group(['prefix'=>'administracion'],function(){
 		'as' => 'examenes.destroy'
 	]);
 
+	Route::resource('tiposVacaciones','tiposVacacionesController');
+	Route::get('tiposVacaciones/{id}/destroy',[
+		'uses' => 'tiposVacacionesController@destroy',
+		'as' => 'tiposVacaciones.destroy'
+	]);
+
+	Route::resource('vacaciones','vacacionesController');
+	Route::get('vacaciones/{id}/destroy',[
+		'uses' => 'vacacionesController@destroy',
+		'as' => 'vacaciones.destroy'
+	]);
 });

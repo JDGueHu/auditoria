@@ -138,3 +138,40 @@ function diasMes(mm,yyyy){
 }
 
 ///////////////////////////////////////////////////////////////////////
+
+
+$(document).ready(function() {
+
+    /////////////// Restringir fecha final con base en la inicial
+
+    $( "#fechaInicio" ).change(function(){
+        if($("#fechaInicio").val() != ""){
+            document.getElementById("fechaFin").removeAttribute("readonly");
+
+            //// Restringir la seleccion de fecha para la fecha de finalizacion ////
+            var fecha = new Date($("#fechaInicio").val());
+            var dd = fecha.getDate()+1;
+            var mm = fecha.getMonth()+1; //January is 0!
+            var yyyy = fecha.getFullYear();
+             if(dd<10){
+                    dd='0'+dd
+                } 
+                if(mm<10){
+                    mm='0'+mm
+                } 
+
+            fecha = yyyy+'-'+mm+'-'+dd;
+            document.getElementById("fechaFin").setAttribute("min", fecha); 
+
+        }else{
+            document.getElementById("fechaFin").setAttribute("readonly","readonly");
+            $("#fechaFin").val('' );
+            $("#dias").val('' ); // Borrar campo donde se calcula valor con base en fechas
+        }
+
+    });
+
+    //////////////////////////////////////////////////////////////////////
+
+
+});

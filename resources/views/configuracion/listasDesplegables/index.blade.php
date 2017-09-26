@@ -16,8 +16,8 @@
       <a href="{{ route('fondosPensiones.index') }}" class="list-group-item list-group-item-action">Fondos de pensiones</a>
       <a href="{{ route('nivelesEstudio.index') }}" class="list-group-item list-group-item-action">Niveles de formación</a>
       <a href="{{ route('nivelRiesgos.index') }}" class="list-group-item list-group-item-action">Riesgos</a>
+      <a href="{{ route('tiposVacaciones.index') }}" class="list-group-item list-group-item-action">Tipos de ausentismo</a>
       <a href="{{ route('tiposContrato.index') }}" class="list-group-item list-group-item-action">Tipos de contrato</a>
       <a href="{{ route('tiposDocumento.index') }}" class="list-group-item list-group-item-action">Tipos de documento</a>
-
 	</div>
 @endsection
