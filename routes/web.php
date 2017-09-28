@@ -169,4 +169,23 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'vacacionesController@destroy',
 		'as' => 'vacaciones.destroy'
 	]);
+
+	Route::resource('tiposSST','tiposSSTController');
+	Route::get('tiposSST/{id}/destroy',[
+		'uses' => 'tiposSSTController@destroy',
+		'as' => 'tiposSST.destroy'
+	]);
+
+
+	Route::resource('causasSST','causasSSTController');
+	Route::get('causasSST/{id}/destroy',[
+		'uses' => 'causasSSTController@destroy',
+		'as' => 'causasSST.destroy'
+	]);
+
+	Route::resource('SST','SSTController');
+	Route::get('SST/{id}/destroy',[
+		'uses' => 'SSTController@destroy',
+		'as' => 'SST.destroy'
+	]);
 });

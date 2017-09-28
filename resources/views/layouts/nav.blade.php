@@ -74,11 +74,12 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users colorNavAdministracion" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
-              <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;Empleados</a></li>
-              <li><a href="{{ route('contratos.index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i>&nbsp;&nbsp;Contratos</a></li>
+              <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i> Empleados</a></li>
+              <li><a href="{{ route('contratos.index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Contratos</a></li>
               <li><a href="{{ route('formaciones.index') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;&nbsp;Formación</a></li>
               <li><a href="{{ route('examenes.index') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp;&nbsp;Exámenes</a></li>
               <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;&nbsp;Ausentismo</a></li>
+              <li><a href="{{ route('SST.index') }}"><i class="fa fa-shield" aria-hidden="true"></i>&nbsp;&nbsp;SST</a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>
