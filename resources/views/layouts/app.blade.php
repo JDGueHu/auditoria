@@ -19,6 +19,7 @@
     <link href="{{ asset('plugins/dataTable/css/buttons.dataTables.min.css') }}" rel="stylesheet">
 
     <link href="{{ asset('plugins/jquery_confirm/css/jquery-confirm.css') }}" rel="stylesheet">
+    <link href="{{ asset('plugins/chosen/chosen.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     @yield('css') 

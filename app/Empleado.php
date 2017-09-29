@@ -33,4 +33,14 @@ class Empleado extends Model
 	{
 		return $this->hasMany('App\Vacacion', 'empleado_id','id');
 	}
+
+	public function SSTs()
+	{
+		return $this->hasMany('App\SST', 'empleado_id','id');
+	}
+
+	public function Adjuntos()
+	{
+		return $this->hasMany('App\Adjunto', 'empleado_id','id');
+	}
 }

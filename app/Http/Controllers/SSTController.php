@@ -61,7 +61,19 @@ class SSTController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $SST = new SST();
+        $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+        $SST->empleado_id = $empleado[0]->id;
+        $SST->tipoSST_id = $request->tipoSST_id;
+        $SST->fechaSST = $request->fechaSST;
+        $SST->causaPrincipal_id = $request->causaPrincipal_id;
+        $SST->causaComplementaria_id = $request->causaComplementaria_id;
+        $SST->detalles = $request->detalles;
+        $SST->save();
+
+        flash('SST de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
+        return redirect()->route('SST.index');
     }
 
     /**
@@ -72,7 +84,25 @@ class SSTController extends Controller
      */
     public function show($id)
     {
-        //
+        $tipoSST = TipoSST::where('alive',true)->pluck('tipoSST','id');
+        $causasSSt_principales = causaSSt::where('alive',true)
+            ->where('principal',true)
+            ->pluck('causa','id');
+        $causasSSt_complementarias = causaSSt::where('alive',true)
+            ->where('principal',false)
+            ->pluck('causa','id');
+        $SST = DB::table('SST')
+        ->join('empleados','SST.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->where('SST.alive',true)
+        ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','SST.*')
+        ->get();
+
+        return view('administracion.SSTs.show')
+            ->with('tipoSST',$tipoSST)
+            ->with('causasSSt_principales',$causasSSt_principales)
+            ->with('causasSSt_complementarias',$causasSSt_complementarias)
+            ->with('SST',$SST);
     }
 
     /**
@@ -83,7 +113,25 @@ class SSTController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tipoSST = TipoSST::where('alive',true)->pluck('tipoSST','id');
+        $causasSSt_principales = causaSSt::where('alive',true)
+            ->where('principal',true)
+            ->pluck('causa','id');
+        $causasSSt_complementarias = causaSSt::where('alive',true)
+            ->where('principal',false)
+            ->pluck('causa','id');
+        $SST = DB::table('SST')
+        ->join('empleados','SST.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->where('SST.alive',true)
+        ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','SST.*')
+        ->get();
+
+        return view('administracion.SSTs.edit')
+            ->with('tipoSST',$tipoSST)
+            ->with('causasSSt_principales',$causasSSt_principales)
+            ->with('causasSSt_complementarias',$causasSSt_complementarias)
+            ->with('SST',$SST);
     }
 
     /**
@@ -95,7 +143,19 @@ class SSTController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $SST = SST::find($id);
+        $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+        $SST->empleado_id = $empleado[0]->id;
+        $SST->tipoSST_id = $request->tipoSST_id;
+        $SST->fechaSST = $request->fechaSST;
+        $SST->causaPrincipal_id = $request->causaPrincipal_id;
+        $SST->causaComplementaria_id = $request->causaComplementaria_id;
+        $SST->detalles = $request->detalles;
+        $SST->save();
+
+        flash('SST de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se editó exitosamente', 'warning')->important();
+        return redirect()->route('SST.index');
     }
 
     /**
@@ -106,6 +166,13 @@ class SSTController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $SST = SST::find($id);
+        $empleado = Empleado::find($SST->empleado_id);
+
+        $SST->alive = false;
+        $SST->save();
+
+        flash('SST de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('SST.index');
     }
 }

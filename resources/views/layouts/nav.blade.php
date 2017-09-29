@@ -76,10 +76,11 @@
             <!--li role="separator" class="divider"></li-->
               <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i> Empleados</a></li>
               <li><a href="{{ route('contratos.index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Contratos</a></li>
-              <li><a href="{{ route('formaciones.index') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i>&nbsp;&nbsp;Formación</a></li>
-              <li><a href="{{ route('examenes.index') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i>&nbsp;&nbsp;Exámenes</a></li>
-              <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;&nbsp;Ausentismo</a></li>
-              <li><a href="{{ route('SST.index') }}"><i class="fa fa-shield" aria-hidden="true"></i>&nbsp;&nbsp;SST</a></li>
+              <li><a href="{{ route('formaciones.index') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Formación</a></li>
+              <li><a href="{{ route('examenes.index') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Exámenes</a></li>
+              <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i> Ausentismo</a></li>
+              <li><a href="{{ route('SST.index') }}"><i class="fa fa-shield" aria-hidden="true"></i> SST</a></li>
+              <li><a href="{{ route('adjuntos.index') }}"><i class="fa fa-upload" aria-hidden="true"></i> Adjuntos</a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>

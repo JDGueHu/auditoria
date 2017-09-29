@@ -188,4 +188,11 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'SSTController@destroy',
 		'as' => 'SST.destroy'
 	]);
+
+	Route::resource('adjuntos','adjuntosController');
+	Route::get('adjuntos/{id}/destroy',[
+		'uses' => 'adjuntosController@destroy',
+		'as' => 'adjuntos.destroy'
+	]);
+
 });

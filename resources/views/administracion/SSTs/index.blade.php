@@ -13,6 +13,9 @@
 		<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
 			<thead>
 				<tr>
+                    <th>Identificación</th>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
                     <th>Tipo SST</th>
 					<th>Fecha</th>
 					<th>Acciones</th>
@@ -21,7 +24,10 @@
 			<tbody>
 				@foreach($SSTs as $SST)
 					<tr>
-						<td>{{ $SST->tipoSST_id }}</td>
+                        <td>{{ $SST->Empleado->identificacion }}</td> 
+                        <td>{{ $SST->Empleado->nombres }}</td> 
+                        <td>{{ $SST->Empleado->apellidos }}</td>  
+						<td>{{ $SST->TipoSST->tipoSST }}</td>
 						<td>{{ $SST->fechaSST }}</td>
 						<td>
 							<a title="Detalles" href="{{ route('SST.show',$SST->id) }}" class="btn btn-default btn-xs">

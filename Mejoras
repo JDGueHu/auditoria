@@ -6,3 +6,11 @@
 - Iconografía
 - Validacion de campos ocultos
 - Agregar tooltip
+
+
+
+A TENER EN CUENTA PARA INSTALAR EN SERVDOR
+
+
+- En php.ini hablitar extension=php_fileinfo.dll para el cargue de archivos
+- lanzar php artisan storage:link en consola para poder enlazar la ruta de almacenamiento al enrutamiento y poder mostrar
