@@ -28,13 +28,13 @@
 						<td>{{ $centroTrabajo->centroTrabajo }}</td>
 						<td>{{ $centroTrabajo->NivelRiesgo->riesgo.' - '.$centroTrabajo->NivelRiesgo->valor.'%' }}</td>
 						<td>
-							<a title="Detalles" href="{{ route('centroTrabajo.show',$centroTrabajo->id) }}" class="btn btn-default btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('centroTrabajo.show',$centroTrabajo->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('centroTrabajo.edit',$centroTrabajo->id) }}" class="btn btn-warning btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('centroTrabajo.edit',$centroTrabajo->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('centroTrabajo.destroy',$centroTrabajo->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('centroTrabajo.destroy',$centroTrabajo->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

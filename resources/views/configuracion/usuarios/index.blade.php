@@ -30,7 +30,7 @@
 							<a title="Editar" href="{{ route('usuarios.edit',$usuario->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a> -->
-							<a title="Eliminar" href="{{ route('usuarios.destroy',$usuario->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('usuarios.destroy',$usuario->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

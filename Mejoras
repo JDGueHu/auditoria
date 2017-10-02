@@ -1,17 +1,16 @@
 - Activar o inactivar registros, NO ELIMINAR NADA DEL SISTEMA
 - Inhabilitar boton guardar para que no cree registros duplicados
 - Agregar Spinner al realizar actividades
-- Modificar el drop down de las listas desplegables para que sea una interfaz y no un elemento extenso en la vista 
 - Agregar Try Catch
 - Iconografía
 - Validacion de campos ocultos
-- Agregar tooltip
 - Agregar roles y permisos
 - Agregar modificarcion/recuperacion contraseña
 - Agregar usuario actual a todas las actividades del sistema
 - Agregar log de actividades importantes
+- Crear y editar inline
 
-A TENER EN CUENTA PARA INSTALAR EN SERVDOR
+A TENER EN CUENTA PARA INSTALAR EN SERVIDOR
 
 
 - En php.ini hablitar extension=php_fileinfo.dll para el cargue de archivos

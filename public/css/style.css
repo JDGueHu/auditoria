@@ -1,4 +1,4 @@
-.centrar{ text-align: center; }
+.centrar{ text-align: right; }
 .separarBottomButtonn{ margin-bottom: 2.5%; }
 .separarBottom{ margin-bottom: 0.8%; }
 .separarTop{ margin-top: 0.5%; }
@@ -12,8 +12,7 @@
 .colorPrioridad{ color: orange; }
 .colorAlerta{ box-shadow: 0px 0px 0.5px 2px red; }
 .textoAlerta{ color:red; font-weight: normal; }
-.colorNavConfiguracion{ color: #337ab7; }
-.colorNavAdministracion{ color: #28a745; }
+.colorNavIcon{ color: #fff; }
 .ocultar{display: none}
 .checkbox{width: 100%; height:25px}
 

@@ -3,7 +3,7 @@
 @section('content')
 
 	<ol class="breadcrumb">
-	  <li><a id="modulo" href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;Ausentismos</a></li>
+	  <li><a id="modulo" href="{{ route('vacaciones.index') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Ausentismos</a></li>
 	</ol>
 
 	<a href="{{ route('vacaciones.create') }}" class="btn btn-primary separarTop">Crear</a>
@@ -32,13 +32,13 @@
 						<td>{{ $ausentismo->fechaInicio }}</td>
 						<td>{{ $ausentismo->fechaFin }}</td>
 						<td>
-							<a title="Detalles" href="{{ route('vacaciones.show',$ausentismo->id) }}" class="btn btn-default btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('vacaciones.show',$ausentismo->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('vacaciones.edit',$ausentismo->id) }}" class="btn btn-warning btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('vacaciones.edit',$ausentismo->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('vacaciones.destroy',$ausentismo->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('vacaciones.destroy',$ausentismo->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

@@ -27,15 +27,7 @@
 </head>
 <body>
     <div id="app">
-        <div class="container">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2 center">
-                        <img class="logo" src="{{ asset('/img/logo.png') }}" />
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="container">        
             @yield('content')
         </div>

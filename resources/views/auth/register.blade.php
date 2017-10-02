@@ -65,6 +65,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Registrar
                                 </button>
+                                <a style="text-decoration: none;" href="{{ route('usuarios.index') }}">
+                                    {!! Form::button('Regresar',['class' => 'btn btn-default'])  !!}
+                                </a>
                             </div>
                         </div>
                     </form>

@@ -9,7 +9,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="{{ route('empleados.index') }}"><span class="colorNavIcon">Logo</span></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,17 +17,17 @@
       <ul class="nav navbar-nav">
 
         <li>
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs colorNavConfiguracion" aria-hidden="true"></i>&nbsp;Configuración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs colorNavIcon" aria-hidden="true"></i>&nbsp;Configuración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></b></a>
           <ul class="dropdown-menu multi-level">
 
               <li>
                 <a href="{{ route('listasDesplegables.index') }}">
-                  <i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp;Listas desplegables
+                  Listas desplegables <i class="fa fa-angle-double-down" aria-hidden="true"></i>
                 </a>
               </li>
               <li>
                 <a href="{{ route('usuarios.index')}}">
-                  <i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;Usuarios
+                  Usuarios <i class="fa fa-users" aria-hidden="true"></i>
                 </a>
               </li>
               <!-- <li><a href="#">Action</a></li>   -->            
@@ -75,16 +75,16 @@
         </li> -->
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cubes colorNavAdministracion" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cubes colorNavIcon" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
-              <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i> Empleados</a></li>
-              <li><a href="{{ route('contratos.index') }}"><i class="fa fa-file-text-o" aria-hidden="true"></i> Contratos</a></li>
-              <li><a href="{{ route('formaciones.index') }}"><i class="fa fa-graduation-cap" aria-hidden="true"></i> Formación</a></li>
-              <li><a href="{{ route('examenes.index') }}"><i class="fa fa-heartbeat" aria-hidden="true"></i> Exámenes</a></li>
-              <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i> Ausentismo</a></li>
-              <li><a href="{{ route('SST.index') }}"><i class="fa fa-shield" aria-hidden="true"></i> SST</a></li>
-              <li><a href="{{ route('adjuntos.index') }}"><i class="fa fa-upload" aria-hidden="true"></i> Adjuntos</a></li>
+              <li><a href="{{ route('empleados.index') }}">Empleados <i class="fa fa-user" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('contratos.index') }}">Contratos <i class="fa fa-file-text-o" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('formaciones.index') }}">Formación <i class="fa fa-graduation-cap" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('examenes.index') }}">Exámenes <i class="fa fa-heartbeat" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('vacaciones.index') }}">Ausentismo <i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('SST.index') }}">SST <i class="fa fa-shield" aria-hidden="true"></i></a></li>
+              <li><a href="{{ route('adjuntos.index') }}">Adjuntos <i class="fa fa-upload" aria-hidden="true"></i></a></li>
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>

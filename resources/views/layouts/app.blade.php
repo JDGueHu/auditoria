@@ -51,6 +51,11 @@
     <script src="{{ asset('plugins/dataTable/js/buttons.print.min.js') }}"></script>
 
     <script src="{{ asset('plugins/jquery_confirm/js/jquery-confirm.min.js') }}"></script>
+    <script> // Tooltips
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
     @yield('js') 
 

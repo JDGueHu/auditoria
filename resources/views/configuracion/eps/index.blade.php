@@ -26,13 +26,13 @@
 						<td>{{ $eps->codigo }}</td>
 						<td>{{ $eps->eps }}</td>
 						<td>
-							<a title="Detalles" href="{{ route('eps.show',$eps->id) }}" class="btn btn-default btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('eps.show',$eps->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('eps.edit',$eps->id) }}" class="btn btn-warning btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('eps.edit',$eps->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('eps.destroy',$eps->id) }}" class="btn btn-danger btn-xs confirm_F">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('eps.destroy',$eps->id) }}" class="btn btn-danger btn-xs confirm_F">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

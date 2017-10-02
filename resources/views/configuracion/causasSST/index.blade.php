@@ -33,13 +33,13 @@
 						@endif
 						
 						<td>
-							<a title="Detalles" href="{{ route('causasSST.show',$causaSST->id) }}" class="btn btn-default btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('causasSST.show',$causaSST->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('causasSST.edit',$causaSST->id) }}" class="btn btn-warning btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('causasSST.edit',$causaSST->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('causasSST.destroy',$causaSST->id) }}" class="btn btn-danger btn-xs confirm_F">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('causasSST.destroy',$causaSST->id) }}" class="btn btn-danger btn-xs confirm_F">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

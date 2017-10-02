@@ -36,13 +36,13 @@
 						<td>{{ $formacion->AreaEstudio->areaEstudio }}</td>
 						<td>{{ $formacion->estado }}</td>
 						<td>
-							<a title="Detalles" href="{{ route('formaciones.show',$formacion->id) }}" class="btn btn-default btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('formaciones.show',$formacion->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a title="Editar" href="{{ route('formaciones.edit',$formacion->id) }}" class="btn btn-warning btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('formaciones.edit',$formacion->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a title="Eliminar" href="{{ route('formaciones.destroy',$formacion->id) }}" class="btn btn-danger btn-xs confirm_F">
+							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('formaciones.destroy',$formacion->id) }}" class="btn btn-danger btn-xs confirm_F">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

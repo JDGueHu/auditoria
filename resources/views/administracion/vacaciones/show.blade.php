@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;Ausentismo</a></li>
+  <li><a href="{{ route('vacaciones.index') }}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Ausentismo</a></li>
   <li class="active">Detalles</li>
 </ol>
 
