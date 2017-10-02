@@ -129,4 +129,12 @@ class adjuntosController extends Controller
         flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
         return redirect()->route('adjuntos.index');
     }
+
+    public function showAjax($id)
+    {
+
+        $adjunto = Adjunto::find($id);
+
+        return $adjunto;
+    }
 }

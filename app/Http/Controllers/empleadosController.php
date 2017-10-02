@@ -15,6 +15,16 @@ use App\FondosCesantias;
 use App\NivelRiesgo;
 use App\TipoContrato;
 use App\Contrato;
+use App\NivelEstudio;
+use App\AreaEstudio;
+use App\Formacion;
+use App\Examen;
+use App\Vacacion;
+use App\TipoVacaciones;
+use App\SST;
+use App\TipoSST;
+use App\causaSSt;
+use App\Adjunto;
 
 class empleadosController extends Controller
 {
@@ -118,7 +128,22 @@ class empleadosController extends Controller
         $fondosPensiones = FondosPensiones::where('alive',True)->pluck('fondosPensiones','id');
         $fondosCesantias = FondosCesantias::where('alive',True)->pluck('fondosCesantias','id');
         $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
-        $contratos = Contrato::where('empleado_id','=',$id)->where('alive',true)->get();      
+        $contratos = Contrato::where('empleado_id','=',$id)->where('alive',true)->get();    
+        $nivelesFormacion = NivelEstudio::where('alive',true)->pluck('nivelEstudio','id');
+        $areasformacion = AreaEstudio::where('alive',true)->pluck('areaEstudio','id'); 
+        $formaciones = Formacion::where('empleado_id','=',$id)->where('alive',true)->get(); 
+        $examenes = Examen::where('empleado_id','=',$id)->where('alive',true)->get();   
+        $tiposAusentismo = TipoVacaciones::where('alive',true)->pluck('tipoVacaciones','id');
+        $ausentismos = Vacacion::where('empleado_id','=',$id)->where('alive',true)->get();
+        $tipoSST = TipoSST::where('alive',true)->pluck('tipoSST','id');
+        $causasSSt_principales = causaSSt::where('alive',true)
+            ->where('principal',true)
+            ->pluck('causa','id');
+        $causasSSt_complementarias = causaSSt::where('alive',true)
+            ->where('principal',false)
+            ->pluck('causa','id');
+        $SSTs = SST::where('empleado_id','=',$id)->where('alive',true)->get();
+        $adjuntos = Adjunto::where('empleado_id','=',$id)->where('alive',true)->get();
 
         return view('administracion.empleados.show')
             ->with('empleado',$empleado)
@@ -130,7 +155,18 @@ class empleadosController extends Controller
             ->with('fondosPensiones',$fondosPensiones)
             ->with('fondosCesantias',$fondosCesantias)
             ->with('tiposContrato',$tiposContrato)
-            ->with('contratos',$contratos);
+            ->with('contratos',$contratos)
+            ->with('nivelesFormacion',$nivelesFormacion)
+            ->with('areasformacion',$areasformacion)
+            ->with('formaciones',$formaciones)
+            ->with('examenes',$examenes)
+            ->with('tiposAusentismo',$tiposAusentismo)
+            ->with('ausentismos',$ausentismos)
+            ->with('tipoSST',$tipoSST)
+            ->with('causasSSt_principales',$causasSSt_principales)
+            ->with('causasSSt_complementarias',$causasSSt_complementarias)
+            ->with('SSTs',$SSTs)
+            ->with('adjuntos',$adjuntos);
     }
 
     /**

@@ -25,7 +25,11 @@
                   <i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;&nbsp;Listas desplegables
                 </a>
               </li>
-              
+              <li>
+                <a href="{{ route('usuarios.index')}}">
+                  <i class="fa fa-users" aria-hidden="true"></i>&nbsp;&nbsp;Usuarios
+                </a>
+              </li>
               <!-- <li><a href="#">Action</a></li>   -->            
               <!-- <li class="divider"></li> -->
               <!-- <li class="divider"></li> -->
@@ -71,7 +75,7 @@
         </li> -->
 
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users colorNavAdministracion" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cubes colorNavAdministracion" aria-hidden="true"></i>&nbsp;Administración&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></span></a>
           <ul class="dropdown-menu">
             <!--li role="separator" class="divider"></li-->
               <li><a href="{{ route('empleados.index') }}"><i class="fa fa-user" aria-hidden="true"></i> Empleados</a></li>

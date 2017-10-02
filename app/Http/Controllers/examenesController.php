@@ -158,4 +158,12 @@ class examenesController extends Controller
         flash('Examen de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
         return redirect()->route('examenes.index');
     }
+
+    public function showAjax($id)
+    {
+
+        $examen = Examen::find($id);
+
+        return $examen;
+    }
 }

@@ -201,7 +201,7 @@
 
 <!--             {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevo', 'data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!} -->
 
-            <!-- Modal Create-->
+            <!-- Modal Contratos-->
             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -250,8 +250,8 @@
                   </div>
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary', 'id'=>'addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary', 'id'=>'editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
                   </div>
                 </div>
               </div>
@@ -297,6 +297,102 @@
         <div class="collapse" id="ventana5">
         <div class="panel-body">
 
+            <!-- Modal Formacion-->
+            <div class="modal fade" id="modalFormaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Formación</span></h5>
+                  </div>
+                  <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('tipoEstudio','Tipo')  !!}
+                                {!! Form::select('tipoEstudio', ['Academica'=>'Académica','Complementaria'=>'Complementaria'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoEstudio'])  !!} 
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('intExt','Categoría')  !!}
+                                {!! Form::select('intExt', ['Interna'=>'Interna','Externa'=>'Externa'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un categoría','id'=>'intExt'])  !!} 
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('nivelEstudio_id','Nivel de estudio')  !!}
+                                {!! Form::select('nivelEstudio_id', $nivelesFormacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un nivel de estudio','id'=>'nivelEstudio_id'])  !!} 
+                            </div> 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('areaEstudio_id','Área')  !!}
+                                {!! Form::select('areaEstudio_id', $areasformacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una área','id'=>'areaEstudio_id'])  !!} 
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('titulacion','Titulación')  !!}
+                                {!! Form::text('titulacion',null, ['class' => 'form-control', 'required', 'id'=>'titulacion'])  !!}
+                            </div>
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('institucionEducativa','Institución educativa')  !!}
+                                {!! Form::text('institucionEducativa',null, ['class' => 'form-control', 'required', 'id'=>'institucionEducativa'])  !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('estadoFormacion','Estado')  !!}
+                                {!! Form::select('estadoFormacion', ['Abandonado'=>'Abandonado', 'Aplazado'=>'Aplazado', 'Culminado'=>'Culminado','En curso'=>'En curso'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadoFormacion'])  !!} 
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('fechaInicioFormacion','Fecha de inicio')  !!}
+                                {!! Form::date('fechaInicioFormacion', null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioFormacion'])  !!}
+                            </div>
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('fechaFinFormacion','Fecha de finalización')  !!}
+                                {!! Form::date('fechaFinFormacion', null, ['class' => 'form-control', 'required', 'id'=>'fechaFinFormacion'])  !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('ciudadFormacion','Ciudad de estudio')  !!}
+                                {!! Form::text('ciudadFormacion', null, ['class' => 'form-control', 'required', 'id'=>'ciudadFormacion'])  !!}
+                            </div> 
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table id="inlineFormaciones" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Tipo formación</th>
+                        <th>Clasificación</th>
+                        <th>Nivel de formación</th>
+                        <th>Área de formación</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tbody>
+                        @foreach($formaciones as $formacion)
+                            <tr>
+                                <td>{{ $formacion->tipoEstudio }}</td>
+                                <td>{{ $formacion->intExt}}<span style="opacity: 0">-{{$formacion->id }}</span></td>
+                                <td>{{ $formacion->NivelEstudio->nivelEstudio }}</td>
+                                <td>{{ $formacion->AreaEstudio->areaEstudio }}</td>
+                                <td>{{ $formacion->estado }}</td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetailFormaciones">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
+
         </div>
     </div>
 </div>
@@ -306,14 +402,154 @@
         <div class="collapse" id="ventana6">
         <div class="panel-body">
 
+            <!-- Modal Examen-->
+            <div class="modal fade" id="modalExamenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Exámen</span></h5>
+                  </div>
+                  <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('tipoExamen','Tipo')  !!}
+                                {!! Form::select('tipoExamen', ['Ingreso'=>'Ingreso','Periodico'=>'Periodico','Extraordinario'=>'Extraordinario','Retiro'=>'Retiro'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoExamen', 'required'])  !!} 
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::label('fechaExamen','Fecha del examen')  !!}
+                                {!! Form::date('fechaExamen',null, ['class' => 'form-control', 'required', 'id'=>'fechaExamen'])  !!}
+                            </div> 
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('concepto','Concepto médico')  !!}
+                                {!! Form::textarea('concepto',null, ['class' => 'form-control', 'required', 'id'=>'concepto','size' => '30x3'])  !!}
+                            </div>
+                        </div>
+                        <hr>
+                        <table id="inlineRestriccionesMedicas" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Restricciones médicas</th>
+                                </tr>
+                                <tbody>
+                                </tbody>
+                            </thead>
+                        </table>
+
+                  </div>
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table id="inlineExamenes" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Tipo examen</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tbody>
+                        @foreach($examenes as $examen)
+                            <tr>
+                                <td>{{ $examen->tipoExamen}}<span style="opacity: 0">-{{$examen->id }}</td>
+                                <td>{{ $examen->fechaExamen}}</td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetailExamenes">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
+
         </div>
     </div>
 </div>
 
 <div class="panel panel-info">    
-    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana7" aria-expanded="false" aria-controls="ventana7">Vacaciones, permisos, licencias o similares</div>
+    <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana7" aria-expanded="false" aria-controls="ventana7">Vacaciones, permisos o similares</div>
         <div class="collapse" id="ventana7">
         <div class="panel-body">
+
+            <!-- Modal Ausentismo-->
+            <div class="modal fade" id="modalAusentismo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Ausentismo</span></h5>
+                  </div>
+                  <div class="modal-body">
+                        <div class="row">   
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('tipoVacacion','Tipo ausentismo')  !!}
+                                {!! Form::select('tipoVacacion', $tiposAusentismo, null, ['class' => 'form-control', 'placeholder' => 'Seleccione tipo de ausentismo','id'=>'tipoVacacion','required'])  !!} 
+                            </div>
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('fechaInicioAusentismo','Fecha de inicio')  !!}
+                                {!! Form::date('fechaInicioAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioAusentismo'])  !!}
+                            </div>
+                        </div>
+
+                        <div class="row">   
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('fechaFinAusentismo','Fecha de finalización')  !!}
+                                {!! Form::date('fechaFinAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'fechaFinAusentismo', 'readonly'])  !!}
+                            </div>
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('diasAusentismo','Número de días')  !!}
+                                {!! Form::text('diasAusentismo',null, ['class' => 'form-control', 'readonly', 'id'=>'diasAusentismo'])  !!}
+                            </div>
+                        </div>
+
+                        <div class="row">  
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('detallesAusentismo','Detalles')  !!}
+                                {!! Form::textarea('detallesAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'detallesAusentismo','size' => '30x3'])  !!}
+                            </div>
+                        </div>
+                  </div>
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table id="inlineAusentismos" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Tipo de ausentismo</th>
+                        <th>Fecha inicio</th>
+                        <th>Fecha fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tbody>
+                        @foreach($ausentismos as $ausentismo)
+                            <tr>
+                                <td>{{ $ausentismo->TipoVacaciones->tipoVacaciones}}<span style="opacity: 0">-{{$ausentismo->id }}</span></td>
+                                <td>{{ $ausentismo->fechaInicio}}</td>
+                                <td>{{ $ausentismo->fechaFin }}</td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetailAusentismo">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
 
         </div>
     </div>
@@ -324,6 +560,81 @@
         <div class="collapse" id="ventana8">
         <div class="panel-body">
 
+            <!-- Modal SST-->
+            <div class="modal fade" id="modalSST" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">SST</span></h5>
+                  </div>
+                  <div class="modal-body">
+
+                        <div class="row">   
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('tipoSST_id','Tipo SST')  !!}
+                                {!! Form::select('tipoSST_id', $tipoSST, null, ['class' => 'form-control', 'placeholder' => 'Seleccione tipo de SST','id'=>'tipoSST_id','required'])  !!} 
+                            </div>
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('fechaSST','Fecha')  !!}
+                                {!! Form::date('fechaSST',null, ['class' => 'form-control', 'required', 'id'=>'fechaSST'])  !!}
+                            </div>
+                        </div>
+
+                        <div class="row">  
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('causaPrincipal_id','Causa principal')  !!}
+                                {!! Form::select('causaPrincipal_id', $causasSSt_principales, null, ['class' => 'form-control chosen', 'placeholder' => 'Seleccione una causa','id'=>'causaPrincipal_id','required'])  !!} 
+                            </div>
+                        </div>
+
+                        <div class="row">  
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('causaComplementaria_id','Causa complementaria')  !!}
+                                {!! Form::select('causaComplementaria_id', $causasSSt_complementarias, null, ['class' => 'form-control chosen', 'placeholder' => 'Seleccione una causa','id'=>'causaComplementaria_id','required'])  !!} 
+                            </div>
+                        </div>
+
+                        <div class="row">  
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('detallesSST','Detalles')  !!}
+                                {!! Form::textarea('detallesSST',null, ['class' => 'form-control', 'required', 'id'=>'detallesSST','size' => '30x3'])  !!}
+                            </div>
+                        </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table id="inlineSST" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Tipo SST</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tbody>
+                        @foreach($SSTs as $SST)
+                            <tr>
+                                <td>{{ $SST->TipoSST->tipoSST}}<span style="opacity: 0">-{{$SST->id }}</span></td>
+                                <td>{{ $SST->fechaSST }}</td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetailSST">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
+
         </div>
     </div>
 </div>
@@ -332,6 +643,76 @@
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana9" aria-expanded="false" aria-controls="ventana9">Adjuntos</div>
         <div class="collapse" id="ventana9">
         <div class="panel-body">
+
+            <!-- Modal Adjunto-->
+            <div class="modal fade" id="modalAdjunto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Adjunto</span></h5>
+                  </div>
+                  <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-8 separarBottom">
+                            {!! Form::label('nombre','Nombre adjunto')  !!}
+                            {!! Form::text('nombre',null, ['class' => 'form-control', 'id'=>'nombre'])  !!}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 separarBottom">
+                            {!! Form::label('ruta','Ruta')  !!}
+                            <a title="Adjunto" href="#" id="linkHref" target="_blank">
+                                <span id="ruta"></span>
+                            </a>
+                        </div> 
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 separarBottom">
+                            {!! Form::label('detallesAdjunto','Detalles')  !!}
+                            {!! Form::textarea('detallesAdjunto',null, ['class' => 'form-control', 'id'=>'detallesAdjunto', 'size' => '2x3'])  !!}
+                        </div>
+                    </div>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <table id="inlineAdjuntos" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Nombre adjunto</th>
+                        <th>Ruta</th>
+                        <th>Acciones</th>
+                    </tr>
+                    <tbody>
+                        @foreach($adjuntos as $adjunto)
+                            <tr>
+                                <td>{{ $adjunto->nombre}}<span style="opacity: 0">-{{$adjunto->id }}</span></td>
+                                <td>
+                                    <a title="Adjunto" href="{{ $adjunto->ruta }}" target="_blank">
+                                    {{ $adjunto->ruta }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a title="Detalles" class="btn btn-default btn-xs buttonDetailAdjunto">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </thead>
+            </table>
 
         </div>
     </div>
@@ -347,6 +728,11 @@
 
 @section('js')
     <script src="{{ asset('js/empleados/show.js') }}"></script>
-    <!-- Para submodulo contrato -->
+    <!-- Para submodulos -->
     <script src="{{ asset('js/tableInlineContrato.js') }}"></script>
+    <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
+    <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
+    <script src="{{ asset('js/tableInlineAusentismos.js') }}"></script>
+    <script src="{{ asset('js/tableInlineSST.js') }}"></script>
+    <script src="{{ asset('js/tableInlineAdjuntos.js') }}"></script>
 @endsection

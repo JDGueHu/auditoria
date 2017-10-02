@@ -175,4 +175,12 @@ class SSTController extends Controller
         flash('SST de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
         return redirect()->route('SST.index');
     }
+
+    public function showAjax($id)
+    {
+
+        $SST = SST::find($id);
+
+        return $SST;
+    }
 }

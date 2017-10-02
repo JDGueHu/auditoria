@@ -148,4 +148,12 @@ class vacacionesController extends Controller
         flash('Ausentismo de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
         return redirect()->route('vacaciones.index');
     }
+
+    public function showAjax($id)
+    {
+
+        $ausentismo = Vacacion::find($id);
+
+        return $ausentismo;
+    }
 }

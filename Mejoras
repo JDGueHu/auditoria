@@ -6,8 +6,10 @@
 - Iconografía
 - Validacion de campos ocultos
 - Agregar tooltip
-
-
+- Agregar roles y permisos
+- Agregar modificarcion/recuperacion contraseña
+- Agregar usuario actual a todas las actividades del sistema
+- Agregar log de actividades importantes
 
 A TENER EN CUENTA PARA INSTALAR EN SERVDOR
 

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\RestriccionMedica;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 
-class restriccionesMedicasController extends Controller
+class usuariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,10 @@ class restriccionesMedicasController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = User::where('alive',true)->get();
+
+        return view('configuracion.usuarios.index')
+            ->with('usuarios',$usuarios);
     }
 
     /**
@@ -24,9 +28,17 @@ class restriccionesMedicasController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.register');
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -35,7 +47,18 @@ class restriccionesMedicasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validator($request->all())->validate();
+
+        $usuario = new User();
+
+        $usuario->name = $request->name;
+        $usuario->email = $request->email;
+        $usuario->password = bcrypt($request->password);
+        $usuario->save();
+
+        flash('Usuario <b>'.$usuario->name.'</b> se creó exitosamente', 'success')->important();
+        return redirect()->route('usuarios.index');
+
     }
 
     /**
@@ -80,39 +103,12 @@ class restriccionesMedicasController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        $usuario = User::find($id);
 
-    public function createAjax(request $request)
-    {
-        if($request->ajax()){    
+        $usuario->alive = false;
+        $usuario->save();
 
-            $restriccion = new RestriccionMedica();
-
-            $restriccion->restriccion = $request->restriccion;
-            $restriccion->id_examen = $request->tmp;
-            $restriccion->save();
-
-            return response($restriccion);
-        }
-    }
-
-    public function destroyAjax($id)
-    {
-
-        $restriccion = RestriccionMedica::find($id);
-
-        $restriccion->alive = false;
-        $restriccion->save();
-
-        return response($restriccion);
-    }
-
-    public function showAjax($id)
-    {
-
-        $restricciones = RestriccionMedica::where('id_examen','=',$id)->where('alive',true)->get();
-
-        return $restricciones;
+        flash('Usuario de <b>'.$usuario->name.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('usuarios.index');
     }
 }

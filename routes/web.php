@@ -12,14 +12,27 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
-Auth::routes();
+// Authentication Routes...
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Registration Routes...
+// Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// Route::post('register', 'Auth\RegisterController@register');
 
-Route::group(['prefix'=>'configuracion'],function(){
+// Password Reset Routes...
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+Route::get('/home', 'HomeController@index');
+
+Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 
 	Route::resource('centroTrabajo','centroTrabajoController');
 	Route::get('centroTrabajo/{id}/destroy',[
@@ -95,10 +108,15 @@ Route::group(['prefix'=>'configuracion'],function(){
 		'as' => 'areasEstudio.destroy'
 	]);
 
+	Route::resource('usuarios','usuariosController');
+	Route::get('usuarios/{id}/destroy',[
+		'uses' => 'usuariosController@destroy',
+		'as' => 'usuarios.destroy'
+	]);
 
 });
 
-Route::group(['prefix'=>'administracion'],function(){
+Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 
 	Route::resource('empleados','empleadosController');
 	Route::get('empleados/{id}/destroy',[
@@ -141,6 +159,10 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'formacionesController@crearFormacionAjax',
 		'as' => 'formaciones.crearFormacionAjax'
 	]);
+	Route::get('formaciones/{id}/showAjax',[
+		'uses' => 'formacionesController@showAjax',
+		'as' => 'formaciones.showAjax'
+	]);
 
 	Route::resource('restriccionesMedicas','restriccionesMedicasController');
 	Route::post('restriccionesMedicas/createAjax',[
@@ -151,11 +173,19 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'restriccionesMedicasController@destroyAjax',
 		'as' => 'restriccionesMedicas.destroyAjax'
 	]);
+	Route::get('restriccionesMedicas/{id}/showAjax',[
+		'uses' => 'restriccionesMedicasController@showAjax',
+		'as' => 'restriccionesMedicas.showAjax'
+	]);
 
 	Route::resource('examenes','examenesController');
 	Route::get('examenes/{id}/destroy',[
 		'uses' => 'examenesController@destroy',
 		'as' => 'examenes.destroy'
+	]);
+	Route::get('examenes/{id}/showAjax',[
+		'uses' => 'examenesController@showAjax',
+		'as' => 'examenes.showAjax'
 	]);
 
 	Route::resource('tiposVacaciones','tiposVacacionesController');
@@ -168,6 +198,10 @@ Route::group(['prefix'=>'administracion'],function(){
 	Route::get('vacaciones/{id}/destroy',[
 		'uses' => 'vacacionesController@destroy',
 		'as' => 'vacaciones.destroy'
+	]);
+	Route::get('vacaciones/{id}/showAjax',[
+		'uses' => 'vacacionesController@showAjax',
+		'as' => 'vacaciones.showAjax'
 	]);
 
 	Route::resource('tiposSST','tiposSSTController');
@@ -188,11 +222,19 @@ Route::group(['prefix'=>'administracion'],function(){
 		'uses' => 'SSTController@destroy',
 		'as' => 'SST.destroy'
 	]);
+	Route::get('SST/{id}/showAjax',[
+		'uses' => 'SSTController@showAjax',
+		'as' => 'SST.showAjax'
+	]);
 
 	Route::resource('adjuntos','adjuntosController');
 	Route::get('adjuntos/{id}/destroy',[
 		'uses' => 'adjuntosController@destroy',
 		'as' => 'adjuntos.destroy'
+	]);
+	Route::get('adjuntos/{id}/showAjax',[
+		'uses' => 'adjuntosController@showAjax',
+		'as' => 'adjuntos.showAjax'
 	]);
 
 });

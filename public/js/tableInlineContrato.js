@@ -240,8 +240,8 @@ $(document).ready(function() {
 			  type: 'GET'
 			}).done(function(response){
 
-				$("#addRow").addClass("ocultar");
-				$("#editRow").addClass("ocultar");
+				$(".addRow").addClass("ocultar");
+				$(".editRow").addClass("ocultar");
 				$("#tipoContrato").prop( "disabled", true );
 				$("#estadContrato").prop( "disabled", true );
 				$("#detalles").prop( "disabled", true );

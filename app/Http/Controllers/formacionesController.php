@@ -189,4 +189,17 @@ class formacionesController extends Controller
 
         }
     }
+
+    public function showAjax($id)
+    {
+
+        $formaciones = DB::table('formaciones')
+        ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
+        ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
+        ->where('formaciones.alive',true)
+        ->select('areasEstudio.id as areasEstudio', 'nivelesEstudio.id as nivelEstudio','formaciones.*')
+        ->get();
+
+        return $formaciones;
+    }
 }
