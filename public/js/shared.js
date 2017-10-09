@@ -146,7 +146,6 @@ $(document).ready(function() {
 
     $( "#fechaInicio" ).change(function(){
         if($("#fechaInicio").val() != ""){
-            document.getElementById("fechaFin").removeAttribute("readonly");
 
             //// Restringir la seleccion de fecha para la fecha de finalizacion ////
             var fecha = new Date($("#fechaInicio").val());

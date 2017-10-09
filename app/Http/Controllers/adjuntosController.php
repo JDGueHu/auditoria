@@ -50,7 +50,7 @@ class adjuntosController extends Controller
     {   
         $adjunto = new Adjunto();
         $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
-
+        //dd($request);
         $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
         $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
         $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines

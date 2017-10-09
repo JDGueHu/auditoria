@@ -108,79 +108,79 @@ $( document ).ready(function() {
 });
 
 
-	function validaTipoContratoIndefinidoAjax(){  /// Funcion asincrona
+	// function validaTipoContratoIndefinidoAjax(){  /// Funcion asincrona
 		
-		var indefinido;
+	// 	var indefinido;
 
-	  	if($("#tipoContrato").val() != ""){
+	//   	if($("#tipoContrato").val() != ""){
 	  	  			
-			$.ajax({
-			  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
-			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-			  type: 'GET',
-			}).done(function(response){
-				validaTipoContratoIndefinido(response)					
-			});
-		}else{
-			validaTipoContratoIndefinido(3);
-		}
+	// 		$.ajax({
+	// 		  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+	// 		  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+	// 		  type: 'GET',
+	// 		}).done(function(response){
+	// 			validaTipoContratoIndefinido(response)					
+	// 		});
+	// 	}else{
+	// 		validaTipoContratoIndefinido(3);
+	// 	}
 
-	}
+	// }
 
-	function validaTipoContratoIndefinido(val){
+	// function validaTipoContratoIndefinido(val){
 
-		if(val != 3){document.getElementById("fechaInicio").removeAttribute("readonly");}
-		else{
-			document.getElementById("fechaInicio").setAttribute("readonly","readonly");
-			$("#fechaInicio").val("");
-		}
+	// 	if(val != 3){document.getElementById("fechaInicio").removeAttribute("readonly");}
+	// 	else{
+	// 		document.getElementById("fechaInicio").setAttribute("readonly","readonly");
+	// 		$("#fechaInicio").val("");
+	// 	}
 
-		if(val == 1){
-		 	document.getElementById("fechaInicio").removeAttribute("readonly");
-		 	document.getElementById("duracion").setAttribute("readonly","readonly");
-		 	$("#duracion").val( "" );
-		}else if(val == 0){
-		 	//document.getElementById("duracion").removeAttribute("readonly");
-		 }else{
-	 		document.getElementById("duracion").setAttribute("readonly","readonly");
+	// 	if(val == 1){
+	// 	 	document.getElementById("fechaInicio").removeAttribute("readonly");
+	// 	 	document.getElementById("duracion").setAttribute("readonly","readonly");
+	// 	 	$("#duracion").val( "" );
+	// 	}else if(val == 0){
+	// 	 	//document.getElementById("duracion").removeAttribute("readonly");
+	// 	 }else{
+	//  		document.getElementById("duracion").setAttribute("readonly","readonly");
 
-	 		$("#requeridoTipoContrato").addClass( "ocultar" );
-	 		$("#requeridoDuracionContrato").addClass( "ocultar" );
-	 		$("#requeridoFechaIniContrato").addClass( "ocultar" );
-	 		$("#requeridoEstadoContrato").addClass( "ocultar" );
-		 }
-	}
+	//  		$("#requeridoTipoContrato").addClass( "ocultar" );
+	//  		$("#requeridoDuracionContrato").addClass( "ocultar" );
+	//  		$("#requeridoFechaIniContrato").addClass( "ocultar" );
+	//  		$("#requeridoEstadoContrato").addClass( "ocultar" );
+	// 	 }
+	// }
 
-	function validaTipoContratoFechaAjax(){  /// Funcion asincrona
+	// function validaTipoContratoFechaAjax(){  /// Funcion asincrona
 		
-		var indefinido;
+	// 	var indefinido;
 
-	  	if($("#tipoContrato").val() != ""){
+	//   	if($("#tipoContrato").val() != ""){
 	  	  			
-			$.ajax({
-			  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
-			  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-			  type: 'GET',
-			}).done(function(response){
-				validaTipoContratoFecha(response)					
-			});
-		}else{
-			validaTipoContratoFecha(3);
-		}
+	// 		$.ajax({
+	// 		  url: '../../../configuracion/tiposContrato/'+$("#tipoContrato").val()+'/indefinido',
+	// 		  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+	// 		  type: 'GET',
+	// 		}).done(function(response){
+	// 			validaTipoContratoFecha(response)					
+	// 		});
+	// 	}else{
+	// 		validaTipoContratoFecha(3);
+	// 	}
 
-	}
+	// }
 
-	function validaTipoContratoFecha(val){
+	// function validaTipoContratoFecha(val){
 
-		if(val == 0){
-			if($("#fechaInicio").val() == ""){
-				document.getElementById("duracion").setAttribute("readonly","readonly");
-				$("#duracion").val( "" );
-			}else{
-		 	document.getElementById("duracion").removeAttribute("readonly");
-			}
-	    }else{
-	 		document.getElementById("duracion").setAttribute("readonly","readonly");
-			$("#duracion").val( "" );
-		 }
-	}
+	// 	if(val == 0){
+	// 		if($("#fechaInicio").val() == ""){
+	// 			document.getElementById("duracion").setAttribute("readonly","readonly");
+	// 			$("#duracion").val( "" );
+	// 		}else{
+	// 	 	document.getElementById("duracion").removeAttribute("readonly");
+	// 		}
+	//     }else{
+	//  		document.getElementById("duracion").setAttribute("readonly","readonly");
+	// 		$("#duracion").val( "" );
+	// 	 }
+	// }

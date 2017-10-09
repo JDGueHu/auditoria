@@ -194,21 +194,24 @@
 
 <input type="hidden" value="{{ $empleado->id }}" name="empleado_id" id="empleado_id">
 
+{!! Form::close() !!}
+
 <div class="panel panel-info">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana4" aria-expanded="false" aria-controls="ventana4">Contratación</div>
         <div class="collapse" id="ventana4">
         <div class="panel-body">
 
-<!--             {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevo', 'data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!} -->
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevo', 'data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
 
-            <!-- Modal Contratos-->
+             <!--  Modal Contratos -->
             <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Contrato</span></h5>
                   </div>
-                  <div class="modal-body">
+                  <div class="modal-body"> 
+                    {!! Form::open(['enctype' => 'multipart/form-data']) !!}
                         <div class="row">
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('tipoContrato','Tipo de contrato')  !!}
@@ -240,20 +243,27 @@
                                 {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], 'Activo', ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato'])  !!} 
                                 {!! Form::label('estadContrato','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoContrato'])  !!}
                             </div> 
+                            <div class="col-md-6 separarBottom">
+                                {!! Form::label('adjuntoContrato','Adjunto')  !!}
+                                {{ Form::file('adjuntoContrato', ['class' => 'form-control','id'=>'adjuntoContrato']) }}
+                            </div> 
                         </div>
+
                         <div class="row">
                             <div class="col-md-12 separarBottom">
                                 {!! Form::label('detalles','Detalles')  !!}
                                 {{ Form::textarea('detalles', null, ['size' => '3x3','class' => 'form-control', 'placeholder' => 'Detalles de contratación','id'=>'detalles']) }}
                             </div> 
                         </div>
+                  {!! Form::close() !!}
                   </div>
+
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
                     {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
                     {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
                   </div>
-                </div>
+                 </div>
               </div>
             </div>
 
@@ -264,7 +274,8 @@
                         <th>Tipo contrato</th>
                         <th>Estado</th>
                         <th>Fecha inicio</th>
-                        <th>Fecha Fin</th>
+                        <th>Fecha fin</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -274,13 +285,14 @@
                                 <td>{{ $contrato->estado}}<span style="opacity: 0">-{{$contrato->id }}</span></td>
                                 <td>{{ $contrato->fechaInicio }}</td>
                                 <td>{{ $contrato->fechaFin }}</td>
+                                <td>{{ $contrato->adjunto }}</td>
                                 <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetail">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                     </a>
-<!--                                     <a title="Eliminar" name="Hola" class="btn btn-danger btn-xs buttonDestroy">
+                                    <a title="Eliminar" name="Hola" class="btn btn-danger btn-xs buttonDestroy">
                                         <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                    </a> -->
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
@@ -722,14 +734,16 @@
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 
-{!! Form::close() !!}
 
 @endsection
 
 @section('js')
     <script src="{{ asset('js/empleados/show.js') }}"></script>
+    <script src="{{ asset('js/shared.js') }}"></script>
     <!-- Para submodulos -->
+    <script src="{{ asset('js/contratos/shared.js') }}"></script>
     <script src="{{ asset('js/tableInlineContrato.js') }}"></script>
+
     <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
     <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
     <script src="{{ asset('js/tableInlineAusentismos.js') }}"></script>

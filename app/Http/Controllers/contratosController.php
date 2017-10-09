@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Contrato;
 use App\Empleado;
 use App\TipoContrato;
+use Carbon\Carbon;
 
 class contratosController extends Controller
 {
@@ -60,8 +61,14 @@ class contratosController extends Controller
         $contrato->duracion = $request->duracion;
         $contrato->fechaFin = $request->fechaFin;
         $contrato->detalles = $request->detalles;
+
+        // Para cargar archivo
+        $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
+        $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
+        $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
+
         $contrato->estado = $request->estadContrato;
-        $contrato->save();
+        //$contrato->save();
 
         flash('Contrato de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('contratos.index');
@@ -156,6 +163,7 @@ class contratosController extends Controller
 
     public function createAjax(Request $request)
     {
+
         if($request->ajax()){   
 
             $contrato = new Contrato();
@@ -167,6 +175,7 @@ class contratosController extends Controller
             $contrato->fechaFin = $request->fechaFin; 
             $contrato->detalles = $request->detalles; 
             $contrato->estado = $request->estadContrato; 
+            //$contrato->adjunto = $request->adjuntoContrato;
             $contrato->save();
 
             $contrato = DB::table('contratos')
