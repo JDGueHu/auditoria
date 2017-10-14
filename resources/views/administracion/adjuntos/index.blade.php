@@ -29,8 +29,8 @@
                         <td>{{ $adjunto->Empleado->apellidos }}</td>
 						<td>{{ $adjunto->nombre }}</td>
 						<td>
-							<a title="Adjunto" href="{{ $adjunto->ruta }}" target="_blank">
-							{{ $adjunto->ruta }}
+							<a title="Adjunto" href="{{ $adjunto->adjunto }}" target="_blank">
+							{{ $adjunto->adjunto }}
 							</a>
 						</td>
 						<td>

@@ -155,13 +155,17 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'formacionesController@nivelFormacionAjax',
 		'as' => 'formaciones.nivelFormacionAjax'
 	]);
-	Route::post('formaciones/crearFormacionAjax',[
-		'uses' => 'formacionesController@crearFormacionAjax',
-		'as' => 'formaciones.crearFormacionAjax'
+	Route::post('formaciones/createAjax',[
+		'uses' => 'formacionesController@createAjax',
+		'as' => 'formaciones.createAjax'
 	]);
 	Route::get('formaciones/{id}/showAjax',[
 		'uses' => 'formacionesController@showAjax',
 		'as' => 'formaciones.showAjax'
+	]);
+	Route::get('formaciones/{id}/destroyAjax',[
+		'uses' => 'formacionesController@destroyAjax',
+		'as' => 'formaciones.destroyAjax'
 	]);
 
 	Route::resource('restriccionesMedicas','restriccionesMedicasController');

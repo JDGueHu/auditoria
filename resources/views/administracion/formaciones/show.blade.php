@@ -92,7 +92,5 @@
 
 @section('js')
     <script src="{{ asset('js/formacion/shared.js') }}"></script>
-    <script src="{{ asset('js/shared.js') }}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
-        async defer></script>
+
 @endsection

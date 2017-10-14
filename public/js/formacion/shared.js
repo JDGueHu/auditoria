@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	///// Caregar dependencia inpunts
+	///// Cargar dependencia inpunts
 
 	$( "#tipoEstudio" ).change(function(){
 
@@ -20,7 +20,7 @@ $(document).ready(function() {
 
 	/////////////////////////////////////////
 
-	/// Validar cambios en inputs
+	/// Quitar mensajes de campos requeridos cuando están diligenciados
 	$( "#tipoEstudio" ).change(function(){
     	if($("#tipoEstudio").val() != ""){
     		$("#requeridoTipoFormacion").addClass( "ocultar" );
@@ -57,28 +57,50 @@ $(document).ready(function() {
 		}
 	});
 
-	$( "#estado" ).change(function(){
-		if($("#estado").val() != ""){
+	$( "#estadoFormacion" ).change(function(){
+		
+		if($("#estadoFormacion").val() != ""){
 			$("#requeridoEstadoFormacion").addClass( "ocultar" );
-			if($("#estado").val() == "Culminado"){
-				document.getElementById("fechaFin").removeAttribute("readonly");
-				document.getElementById("fechaFin").setAttribute("required","required");
-			}
-			else{
-				document.getElementById("fechaFin").setAttribute("readonly","readonly");
+			if($("#estadoFormacion").val() != "Culminado" ){
+				document.getElementById("fechaFinFormacion").setAttribute("readonly","readonly");
+				document.getElementById("fechaFinFormacion").removeAttribute("required");
 				$("#requeridoFechaFinFormacion").addClass( "ocultar" );
-				$("#fechaFin").val('')			
+				$("#fechaFinFormacion").val('')		
+			}else{
+				if ($("#estadoFormacion").val() == "Culminado" && $("#fechaInicioFormacion").val() != "") {
+					document.getElementById("fechaFinFormacion").removeAttribute("readonly");
+					document.getElementById("fechaFinFormacion").setAttribute("required","required");
+				}
 			}
+		}else{			
+			document.getElementById("fechaFinFormacion").setAttribute("readonly","readonly");
+			document.getElementById("fechaFinFormacion").removeAttribute("required");
+			$("#requeridoFechaFinFormacion").addClass( "ocultar" );
+			$("#requeridoFechaIniFormacion").addClass( "ocultar" );	
+			$("#fechaInicioFormacion").val('')
+			$("#fechaFinFormacion").val('')	
 		}
+
 	});
 
-	$( "#fechaInicio" ).change(function(){
-		if($("#fechaInicio").val() != ""){
-			$("#requeridoFechaIniFormacion").addClass( "ocultar" );
+	$( "#fechaInicioFormacion" ).change(function(){
+		if($("#fechaInicioFormacion").val() != ""){
+			$("#requeridoFechaIniFormacion").addClass( "ocultar" );		
+		}
 
+		if($("#estadoFormacion").val() == "Culminado"){			
+			document.getElementById("fechaFinFormacion").removeAttribute("readonly");
+			document.getElementById("fechaFinFormacion").setAttribute("required","required");
+		}
+		else{
+			document.getElementById("fechaFinFormacion").setAttribute("readonly","readonly");
+			document.getElementById("fechaFinFormacion").removeAttribute("required");
+			$("#requeridoFechaFinFormacion").addClass( "ocultar" );
+			$("#fechaFinFormacion").val('')	
+		}
 
 		//// Restringir la seleccion de fecha para la fecha de finalizacion ////
-		var fecha = new Date($("#fechaInicio").val());
+		var fecha = new Date($("#fechaInicioFormacion").val());
 		var dd = fecha.getDate()+1;
 		var mm = fecha.getMonth()+1; //January is 0!
 		var yyyy = fecha.getFullYear();
@@ -90,40 +112,29 @@ $(document).ready(function() {
 		    } 
 
 		fecha = yyyy+'-'+mm+'-'+dd;
-		document.getElementById("fechaFin").setAttribute("min", fecha);
-
-		//////////////////////////////////////////////////////////////////////
-
-		}
+		document.getElementById("fechaFinFormacion").setAttribute("min", fecha);
 
 	});
 
-	$( "#fechaFin" ).change(function(){
-		if($("#fechaFin").val() != ""){
-			$("#requeridoFechaFinFormacion").addClass( "ocultar" );
-		}
-	});
 
-	$( "#ciudadNacimiento" ).change(function(){
-		if($("#ciudadNacimiento").val() != ""){
+	$( "#ciudadNacimientoFormacion" ).change(function(){
+		if($("#ciudadNacimientoFormacion").val() != ""){
 			$("#requeridoCiudadFormacion").addClass( "ocultar" );
 		}
 	});
 	/////////////////////////////////////////
 
     /// Validaciones y creacion de contrato
-
-    $('#botonEditarTop').on( 'click', function () {
-    	crearFormacion();
+    $('.botonCrearFormacion').on( 'click', function () {
+    	validarFormacionAjax(0);
     } );
 
-    $('#botonEditarBottom').on( 'click', function () {
-    	crearFormacion();
+    $('.botonEditarFormacion').on( 'click', function () {
+    	validarFormacionAjax(2);
     } );
-
-    ///// Crear contrato
-
-	function validarFormacion(){  /// Funcion asincrona
+    
+	/// Funcion para validar niveles de estudio con base en la tipo
+	function validarFormacion(){  
 
 	  	var pathname = window.location.pathname;
 	  	var url;
@@ -150,115 +161,116 @@ $(document).ready(function() {
 		});
 	}
 
-	function crearFormacion(val){
-
-		if ($("#tipoIdentificacion").val() == "" || $("#tipoEstudio").val() == "" || $("#intExt").val() == "" || $("#nivelEstudio_id").val() == "" || $("#areaEstudio_id").val() == "" || $("#titulacion").val() == "" || $("#institucionEducativa").val() == "" || $("#estado").val() == "" || $("#fechaInicio").val() == "" || ($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado') || $("#ciudadNacimiento").val() == ""){
-
-	    	if($("#tipoIdentificacion").val() == ""){
-	    		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
-	    		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#tipoEstudio").val() == ""){
-	    		$("#requeridoTipoFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#intExt").val() == ""){
-	    		$("#requeridoCategoriaFormacion").removeClass( "ocultar" );
-	    	}
-
-	     	if($("#nivelEstudio_id").val() == ""){
-	    		$("#requeridoNivelEstudio").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#areaEstudio_id").val() == ""){
-	    		$("#requeridoAreaFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#titulacion").val() == ""){
-	    		$("#requeridoTitulacionFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#institucionEducativa").val() == ""){
-	    		$("#requeridoInstitucionEducativaFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#estado").val() == ""){
-	    		$("#requeridoEstadoFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#fechaInicio").val() == ""){
-	    		$("#requeridoFechaIniFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#fechaFin").val() == "" && $("#estado").val() == 'Culminado'){
-	    		document.getElementById("fechaFin").setAttribute("required","required");
-	    		$("#requeridoFechaFinFormacion").removeClass( "ocultar" );
-	    	}
-
-	    	if($("#ciudadNacimiento").val() == ""){
-	    		$("#requeridoCiudadFormacion").removeClass( "ocultar" );
-	    	}
-
-	    }else{
-
-		  	var pathname = window.location.pathname;
-
-		  	if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
-
-		  		$('#editFormacion').submit();
-
-		  	}else{
-
-		  		var data = "tipoIdentificacion="+$("#tipoIdentificacion").val()+"&identificacion="+$("#identificacion").val()+"&tipoEstudio="+$("#tipoEstudio").val()+"&intExt="+$("#intExt").val()+"&nivelEstudio_id="+$("#nivelEstudio_id").val()+"&areaEstudio_id="+$("#areaEstudio_id").val()+"&titulacion="+$("#titulacion").val()+"&institucionEducativa="+$("#institucionEducativa").val()+"&estado="+$("#estado").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&ciudadNacimiento="+$("#ciudadNacimiento").val();
-
-				$.ajax({
-				  url: '../../administracion/formaciones/crearFormacionAjax',
-				  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-				  type: 'POST',
-				  data: data
-				}).done(function(response){
-
-					var pathname = window.location.pathname;
-					pathname = pathname.substring(0, pathname.length - 7)
-					//console.log(pathname);
-					$.confirm({
-					    title: 'Formación almacenda',
-					    content: 'Se guardó la formación exitosamente ¿Desea agregar otra formación?',
-					    buttons: {
-			    	        somethingElse: {
-				            text: 'Formación almacenada',
-				            btnClass: 'btn btn-success',
-				            action: function(){
-					            $("#tipoEstudio").val('');
-					            $("#intExt").val('');
-					            document.getElementById("intExt").setAttribute("disabled","disabled");
-					            $("#nivelEstudio_id").val('');
-					            document.getElementById("nivelEstudio_id").setAttribute("disabled","disabled");
-					            $("#areaEstudio_id").val('');
-					            $("#titulacion").val('');
-					            $("#institucionEducativa").val('');
-					            $("#estado").val('');
-					            $("#fechaInicio").val('');
-					            document.getElementById("fechaFin").setAttribute("readonly","readonly");
-					            $("#fechaFin").val('');
-					            $("#ciudadNacimiento").val('');
-				            	}
-				        	},
-					        cancel: function () {
-					            window.location.replace(pathname);
-					        }
-					    }
-					});
-		      
-				});
-		  	}
-
-
-	    }
-
-	}
-
-	//////////////////////////////////////////////////////////////////////////////////////////
-
 });
+
+///// Validar antes de crear formacion
+function validarFormacionAjax(tipoCreacion){
+
+	if ($("#tipoIdentificacion").val() == "" || $("#tipoEstudio").val() == "" || $("#intExt").val() == "" || $("#nivelEstudio_id").val() == "" || $("#areaEstudio_id").val() == "" || $("#titulacion").val() == "" || $("#institucionEducativa").val() == "" || $("#estadoFormacion").val() == "" || $("#fechaInicioFormacion").val() == "" || ($("#fechaFinFormacion").val() == "" && $("#estado").val() == 'Culminado') || $("#ciudadNacimientoFormacion").val() == ""){
+
+        if($("#tipoIdentificacion").val() == ""){
+            $("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
+            $("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
+        }
+
+        if($("#tipoEstudio").val() == ""){
+            $("#requeridoTipoFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#intExt").val() == ""){
+            $("#requeridoCategoriaFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#nivelEstudio_id").val() == ""){
+            $("#requeridoNivelEstudio").removeClass( "ocultar" );
+        }
+
+        if($("#areaEstudio_id").val() == ""){
+            $("#requeridoAreaFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#titulacion").val() == ""){
+            $("#requeridoTitulacionFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#institucionEducativa").val() == ""){
+            $("#requeridoInstitucionEducativaFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#estadoFormacion").val() == ""){
+            $("#requeridoEstadoFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#fechaInicioFormacion").val() == ""){
+            $("#requeridoFechaIniFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#fechaFinFormacion").val() == "" && $("#estado").val() == 'Culminado'){
+            document.getElementById("fechaFin").setAttribute("required","required");
+            $("#requeridoFechaFinFormacion").removeClass( "ocultar" );
+        }
+
+        if($("#ciudadNacimientoFormacion").val() == ""){
+            $("#requeridoCiudadFormacion").removeClass( "ocultar" );
+        }
+
+    }else{
+    	$.fn.crearFormacionAjax(tipoCreacion);
+    }
+
+}
+
+
+/////  Google place autocompletar  /////
+
+var autocomplete2;
+var componentForm = {
+locality: 'long_name',
+administrative_area_level_1: 'short_name',
+country: 'long_name',
+};
+
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete2 = new google.maps.places.Autocomplete(
+    /** @type {!HTMLInputElement} */(document.getElementById('ciudadNacimientoFormacion')),
+    {types: ['geocode']});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete2.addListener('place_changed', fillInAddress2);
+}
+
+function fillInAddress2() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete2.getPlace();
+
+    // Get each component of the address from the place details
+    // and fill the corresponding field on the form.
+    for (var i = 0; i < place.address_components.length; i++) {
+      var addressType = place.address_components[i].types[0];
+
+      if (place.address_components[i].types[0] == 'locality') {          
+            document.getElementById('ciudadNacimientoFormacion').value = place.address_components[i].long_name;
+        } 
+    }
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete2.setBounds(circle.getBounds());
+      });
+    }
+}

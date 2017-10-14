@@ -20,7 +20,7 @@ class AgregarTablaAdjuntos extends Migration
             $table->foreign('empleado_id')->references('id')->on('empleados');
 
             $table->string('nombre');
-            $table->string('ruta');
+            $table->string('adjunto');
             $table->string('detalles')->nullable();
 
             $table->boolean('alive')->default(true);

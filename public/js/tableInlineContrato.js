@@ -22,7 +22,7 @@ $(document).ready(function() {
 
 	});
 
-     //// Mostrar botones hacer click en nuevo 
+     //// Eventos al hacer click en click en nuevo 
      $('#nuevo').on( 'click', function () {
     	$(".addRow").removeClass("ocultar");
     	$(".editRow").addClass("ocultar");
@@ -45,7 +45,8 @@ $(document).ready(function() {
     	validarTipoContratoCrear(1);
     } );
 
-	// Eliminar items en tabla		 
+	//////////// Eliminación de contrato
+
     $('#example tbody').on( 'click', '.buttonDestroy', function () {
 
 		var validate = confirm('Va a eliminar un contrato ¿Desea continuar?');
@@ -106,9 +107,31 @@ $(document).ready(function() {
 			});
     } );
 
+    //////////// Creación de contrato
+
     $.fn.crearContratoAjax = function() {
 		
-	   	var data = "tipoContrato="+$("#tipoContrato").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&duracion="+$("#duracion").val()+"&detalles="+$("#detalles").val()+"&empleado_id="+$("#empleado_id").val()+"&estadContrato="+$("#estadContrato").val()+"&adjuntoContrato="+$("#adjuntoContrato").val();
+	   	//var data = "tipoContrato="+$("#tipoContrato").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&duracion="+$("#duracion").val()+"&detalles="+$("#detalles").val()+"&empleado_id="+$("#empleado_id").val()+"&estadContrato="+$("#estadContrato").val()+"&adjuntoContrato="+$('#adjuntoContrato').prop('files')[0];
+		
+		var empleado_id = $('#empleado_id').val();
+	   	var tipoContrato = $('#tipoContrato').val();
+	   	var fechaInicio = $('#fechaInicio').val();  
+	   	var duracion = $('#duracion').val();	   	
+	   	var fechaFin = $('#fechaFin').val(); 
+	   	var estado = $('#estadContrato').val(); 	   	 
+	   	var adjunto = $('#adjuntoContrato').prop('files')[0];
+	   	var detalles = $('#detalles').val();
+
+        var form_data = new FormData();
+        form_data.append('empleado_id', empleado_id);
+        form_data.append('tipoContrato', tipoContrato);
+        form_data.append('fechaInicio', fechaInicio);
+        form_data.append('duracion', duracion);
+        form_data.append('fechaFin', fechaFin);
+        form_data.append('estado', estado);
+        form_data.append('adjunto', adjunto);
+        form_data.append('detalles', detalles);
+
 		var url = '../../administracion/contratos/createAjax';
 
 		$.ajax({
@@ -116,15 +139,18 @@ $(document).ready(function() {
 		  headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
 		  type: 'POST',
 		  datatype:'json',
-		  data : data
+          contentType: false,
+          cache: false,
+          processData: false,
+		  data : form_data
 		}).done(function(response){
-			console.log(response);
+			//console.log(response);
         	t.row.add( [
 	            response[0].tipoContrato,
 	            response[0].estado+'<span style="opacity:0">-'+response[0].id+'</span>',
 	            response[0].fechaInicio,
 	            response[0].fechaFin,
-	            "55",
+	            '<a title="Adjunto" href="'+response[0].adjunto+'" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Contrato adjunto</a>',
 	            '<a title="Detalles" class="btn btn-default btn-xs buttonDetail"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroy"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
             ] ).draw( false );
 

@@ -50,21 +50,25 @@ class adjuntosController extends Controller
     {   
         $adjunto = new Adjunto();
         $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
-        //dd($request);
-        $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
-        $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
-        $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
+        //dd($request->adjunto);
 
-        //Formato nombre de archivo: fecha actual (YYYY-mm-dd hh:mm:ss), id del empleado y el nombre original del archiyo subido 
-        $name = $empleado[0]->id.'.'.$fecha.'_'.$request->ruta->getClientOriginalName(); 
+        // $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
+        // $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
+        // $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
 
-        $request->ruta->storeAs('public',$name); // subir el archivo a la carpeta linkeada
+        // //Formato nombre de archivo: fecha actual (YYYY-mm-dd hh:mm:ss), id del empleado y el nombre original del archiyo subido 
+        // $name = 'Adjunto'.'.'.$fecha.'_'.$request->adjunto->getClientOriginalName(); 
+
+        // $request->adjunto->storeAs('public',$name); // subir el archivo a la carpeta linkeada
 
         $adjunto->empleado_id = $empleado[0]->id;
         $adjunto->nombre = $request->nombre;
-        $adjunto->ruta = '/calidad/public/storage/'.$name;
+        $adjunto->adjunto = '/calidad/public/storage/'; //En el metodo de adjuntar se corrige
         $adjunto->detalles = $request->detalles;
         $adjunto->save();
+
+        //Adjuntar archivo y asociarlo a registro creado
+        Adjunto::adjuntar($request, 'adjuntos', 'Adjuntos', $adjunto->id);
 
         flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('adjuntos.index');

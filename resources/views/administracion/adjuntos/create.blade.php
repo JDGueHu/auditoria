@@ -57,9 +57,9 @@
                 {!! Form::label('nombre','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoNombreAdjunto'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
-                {!! Form::label('ruta','Archivo')  !!}
-                {{ Form::file('ruta', ['class' => 'form-control','id'=>'ruta']) }}
-                {!! Form::label('ruta','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRutaAdjunto'])  !!}
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+                {!! Form::label('adjunto','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRutaAdjunto'])  !!}
             </div> 
         </div>
         <div class="row">

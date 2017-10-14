@@ -15,6 +15,7 @@
 .colorNavIcon{ color: #fff; }
 .ocultar{display: none}
 .checkbox{width: 100%; height:25px}
+.pac-container{ z-index: 1051 !important;}
 
 /* CSS para el multinivel de los dropdown en el navbar*/
 

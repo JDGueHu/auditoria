@@ -9,6 +9,7 @@ use App\Contrato;
 use App\Empleado;
 use App\TipoContrato;
 use Carbon\Carbon;
+use App\Adjunto;
 
 class contratosController extends Controller
 {
@@ -61,14 +62,8 @@ class contratosController extends Controller
         $contrato->duracion = $request->duracion;
         $contrato->fechaFin = $request->fechaFin;
         $contrato->detalles = $request->detalles;
-
-        // Para cargar archivo
-        $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
-        $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
-        $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
-
         $contrato->estado = $request->estadContrato;
-        //$contrato->save();
+        $contrato->save();
 
         flash('Contrato de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('contratos.index');
@@ -173,16 +168,30 @@ class contratosController extends Controller
             $contrato->fechaInicio = $request->fechaInicio; 
             $contrato->duracion = $request->duracion; 
             $contrato->fechaFin = $request->fechaFin; 
-            $contrato->detalles = $request->detalles; 
-            $contrato->estado = $request->estadContrato; 
-            //$contrato->adjunto = $request->adjuntoContrato;
+            $contrato->estado = $request->estado; 
+
+            // // Para cargar archivo
+            // $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
+            // $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
+            // $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
+
+            // $name = 'Cotizacion_subPanel'.'.'.$fecha.'_'.$request->adjunto->getClientOriginalName(); 
+            
+            // $request->adjunto->storeAs('public',$name); // subir el archivo a la carpeta linkeada
+
+            // $contrato->adjunto = '/calidad/public/storage/'.$name;
+
+            $contrato->detalles = $request->detalles;             
             $contrato->save();
+
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'contratos', 'contratoSubpanel', $contrato->id);
 
             $contrato = DB::table('contratos')
                 ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
                 ->where('contratos.id','=',$contrato->id)
                 ->where('tiposContrato.alive',true)
-                ->select('contratos.id','tiposContrato.tipoContrato','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado')
+                ->select('contratos.id','tiposContrato.tipoContrato','contratos.fechaInicio','contratos.duracion','contratos.fechaFin','contratos.detalles','contratos.estado','contratos.adjunto')
                 ->get();
 
             return response($contrato);

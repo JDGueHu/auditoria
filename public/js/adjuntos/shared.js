@@ -6,7 +6,7 @@ $(document).ready(function() {
     $('.validateForm').on( 'click', function () {
     	// var pathname = window.location.pathname;
     	// alert(pathname);
-		if($("#tipoIdentificacion").val() == '' || $("#nombre").val() == '' || $("#ruta").val() == ''){
+		if($("#tipoIdentificacion").val() == '' || $("#nombre").val() == '' || $("#adjunto").val() == ''){
 
 			if($("#tipoIdentificacion").val() == ''){
 				$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
@@ -17,7 +17,7 @@ $(document).ready(function() {
 				$("#requeridoNombreAdjunto").removeClass( "ocultar" );
 			}
 
-			if($("#ruta").val() == ''){
+			if($("#adjunto").val() == ''){
 				$("#requeridoRutaAdjunto").removeClass( "ocultar" );
 			}
 
@@ -36,8 +36,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$( "#ruta" ).change(function(){
-		if($("#ruta").val() != ""){
+	$( "#adjunto" ).change(function(){
+		if($("#adjunto").val() != ""){
 			$("#requeridoRutaAdjunto").addClass( "ocultar" );
 		}
 	});

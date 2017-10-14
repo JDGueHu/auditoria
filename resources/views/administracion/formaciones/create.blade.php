@@ -9,7 +9,7 @@
 
 {!! Form::open(['route' => 'formaciones.store', 'method' => 'POST','id'=>'contrato']) !!} 
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary', 'id'=>'botonEditarTop']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary botonCrearFormacion']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
 <a style="text-decoration: none;" href="{{ route('formaciones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
@@ -86,34 +86,34 @@
         </div>
         <div class="row">
             <div class="col-md-4 separarBottom">
-                {!! Form::label('estado','Estado')  !!}
-                {!! Form::select('estado', ['Abandonado'=>'Abandonado', 'Aplazado'=>'Aplazado', 'Culminado'=>'Culminado','En curso'=>'En curso'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estado'])  !!} 
-                {!! Form::label('estado','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoFormacion'])  !!}
+                {!! Form::label('estadoFormacion','Estado')  !!}
+                {!! Form::select('estadoFormacion', ['Abandonado'=>'Abandonado', 'Aplazado'=>'Aplazado', 'Culminado'=>'Culminado','En curso'=>'En curso'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadoFormacion'])  !!} 
+                {!! Form::label('estadoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoFormacion'])  !!}
             </div> 
             <div class="col-md-4 separarBottom">
-                {!! Form::label('fechaInicio','Fecha de inicio')  !!}
-                {!! Form::date('fechaInicio',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicio'])  !!}
-                {!! Form::label('fechaInicio','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniFormacion'])  !!}
+                {!! Form::label('fechaInicioFormacion','Fecha de inicio')  !!}
+                {!! Form::date('fechaInicioFormacion',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioFormacion'])  !!}
+                {!! Form::label('fechaInicioFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniFormacion'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
-                {!! Form::label('fechaFin','Fecha de finalización')  !!}
-                {!! Form::date('fechaFin',null, ['class' => 'form-control', 'required', 'id'=>'fechaFin','readonly'])  !!}
-                {!! Form::label('fechaFin','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinFormacion'])  !!}
+                {!! Form::label('fechaFinFormacion','Fecha de finalización')  !!}
+                {!! Form::date('fechaFinFormacion',null, ['class' => 'form-control', 'required', 'id'=>'fechaFinFormacion','readonly'])  !!}
+                {!! Form::label('fechaFinFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinFormacion'])  !!}
             </div>
         </div>
         <div class="row">
             <div class="col-md-4 separarBottom">
-                {!! Form::label('ciudadNacimiento','Ciudad de estudio')  !!}
-                {!! Form::text('ciudadNacimiento',null, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimiento'])  !!}
-                {!! Form::label('ciudadNacimiento','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCiudadFormacion'])  !!}
+                {!! Form::label('ciudadNacimientoFormacion','Ciudad de estudio')  !!}
+                {!! Form::text('ciudadNacimientoFormacion',null, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimientoFormacion'])  !!}
+                {!! Form::label('ciudadNacimientoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCiudadFormacion'])  !!}
             </div> 
-            <input type="hidden" id="departamentoNacimiento" name="departamentoNacimiento">
-            <input type="hidden" id="paisNacimiento" name="paisNacimiento">
         </div>
+                    <input type="hidden" id="departamentoNacimiento" name="departamentoNacimiento">
+            <input type="hidden" id="paisNacimiento" name="paisNacimiento">
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'botonEditarBottom']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn botonCrearFormacion']) !!}
 <a style="text-decoration: none;" href="{{ route('formaciones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
@@ -124,7 +124,8 @@
 
 @section('js')
     <script src="{{ asset('js/formacion/shared.js') }}"></script>
-    <script src="{{ asset('js/shared.js') }}"></script>
+    <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
+   
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
         async defer></script>
 @endsection

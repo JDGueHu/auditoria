@@ -38,11 +38,11 @@
                 {!! Form::label('nombre','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoNombreAdjunto'])  !!}
             </div>
             <div class="col-md-8 separarBottom">
-                {!! Form::label('ruta','Ruta')  !!}                
-                <a title="Adjunto" href="{{ $adjunto->ruta }}" target="_blank">
-                    {{ $adjunto->ruta }}
+                {!! Form::label('adjunto','Ruta')  !!}                
+                <a title="Adjunto" href="{{ $adjunto->adjunto }}" target="_blank">
+                    {{ $adjunto->adjunto }}
                 </a>
-                {!! Form::label('ruta','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRutaAdjunto'])  !!}
+                {!! Form::label('adjunto','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRutaAdjunto'])  !!}
             </div> 
         </div>
         <div class="row">

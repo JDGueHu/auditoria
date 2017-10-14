@@ -8,6 +8,7 @@ use App\Formacion;
 use App\AreaEstudio;
 use App\NivelEstudio;
 use App\Empleado;
+use App\Adjunto;
 
 class formacionesController extends Controller
 {
@@ -72,6 +73,7 @@ class formacionesController extends Controller
         ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
         ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
         ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
+        ->where('formaciones.id',$id)
         ->where('formaciones.alive',true)
         ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','nivelesEstudio.id as nivelEstudio','formaciones.*')
         ->get();
@@ -98,6 +100,7 @@ class formacionesController extends Controller
         ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
         ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
         ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
+        ->where('formaciones.id',$id)
         ->where('formaciones.alive',true)
         ->select('empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','nivelesEstudio.id as nivelEstudio','formaciones.*')
         ->get();
@@ -127,11 +130,11 @@ class formacionesController extends Controller
             $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
             $formacion->areaEstudio_id = $request->areaEstudio_id; 
             $formacion->titulacion = $request->titulacion; 
-            $formacion->estado = $request->estado; 
+            $formacion->estado = $request->estadoFormacion; 
             $formacion->institucionEducativa = $request->institucionEducativa; 
-            $formacion->fechaInicio = $request->fechaInicio; 
-            $formacion->fechaFin = $request->fechaFin; 
-            $formacion->ciudadEstudio = $request->ciudadNacimiento; 
+            $formacion->fechaInicio = $request->fechaInicioFormacion; 
+            $formacion->fechaFin = $request->fechaFinFormacion; 
+            $formacion->ciudadEstudio = $request->ciudadNacimientoFormacion; 
             $formacion->save();
 
         flash('Formación de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
@@ -163,7 +166,7 @@ class formacionesController extends Controller
         return response($response);
     }
 
-    public function crearFormacionAjax(Request $request)
+    public function createAjax(Request $request)
     {
         if($request->ajax()){   
 
@@ -172,7 +175,7 @@ class formacionesController extends Controller
             $formacion = new Formacion();
 
             $formacion->empleado_id = $empleado[0]->id;
-            $formacion->tipoEstudio = $request->tipoEstudio; 
+            $formacion->tipoEstudio =  ; 
             $formacion->intExt = $request->intExt; 
             $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
             $formacion->areaEstudio_id = $request->areaEstudio_id; 
@@ -184,8 +187,10 @@ class formacionesController extends Controller
             $formacion->ciudadEstudio = $request->ciudadNacimiento; 
             $formacion->save();
 
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'formaciones', 'formacionSubpanel', $formacion->id);
 
-            return response()->json($formacion);
+            return response($formacion);
 
         }
     }
@@ -197,9 +202,20 @@ class formacionesController extends Controller
         ->join('nivelesEstudio','formaciones.nivelEstudio_id','=','nivelesEstudio.id')
         ->join('areasEstudio','formaciones.areaEstudio_id','=','areasEstudio.id')
         ->where('formaciones.alive',true)
+        ->where('formaciones.id',$id)
         ->select('areasEstudio.id as areasEstudio', 'nivelesEstudio.id as nivelEstudio','formaciones.*')
         ->get();
 
         return $formaciones;
+    }
+
+    public function destroyAjax($id)
+    {
+        $contrato = Formacion::find($id);
+
+        $contrato->alive=false;
+        $contrato->save();
+
+        return response($id);
     }
 }

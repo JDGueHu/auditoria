@@ -285,7 +285,11 @@
                                 <td>{{ $contrato->estado}}<span style="opacity: 0">-{{$contrato->id }}</span></td>
                                 <td>{{ $contrato->fechaInicio }}</td>
                                 <td>{{ $contrato->fechaFin }}</td>
-                                <td>{{ $contrato->adjunto }}</td>
+                                <td>
+                                    <a title="Adjunto" href="{{ $contrato->adjunto }}" target="_blank">
+                                       <i class="fa fa-file" aria-hidden="true"></i> Contrato adjunto
+                                    </a>
+                                </td>
                                 <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetail">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -301,6 +305,7 @@
             </table>
 
         </div>
+
     </div>
 </div>
 
@@ -308,6 +313,8 @@
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana5" aria-expanded="false" aria-controls="ventana5">Formación</div>
         <div class="collapse" id="ventana5">
         <div class="panel-body">
+
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevoFormacion', 'data-toggle'=>'modal', 'data-target'=>'#modalFormaciones']) !!}
 
             <!-- Modal Formacion-->
             <div class="modal fade" id="modalFormaciones" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -317,60 +324,79 @@
                     <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Formación</span></h5>
                   </div>
                   <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('tipoEstudio','Tipo')  !!}
-                                {!! Form::select('tipoEstudio', ['Academica'=>'Académica','Complementaria'=>'Complementaria'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoEstudio'])  !!} 
-                            </div> 
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('intExt','Categoría')  !!}
-                                {!! Form::select('intExt', ['Interna'=>'Interna','Externa'=>'Externa'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un categoría','id'=>'intExt'])  !!} 
-                            </div> 
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('nivelEstudio_id','Nivel de estudio')  !!}
-                                {!! Form::select('nivelEstudio_id', $nivelesFormacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un nivel de estudio','id'=>'nivelEstudio_id'])  !!} 
-                            </div> 
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('areaEstudio_id','Área')  !!}
-                                {!! Form::select('areaEstudio_id', $areasformacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una área','id'=>'areaEstudio_id'])  !!} 
-                            </div> 
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('titulacion','Titulación')  !!}
-                                {!! Form::text('titulacion',null, ['class' => 'form-control', 'required', 'id'=>'titulacion'])  !!}
+                        {!! Form::open(['enctype' => 'multipart/form-data']) !!}
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('tipoEstudio','Tipo')  !!}
+                                    {!! Form::select('tipoEstudio', ['Academica'=>'Académica','Complementaria'=>'Complementaria'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoEstudio'])  !!} 
+                                    {!! Form::label('tipoEstudio','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoFormacion'])  !!}
+                                </div> 
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('intExt','Categoría')  !!}
+                                    {!! Form::select('intExt', ['Interna'=>'Interna','Externa'=>'Externa'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un categoría','id'=>'intExt','disabled'])  !!} 
+                                    {!! Form::label('intExt','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCategoriaFormacion'])  !!}
+                                </div> 
                             </div>
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('institucionEducativa','Institución educativa')  !!}
-                                {!! Form::text('institucionEducativa',null, ['class' => 'form-control', 'required', 'id'=>'institucionEducativa'])  !!}
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('nivelEstudio_id','Nivel de estudio')  !!}
+                                    {!! Form::select('nivelEstudio_id', $nivelesFormacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione un nivel de estudio','id'=>'nivelEstudio_id','disabled'])  !!} 
+                                    {!! Form::label('nivelEstudio_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoNivelEstudio'])  !!}
+                                </div> 
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('areaEstudio_id','Área')  !!}
+                                    {!! Form::select('areaEstudio_id', $areasformacion, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una área','id'=>'areaEstudio_id'])  !!} 
+                                    {!! Form::label('areaEstudio_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoAreaFormacion'])  !!}
+                                </div> 
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('estadoFormacion','Estado')  !!}
-                                {!! Form::select('estadoFormacion', ['Abandonado'=>'Abandonado', 'Aplazado'=>'Aplazado', 'Culminado'=>'Culminado','En curso'=>'En curso'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadoFormacion'])  !!} 
-                            </div> 
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('fechaInicioFormacion','Fecha de inicio')  !!}
-                                {!! Form::date('fechaInicioFormacion', null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioFormacion'])  !!}
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('titulacion','Titulación')  !!}
+                                    {!! Form::text('titulacion',null, ['class' => 'form-control', 'required', 'id'=>'titulacion'])  !!}
+                                    {!! Form::label('titulacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTitulacionFormacion'])  !!}
+                                </div>
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('institucionEducativa','Institución educativa')  !!}
+                                    {!! Form::text('institucionEducativa',null, ['class' => 'form-control', 'required', 'id'=>'institucionEducativa'])  !!}
+                                    {!! Form::label('institucionEducativa','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoInstitucionEducativaFormacion'])  !!}
+                                </div>
                             </div>
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('fechaFinFormacion','Fecha de finalización')  !!}
-                                {!! Form::date('fechaFinFormacion', null, ['class' => 'form-control', 'required', 'id'=>'fechaFinFormacion'])  !!}
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('estadoFormacion','Estado')  !!}
+                                    {!! Form::select('estadoFormacion', ['Abandonado'=>'Abandonado', 'Aplazado'=>'Aplazado', 'Culminado'=>'Culminado','En curso'=>'En curso'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadoFormacion'])  !!} 
+                                    {!! Form::label('estadoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoFormacion'])  !!}
+                                </div> 
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('fechaInicioFormacion','Fecha de inicio')  !!}
+                                    {!! Form::date('fechaInicioFormacion',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioFormacion'])  !!}
+                                    {!! Form::label('fechaInicioFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniFormacion'])  !!}
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::label('ciudadFormacion','Ciudad de estudio')  !!}
-                                {!! Form::text('ciudadFormacion', null, ['class' => 'form-control', 'required', 'id'=>'ciudadFormacion'])  !!}
-                            </div> 
-                        </div>
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('fechaFinFormacion','Fecha de finalización')  !!}
+                                    {!! Form::date('fechaFinFormacion',null, ['class' => 'form-control', 'id'=>'fechaFinFormacion','readonly'])  !!}
+                                    {!! Form::label('fechaFinFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinFormacion'])  !!}
+                                </div>
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('ciudadNacimientoFormacion','Ciudad de estudio')  !!}
+                                    {!! Form::text('ciudadNacimientoFormacion',null, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimientoFormacion'])  !!}
+                                    {!! Form::label('ciudadNacimientoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCiudadFormacion'])  !!}
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 separarBottom">
+                                    {!! Form::label('adjuntoFormacion','Adjunto')  !!}
+                                    {{ Form::file('adjuntoFormacion', ['class' => 'form-control','id'=>'adjuntoFormacion']) }}
+                                </div> 
+                            </div>
+                        {!! Form::close() !!}
                   </div>
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRowFormacion']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRowFormacion']) !!}
                   </div>
                 </div>
               </div>
@@ -397,6 +423,9 @@
                                 <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailFormaciones">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyFormaciones">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -738,6 +767,10 @@
 @endsection
 
 @section('js')
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMM_PbONiaS31YzuFXQn9upMXPeVUkUyI&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+    <script src="{{ asset('js/empleados/shared.js') }}"></script>
     <script src="{{ asset('js/empleados/show.js') }}"></script>
     <script src="{{ asset('js/shared.js') }}"></script>
     <!-- Para submodulos -->
@@ -745,6 +778,8 @@
     <script src="{{ asset('js/tableInlineContrato.js') }}"></script>
 
     <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
+    <script src="{{ asset('js/formacion/shared.js') }}"></script>
+
     <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
     <script src="{{ asset('js/tableInlineAusentismos.js') }}"></script>
     <script src="{{ asset('js/tableInlineSST.js') }}"></script>
