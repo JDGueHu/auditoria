@@ -9,7 +9,7 @@
 
 {!! Form::model($examen,['route' => ['examenes.update',$examen->id], 'method' => 'PUT','id'=>'examen']) !!}
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary validarButton']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary crearExamen']) !!}
 <a style="text-decoration: none;" href="{{ route('examenes.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
@@ -61,11 +61,11 @@
                 {!! Form::label('concepto','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRestriccion'])  !!}
             </div> 
             <div class="col-md-4 separarBottom">
-                {!! Form::button('Agregar', ['class'=>' btn btn-danger', 'id'=>'addRow']) !!}
+                {!! Form::button('Agregar', ['class'=>' btn btn-danger', 'id'=>'addRestriccionMedica']) !!}
             </div> 
         </div>
         <hr>
-        <table id="restricciones" class="display" cellspacing="0" width="100%">
+        <table id="restriccionesInlineTable" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Restricción</th>
@@ -88,7 +88,7 @@
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn validarButton']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn crearExamen']) !!}
 <a style="text-decoration: none;" href="{{ route('examenes.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
@@ -101,5 +101,5 @@
 
 @section('js')
     <script src="{{ asset('js/examenes/create.js') }}"></script>
-    <script src="{{ asset('js/examenes/inline_create_restriccion.js') }}"></script>
+    <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
 @endsection

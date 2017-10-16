@@ -26,7 +26,8 @@ $(document).ready(function() {
      $('#nuevo').on( 'click', function () {
     	$(".addRow").removeClass("ocultar");
     	$(".editRow").addClass("ocultar");
-    	//alert("entro");
+    	$(".ocultarShowContrato").removeClass("ocultar");
+
     	$("#tipoContrato").val("");
     	$("#fechaInicio").val("");
     	$("#fechaFin").val("");
@@ -95,6 +96,8 @@ $(document).ready(function() {
 		    	$("#requeridoFechaIniContrato").addClass( "ocultar" );
 		    	$("#requeridoDuracionContrato").addClass( "ocultar" );
 		    	$("#requeridoEstadoContrato").addClass( "ocultar" );
+		    	$("#adjuntoContrato").addClass("ocultar");
+		    	$(".ocultarShowContrato").addClass("ocultar");
 
 				$('#exampleModalLong').modal('show');	
 	        	$("#tipoContrato").val(response[0].idTipo);
@@ -112,8 +115,8 @@ $(document).ready(function() {
     $.fn.crearContratoAjax = function() {
 		
 	   	//var data = "tipoContrato="+$("#tipoContrato").val()+"&fechaInicio="+$("#fechaInicio").val()+"&fechaFin="+$("#fechaFin").val()+"&duracion="+$("#duracion").val()+"&detalles="+$("#detalles").val()+"&empleado_id="+$("#empleado_id").val()+"&estadContrato="+$("#estadContrato").val()+"&adjuntoContrato="+$('#adjuntoContrato').prop('files')[0];
-		
-		var empleado_id = $('#empleado_id').val();
+			
+		var identificacion = $('#identificacion').val();
 	   	var tipoContrato = $('#tipoContrato').val();
 	   	var fechaInicio = $('#fechaInicio').val();  
 	   	var duracion = $('#duracion').val();	   	
@@ -123,7 +126,7 @@ $(document).ready(function() {
 	   	var detalles = $('#detalles').val();
 
         var form_data = new FormData();
-        form_data.append('empleado_id', empleado_id);
+        form_data.append('identificacion', identificacion);
         form_data.append('tipoContrato', tipoContrato);
         form_data.append('fechaInicio', fechaInicio);
         form_data.append('duracion', duracion);
@@ -144,13 +147,14 @@ $(document).ready(function() {
           processData: false,
 		  data : form_data
 		}).done(function(response){
-			//console.log(response);
+
+			
         	t.row.add( [
 	            response[0].tipoContrato,
 	            response[0].estado+'<span style="opacity:0">-'+response[0].id+'</span>',
 	            response[0].fechaInicio,
 	            response[0].fechaFin,
-	            '<a title="Adjunto" href="'+response[0].adjunto+'" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Contrato adjunto</a>',
+	            '<a title="Adjunto" href="'+response[0].adjunto+'" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Archivo adjunto</a>',
 	            '<a title="Detalles" class="btn btn-default btn-xs buttonDetail"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroy"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
             ] ).draw( false );
 

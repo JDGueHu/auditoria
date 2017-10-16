@@ -7,7 +7,7 @@
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'formaciones.store', 'method' => 'POST','id'=>'contrato']) !!} 
+{!! Form::open(['route' => 'formaciones.store', 'method' => 'POST','id'=>'contrato','enctype' => 'multipart/form-data']) !!} 
 
 {!! Form::button('Guardar', ['class'=>'btn btn-primary botonCrearFormacion']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
@@ -106,6 +106,10 @@
                 {!! Form::label('ciudadNacimientoFormacion','Ciudad de estudio')  !!}
                 {!! Form::text('ciudadNacimientoFormacion',null, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimientoFormacion'])  !!}
                 {!! Form::label('ciudadNacimientoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCiudadFormacion'])  !!}
+            </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjuntoFormacion','Adjunto')  !!}
+                {{ Form::file('adjuntoFormacion', ['class' => 'form-control','id'=>'adjuntoFormacion']) }}
             </div> 
         </div>
                     <input type="hidden" id="departamentoNacimiento" name="departamentoNacimiento">

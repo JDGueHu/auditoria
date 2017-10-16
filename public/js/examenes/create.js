@@ -19,24 +19,39 @@ $(document).ready(function() {
     	}
 	});
 
-	$('.validarButton').on( 'click', function () {
-		if ($('#tipoIdentificacion').val() == '' || $('#tipoExamen').val() == '' || $('#fechaExamen').val() == '' || $('#concepto').val() == '') {
-			if ($('#tipoIdentificacion').val() == '') {
-	    		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
-	    		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
-			}
-			if ($('#tipoExamen').val() == '') {
-	    		$("#requeridoTipoExamen").removeClass( "ocultar" );
-			}
-			if ($('#fechaExamen').val() == '') {
-	    		$("#requeridoFechaExamen").removeClass( "ocultar" );
-			}
-			if ($('#concepto').val() == '') {
-	    		$("#requeridoConceptoExamen").removeClass( "ocultar" );
-			}
-		} else {
-			$('#examen').submit();
-		}
+	$('.agregarExamenSubpanel').on( 'click', function () {
+		validarExamen(1);
+	});
+
+	$('.crearExamen').on( 'click', function () {
+		validarExamen(0);
 	});
 
 });
+
+
+function validarExamen(ajax){ 
+
+	if ($('#tipoIdentificacion').val() == '' || $('#tipoExamen').val() == '' || $('#fechaExamen').val() == '' || $('#concepto').val() == '') {
+		if ($('#tipoIdentificacion').val() == '') {
+    		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
+    		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
+		}
+		if ($('#tipoExamen').val() == '') {
+    		$("#requeridoTipoExamen").removeClass( "ocultar" );
+		}
+		if ($('#fechaExamen').val() == '') {
+    		$("#requeridoFechaExamen").removeClass( "ocultar" );
+		}
+		if ($('#concepto').val() == '') {
+    		$("#requeridoConceptoExamen").removeClass( "ocultar" );
+		}
+	} else {
+		if (ajax == 0){
+			$('#examen').submit();
+		}else{
+			$.fn.crearExamenAjax();
+		}		
+	}
+
+}

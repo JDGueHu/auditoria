@@ -53,7 +53,7 @@
         <div class="collapse in" id="ventana2">
         <div class="panel-body">
 
-        <table id="restricciones" class="display" cellspacing="0" width="100%">
+        <table id="restriccionesInlineTable" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>Restricción</th>
@@ -83,5 +83,5 @@
 
 @section('js')
     <script src="{{ asset('js/examenes/create.js') }}"></script>
-    <script src="{{ asset('js/examenes/inline_create_restriccion.js') }}"></script>
+    <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
 @endsection

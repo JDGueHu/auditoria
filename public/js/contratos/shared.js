@@ -66,7 +66,7 @@ $(document).ready(function() {
 
     /// Validaciones y creacion de contrato
 
-    $('#botonEditarTop').on( 'click', function () {
+    $('.botonCrearContrato').on( 'click', function () {
     	if($("#tipoIdentificacion").val() == ""){
     		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
     		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );
@@ -77,7 +77,7 @@ $(document).ready(function() {
     	validarTipoContratoCrear(0);
     } );
 
-    $('#botonEditarBottom').on( 'click', function () {
+    $('.botonEditarTop').on( 'click', function () {
     	if($("#tipoIdentificacion").val() == ""){
     		$("#requeridoTipoIdentificacionEmpleado").removeClass( "ocultar" );
     		$("#requeridoIdentificacionEmpleado").removeClass( "ocultar" );

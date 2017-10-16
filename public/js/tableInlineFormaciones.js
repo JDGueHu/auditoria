@@ -24,6 +24,7 @@ $(document).ready(function() {
      $('#nuevoFormacion').on( 'click', function () {
         $(".addRowFormacion").removeClass("ocultar");
         $(".editRowFormacion").addClass("ocultar");
+        $(".ocultarShowFormacion").removeClass("ocultar");
 
         $("#tipoEstudio").val("");
         $("#intExt").val("");
@@ -70,6 +71,7 @@ $(document).ready(function() {
                 document.getElementById("fechaFinFormacion").setAttribute("readonly","readonly");
                 document.getElementById("ciudadNacimientoFormacion").setAttribute("readonly","readonly");
                 console.log(response);
+                $(".ocultarShowFormacion").addClass("ocultar");
                 $('#modalFormaciones').modal('show');   
                 $("#tipoEstudio").val(response[0].tipoEstudio);
                 $("#intExt").val(response[0].intExt);
@@ -124,7 +126,6 @@ $(document).ready(function() {
                 //var data = "tipoIdentificacion="+$("#tipoIdentificacion").val()+"&identificacion="+$("#identificacion").val()+"&tipoEstudio="+$("#tipoEstudio").val()+"&intExt="+$("#intExt").val()+"&nivelEstudio_id="+$("#nivelEstudio_id").val()+"&areaEstudio_id="+$("#areaEstudio_id").val()+"&titulacion="+$("#titulacion").val()+"&institucionEducativa="+$("#institucionEducativa").val()+"&estado="+$("#estadoFormacion").val()+"&fechaInicio="+$("#fechaInicioFormacion").val()+"&fechaFin="+$("#fechaFinFormacion").val()+"&ciudadNacimiento="+$("#ciudadNacimientoFormacion").val();
                 if (tipoCreacion == 1){}
                 else{}
-                var empleado_id = $('#empleado_id').val();
                 var identificacion = $('#identificacion').val();
                 var tipoEstudio = $('#tipoEstudio').val();
                 var intExt = $('#intExt').val();  
@@ -139,7 +140,7 @@ $(document).ready(function() {
                 var adjunto = $('#adjuntoFormacion').prop('files')[0];
 
                 var form_data = new FormData();
-                form_data.append('empleado_id', empleado_id);
+                form_data.append('identificacion', identificacion);
                 form_data.append('tipoEstudio', tipoEstudio);
                 form_data.append('intExt', intExt);
                 form_data.append('nivelEstudio_id', nivelEstudio_id);
@@ -165,11 +166,12 @@ $(document).ready(function() {
                     console.log(response);
                     if (tipoCreacion == 1){ // Creacion desde subpanel
                         t.row.add( [
-                            response.tipoEstudio,
-                            response.intExt+'<span style="opacity:0">-'+response.id+'</span>',
-                            response.nivelEstudio_id,
-                            response.areaEstudio_id,
-                            response.estado,
+                            response[0].tipoEstudio,
+                            response[0].intExt+'<span style="opacity:0">-'+response[0].id+'</span>',
+                            response[0].nivelEstudio_id,
+                            response[0].areaEstudio_id,
+                            response[0].estado,
+                            '<a title="Adjunto" href="'+response[0].adjunto+'" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Archivo adjunto</a>',
                             '<a title="Detalles" class="btn btn-default btn-xs buttonDetailFormaciones"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyFormaciones"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
                         ] ).draw( false );
 

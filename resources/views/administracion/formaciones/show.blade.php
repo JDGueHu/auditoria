@@ -76,6 +76,12 @@
                 {!! Form::label('ciudadNacimiento','Ciudad de estudio')  !!}
                 {!! Form::text('ciudadNacimiento',$formacion[0]->ciudadEstudio, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimiento','readonly'])  !!}
             </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjunto','Ruta')  !!}                
+                <a title="Adjunto" href="{{ $formacion[0]->adjunto }}" target="_blank">
+                    {{ $formacion[0]->adjunto  }}
+                </a>
+            </div> 
             <input type="hidden" id="departamentoNacimiento" name="departamentoNacimiento">
             <input type="hidden" id="paisNacimiento" name="paisNacimiento">
         </div>

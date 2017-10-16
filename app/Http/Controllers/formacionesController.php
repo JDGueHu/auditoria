@@ -120,22 +120,28 @@ class formacionesController extends Controller
      */
     public function update(Request $request, $id)
     {
-            $formacion = Formacion::find($id);
-            $empleado = Empleado::find($request->empleado_id);
-            
-            //dd($request);
-            $formacion->empleado_id = $empleado->id;
-            $formacion->tipoEstudio = $request->tipoEstudio; 
-            $formacion->intExt = $request->intExt; 
-            $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
-            $formacion->areaEstudio_id = $request->areaEstudio_id; 
-            $formacion->titulacion = $request->titulacion; 
-            $formacion->estado = $request->estadoFormacion; 
-            $formacion->institucionEducativa = $request->institucionEducativa; 
-            $formacion->fechaInicio = $request->fechaInicioFormacion; 
-            $formacion->fechaFin = $request->fechaFinFormacion; 
-            $formacion->ciudadEstudio = $request->ciudadNacimientoFormacion; 
-            $formacion->save();
+        
+        $formacion = Formacion::find($id);
+        $empleado = Empleado::find($request->empleado_id);
+        
+        //dd($request);
+        $formacion->empleado_id = $empleado->id;
+        $formacion->tipoEstudio = $request->tipoEstudio; 
+        $formacion->intExt = $request->intExt; 
+        $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
+        $formacion->areaEstudio_id = $request->areaEstudio_id; 
+        $formacion->titulacion = $request->titulacion; 
+        $formacion->estado = $request->estadoFormacion; 
+        $formacion->institucionEducativa = $request->institucionEducativa; 
+        $formacion->fechaInicio = $request->fechaInicioFormacion; 
+        $formacion->fechaFin = $request->fechaFinFormacion; 
+        $formacion->ciudadEstudio = $request->ciudadNacimientoFormacion; 
+        $formacion->save();
+
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'formaciones', 'formacionSubpanel', $formacion->id);
+        }
 
         flash('Formación de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
         return redirect()->route('formaciones.index');
@@ -175,7 +181,7 @@ class formacionesController extends Controller
             $formacion = new Formacion();
 
             $formacion->empleado_id = $empleado[0]->id;
-            $formacion->tipoEstudio =  ; 
+            $formacion->tipoEstudio =  $request->tipoEstudio; 
             $formacion->intExt = $request->intExt; 
             $formacion->nivelEstudio_id = $request->nivelEstudio_id; 
             $formacion->areaEstudio_id = $request->areaEstudio_id; 
@@ -187,8 +193,15 @@ class formacionesController extends Controller
             $formacion->ciudadEstudio = $request->ciudadNacimiento; 
             $formacion->save();
 
-            //Adjuntar archivo y asociarlo a registro creado
-            Adjunto::adjuntar($request, 'formaciones', 'formacionSubpanel', $formacion->id);
+            if ($request->hasFile('adjunto')) {
+                //Adjuntar archivo y asociarlo a registro creado
+                Adjunto::adjuntar($request, 'formaciones', 'formacionSubpanel', $formacion->id);
+            }
+
+            $formacion = DB::table('formaciones')
+                ->where('formaciones.id','=',$formacion->id)
+                ->select('formaciones.*')
+                ->get();
 
             return response($formacion);
 

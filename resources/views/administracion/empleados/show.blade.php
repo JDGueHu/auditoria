@@ -192,8 +192,6 @@
     </div>
 </div>
 
-<input type="hidden" value="{{ $empleado->id }}" name="empleado_id" id="empleado_id">
-
 {!! Form::close() !!}
 
 <div class="panel panel-info">    
@@ -243,7 +241,7 @@
                                 {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], 'Activo', ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato'])  !!} 
                                 {!! Form::label('estadContrato','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoContrato'])  !!}
                             </div> 
-                            <div class="col-md-6 separarBottom">
+                            <div class="col-md-6 separarBottom ocultarShowContrato">
                                 {!! Form::label('adjuntoContrato','Adjunto')  !!}
                                 {{ Form::file('adjuntoContrato', ['class' => 'form-control','id'=>'adjuntoContrato']) }}
                             </div> 
@@ -287,7 +285,7 @@
                                 <td>{{ $contrato->fechaFin }}</td>
                                 <td>
                                     <a title="Adjunto" href="{{ $contrato->adjunto }}" target="_blank">
-                                       <i class="fa fa-file" aria-hidden="true"></i> Contrato adjunto
+                                       <i class="fa fa-file" aria-hidden="true"></i> Archivo adjunto
                                     </a>
                                 </td>
                                 <td>
@@ -386,7 +384,7 @@
                                 </div> 
                             </div>
                             <div class="row">
-                                <div class="col-md-6 separarBottom">
+                                <div class="col-md-6 separarBottom ocultarShowFormacion">
                                     {!! Form::label('adjuntoFormacion','Adjunto')  !!}
                                     {{ Form::file('adjuntoFormacion', ['class' => 'form-control','id'=>'adjuntoFormacion']) }}
                                 </div> 
@@ -410,6 +408,7 @@
                         <th>Nivel de formación</th>
                         <th>Área de formación</th>
                         <th>Estado</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -420,6 +419,11 @@
                                 <td>{{ $formacion->NivelEstudio->nivelEstudio }}</td>
                                 <td>{{ $formacion->AreaEstudio->areaEstudio }}</td>
                                 <td>{{ $formacion->estado }}</td>
+                                <td>
+                                    <a title="Adjunto" href="{{ $formacion->adjunto }}" target="_blank">
+                                       <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
+                                    </a>
+                                </td>
                                 <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailFormaciones">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
@@ -438,10 +442,13 @@
     </div>
 </div>
 
+<input type="hidden" id='tmp' name='tmp' value='{{ $empleado->identificacion }}'> <!-- Para agregar el id temporal en la restriccion medica, se va a usar la identificacion del empleado -->
 <div class="panel panel-info">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana6" aria-expanded="false" aria-controls="ventana6">Exámenes</div>
         <div class="collapse" id="ventana6">
         <div class="panel-body">
+
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevoExamen', 'data-toggle'=>'modal', 'data-target'=>'#modalExamenes']) !!}
 
             <!-- Modal Examen-->
             <div class="modal fade" id="modalExamenes" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -451,25 +458,46 @@
                     <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Exámen</span></h5>
                   </div>
                   <div class="modal-body">
+                    {!! Form::open(['enctype' => 'multipart/form-data']) !!}
                         <div class="row">
                             <div class="col-md-4 separarBottom">
                                 {!! Form::label('tipoExamen','Tipo')  !!}
                                 {!! Form::select('tipoExamen', ['Ingreso'=>'Ingreso','Periodico'=>'Periodico','Extraordinario'=>'Extraordinario','Retiro'=>'Retiro'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoExamen', 'required'])  !!} 
+                                {!! Form::label('tipoExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoExamen'])  !!}
                             </div> 
                             <div class="col-md-4 separarBottom">
                                 {!! Form::label('fechaExamen','Fecha del examen')  !!}
                                 {!! Form::date('fechaExamen',null, ['class' => 'form-control', 'required', 'id'=>'fechaExamen'])  !!}
-                            </div> 
+                                {!! Form::label('fechaExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaExamen'])  !!}
+                            </div>  
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-8 separarBottom ocultarShowExamen">
+                                {!! Form::label('adjuntoExamen','Adjunto')  !!}
+                                {{ Form::file('adjuntoExamen', ['class' => 'form-control','id'=>'adjuntoExamen']) }}
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12 separarBottom">
                                 {!! Form::label('concepto','Concepto médico')  !!}
                                 {!! Form::textarea('concepto',null, ['class' => 'form-control', 'required', 'id'=>'concepto','size' => '30x3'])  !!}
+                                {!! Form::label('fechaExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoConceptoExamen'])  !!}
                             </div>
                         </div>
                         <hr>
-                        <table id="inlineRestriccionesMedicas" class="display" cellspacing="0" width="100%">
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12 separarBottom">
+                                {!! Form::label('restriccion','Restricción')  !!}
+                                {!! Form::textarea('restriccion',null, ['class' => 'form-control', 'id'=>'restriccion','size' => '30x2'])  !!}
+                                {!! Form::label('restriccion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRestriccion'])  !!}
+                            </div> 
+                            <div class="col-md-4 separarBottom">
+                                {!! Form::button('Agregar', ['class'=>' btn btn-danger', 'id'=>'addRestriccionMedica']) !!}
+                            </div> 
+                        </div>   
+                        <hr>                     
+                        <table id="restriccionesInlineTable" class="display" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Restricciones médicas</th>
@@ -478,12 +506,11 @@
                                 </tbody>
                             </thead>
                         </table>
-
+                    {!! Form::close() !!}
                   </div>
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary agregarExamenSubpanel']) !!}
                   </div>
                 </div>
               </div>
@@ -780,7 +807,9 @@
     <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
     <script src="{{ asset('js/formacion/shared.js') }}"></script>
 
+    <script src="{{ asset('js/examenes/create.js') }}"></script>
     <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
+
     <script src="{{ asset('js/tableInlineAusentismos.js') }}"></script>
     <script src="{{ asset('js/tableInlineSST.js') }}"></script>
     <script src="{{ asset('js/tableInlineAdjuntos.js') }}"></script>

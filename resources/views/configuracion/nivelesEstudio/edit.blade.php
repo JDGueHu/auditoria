@@ -36,7 +36,7 @@
 
         <div class="row">   
             <div class="col-md-4 separarBottom">
-                {!! Form::label('tipoEstudio','Tipo documento')  !!}
+                {!! Form::label('tipoEstudio','Categoría')  !!}
                 {!! Form::select('tipoEstudio', ['Academica'=>'Academica','Complementaria'=>'Complementaria'], $nivelEstudio->tipoEstudio, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un tipo de estudio','id'=>'tipoEstudio'])  !!} 
             </div>
         </div>

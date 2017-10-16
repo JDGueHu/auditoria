@@ -7,9 +7,9 @@
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'contratos.store', 'method' => 'POST','id'=>'contrato']) !!} 
+{!! Form::open(['route' => 'contratos.store', 'method' => 'POST','id'=>'contrato','enctype' => 'multipart/form-data']) !!} 
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary', 'id'=>'botonEditarTop']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary botonCrearContrato']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
 <a style="text-decoration: none;" href="{{ route('contratos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
@@ -78,6 +78,10 @@
                 {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], 'Activo', ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato'])  !!} 
                 {!! Form::label('estadContrato','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoEstadoContrato'])  !!}
             </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+            </div> 
         </div>
         <div class="row">
             <div class="col-md-12 separarBottom">
@@ -89,7 +93,7 @@
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'botonEditarBottom']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn botonCrearContrato']) !!}
 <a style="text-decoration: none;" href="{{ route('contratos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>

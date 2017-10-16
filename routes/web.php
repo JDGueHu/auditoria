@@ -187,9 +187,17 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'examenesController@destroy',
 		'as' => 'examenes.destroy'
 	]);
+	Route::post('examenes/createAjax',[
+		'uses' => 'examenesController@createAjax',
+		'as' => 'examenes.createAjax'
+	]);
 	Route::get('examenes/{id}/showAjax',[
 		'uses' => 'examenesController@showAjax',
 		'as' => 'examenes.showAjax'
+	]);
+	Route::get('examenes/{id}/destroyAjax',[
+		'uses' => 'examenesController@destroyAjax',
+		'as' => 'examenes.destroyAjax'
 	]);
 
 	Route::resource('tiposVacaciones','tiposVacacionesController');

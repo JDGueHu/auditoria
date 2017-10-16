@@ -20,19 +20,25 @@
                     <th>Duración (Meses)</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
+                    <th>Adjunto</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($contratos as $contrato)
                     <tr>
-                        <td>{{ $contrato->Empleado->identificacion }}</td> 
-                        <td>{{ $contrato->Empleado->nombres }}</td> 
-                        <td>{{ $contrato->Empleado->apellidos }}</td>   
-                        <td>{{ $contrato->tipoContrato->tipoContrato }}</td>    
+                        <td>{{ $contrato->identificacion }}</td> 
+                        <td>{{ $contrato->nombres }}</td> 
+                        <td>{{ $contrato->apellidos }}</td>   
+                        <td>{{ $contrato->tipoContrato }}</td>    
                         <td>{{ $contrato->duracion }}</td>
                         <td>{{ $contrato->fechaInicio }}</td>
                         <td>{{ $contrato->fechaFin }}</td>
+                        <td>
+                            <a title="Adjunto" href="{{ $contrato->adjunto }}" target="_blank">
+                               <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
+                            </a>
+                        </td>
                         <td>
                             <a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('contratos.show',$contrato->id) }}" class="btn btn-default btn-xs">
                                 <i class="fa fa-eye" aria-hidden="true"></i>

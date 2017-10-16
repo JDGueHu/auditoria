@@ -22,6 +22,12 @@ class contratosController extends Controller
     {
         $contratos = Contrato::where('alive',true)->get();
 
+        $contratos = DB::table('contratos')
+            ->join('empleados','contratos.empleado_id','=','empleados.id')
+            ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')
+            ->select('empleados.nombres','empleados.apellidos','empleados.identificacion','contratos.*','tiposContrato.tipoContrato')
+            ->get();
+
         return view('administracion.contratos.index')->with('contratos',$contratos);
     }
 
@@ -65,6 +71,14 @@ class contratosController extends Controller
         $contrato->estado = $request->estadContrato;
         $contrato->save();
 
+
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'contratos', 'contratoModuloCrear', $contrato->id);
+        }
+
+        //dd($contrato);
+
         flash('Contrato de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('contratos.index');
         //dd($empleado[0]->nombres);
@@ -85,7 +99,7 @@ class contratosController extends Controller
             ->select('empleados.nombres','empleados.apellidos','empleados.identificacion','contratos.*','tiposDocumento.tipoDocumento')
             ->get();
         $tiposContrato = TipoContrato::where('alive',true)->pluck('tipoContrato','id');
-//dd($contrato[0]->nombres);
+
         return view('administracion.contratos.show')
             ->with('contrato',$contrato)
             ->with('tiposContrato',$tiposContrato);
@@ -133,6 +147,11 @@ class contratosController extends Controller
         $contrato->estado = $request->estadContrato;
         $contrato->save();
 
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'contratos', 'contratoModuloEditar', $contrato->id);
+        }
+
         flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();
         return redirect()->route('contratos.index');
     }
@@ -161,31 +180,23 @@ class contratosController extends Controller
 
         if($request->ajax()){   
 
+            $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
             $contrato = new Contrato();
 
-            $contrato->empleado_id = $request->empleado_id;
+            $contrato->empleado_id = $empleado[0]->id;
             $contrato->tipoContrato_id = $request->tipoContrato; 
             $contrato->fechaInicio = $request->fechaInicio; 
             $contrato->duracion = $request->duracion; 
             $contrato->fechaFin = $request->fechaFin; 
             $contrato->estado = $request->estado; 
-
-            // // Para cargar archivo
-            // $fecha = Carbon::now(-5)->toDateTimeString(); // Convertir a string fecha
-            // $fecha = str_replace ( " ", "_" , $fecha ); // Quitar espacios por guines bajos
-            // $fecha = str_replace ( ":", "-" , $fecha ); // Quitar dos puntos por guines
-
-            // $name = 'Cotizacion_subPanel'.'.'.$fecha.'_'.$request->adjunto->getClientOriginalName(); 
-            
-            // $request->adjunto->storeAs('public',$name); // subir el archivo a la carpeta linkeada
-
-            // $contrato->adjunto = '/calidad/public/storage/'.$name;
-
             $contrato->detalles = $request->detalles;             
             $contrato->save();
 
-            //Adjuntar archivo y asociarlo a registro creado
-            Adjunto::adjuntar($request, 'contratos', 'contratoSubpanel', $contrato->id);
+            if ($request->hasFile('adjunto')) {
+                //Adjuntar archivo y asociarlo a registro creado
+                Adjunto::adjuntar($request, 'contratos', 'contratoSubpanel', $contrato->id);
+            }
 
             $contrato = DB::table('contratos')
                 ->join('tiposContrato','contratos.tipoContrato_id','=','tiposContrato.id')

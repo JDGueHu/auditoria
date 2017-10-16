@@ -18,7 +18,7 @@
 					<th>Código</th>
 					<th>Nivel de estudio</th>
 					<th>Orden</th>
-					<th>Tipo</th>
+					<th>CategoríaCategoría</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>

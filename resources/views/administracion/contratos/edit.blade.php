@@ -7,9 +7,9 @@
   <li class="active">Editar</li>
 </ol>
 
-{!! Form::model($contrato,['route' => ['contratos.update',$contrato[0]->id], 'method' => 'PUT','id'=>'contrato']) !!}
+{!! Form::model($contrato,['route' => ['contratos.update',$contrato[0]->id], 'method' => 'PUT','id'=>'contrato','enctype' => 'multipart/form-data']) !!}
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary', 'id'=>'botonEditarTop']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary botonEditarTop']) !!}
 <a style="text-decoration: none;" href="{{ route('contratos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
@@ -53,6 +53,13 @@
                 {!! Form::label('estadContrato','Estado')  !!}
                 {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], $contrato[0]->estado, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato'])  !!} 
             </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+                <a title="Adjunto" href="{{ $contrato[0]->adjunto }}" target="_blank">
+                    {{ $contrato[0]->adjunto  }}
+                </a>
+            </div> 
         </div>
         <div class="row">
             <div class="col-md-12 separarBottom">
@@ -64,7 +71,7 @@
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'botonEditarBottom']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn botonEditarTop']) !!}
 <a style="text-decoration: none;" href="{{ route('contratos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Formacion extends Model
 {
     protected $table = "formaciones";
+    protected $fillable = ['adjunto'];
 
 	public function Empleado()
     {

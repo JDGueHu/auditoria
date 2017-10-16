@@ -52,6 +52,12 @@
                 {!! Form::label('estadContrato','Estado')  !!}
                 {!! Form::select('estadContrato', ['Activo'=>'Activo','Finalizado'=>'Finalizado'], $contrato[0]->estado, ['class' => 'form-control', 'placeholder' => 'Seleccione un estado','id'=>'estadContrato','disabled'])  !!} 
             </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjunto','Ruta')  !!}                
+                <a title="Adjunto" href="{{ $contrato[0]->adjunto }}" target="_blank">
+                    {{ $contrato[0]->adjunto  }}
+                </a>
+            </div> 
         </div>
         <div class="row">
             <div class="col-md-12 separarBottom">

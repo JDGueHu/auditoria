@@ -7,7 +7,7 @@
   <li class="active">Editar</li>
 </ol>
 
-{!! Form::model($formacion,['route' => ['formaciones.update',$formacion[0]->id], 'method' => 'PUT', 'id' => 'editFormacion']) !!}
+{!! Form::model($formacion,['route' => ['formaciones.update',$formacion[0]->id], 'method' => 'PUT', 'id' => 'editFormacion','enctype' => 'multipart/form-data']) !!}
 
 {!! Form::button('Guardar', ['class'=>'btn btn-primary botonEditarFormacion']) !!}
 <a style="text-decoration: none;" href="{{ route('formaciones.index') }}">
@@ -86,6 +86,13 @@
                 {!! Form::label('ciudadNacimientoFormacion','Ciudad de estudio')  !!}
                 {!! Form::text('ciudadNacimientoFormacion',$formacion[0]->ciudadEstudio, ['class' => 'form-control', 'required', 'id'=>'ciudadNacimientoFormacion'])  !!}
                 {!! Form::label('ciudadNacimientoFormacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCiudadFormacion'])  !!}
+            </div> 
+            <div class="col-md-4 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+                <a title="Adjunto" href="{{ $formacion[0]->adjunto }}" target="_blank">
+                    {{ $formacion[0]->adjunto  }}
+                </a>
             </div> 
         </div>
     </div>
