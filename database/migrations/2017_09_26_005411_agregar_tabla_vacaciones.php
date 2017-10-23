@@ -20,11 +20,11 @@ class AgregarTablaVacaciones extends Migration
             $table->foreign('empleado_id')->references('id')->on('empleados');
 
             $table->integer('tipoVacaciones_id')->unsigned();
-            $table->foreign('tipoVacaciones_id')->references('id')->on('vacaciones');
+            $table->foreign('tipoVacaciones_id')->references('id')->on('tiposVacaciones');
 
             $table->date('fechaInicio');
             $table->date('fechaFin');
-            $table->string('detalles')->unique();
+            $table->string('detalles');
 
             $table->boolean('alive')->default(true);
 

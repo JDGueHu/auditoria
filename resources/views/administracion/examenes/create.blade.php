@@ -7,7 +7,7 @@
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'examenes.store', 'method' => 'POST','id'=>'examen']) !!} 
+{!! Form::open(['route' => 'examenes.store', 'method' => 'POST','id'=>'examen','enctype' => 'multipart/form-data']) !!} 
 
 {!! Form::button('Guardar', ['class'=>'btn btn-primary crearExamen']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
@@ -61,6 +61,12 @@
                 {!! Form::date('fechaExamen',null, ['class' => 'form-control', 'required', 'id'=>'fechaExamen'])  !!}
                 {!! Form::label('fechaExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaExamen'])  !!}
             </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-8 separarBottom ocultarShowExamen">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 separarBottom">

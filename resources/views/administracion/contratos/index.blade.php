@@ -20,7 +20,7 @@
                     <th>Duración (Meses)</th>
                     <th>Fecha inicio</th>
                     <th>Fecha fin</th>
-                    <th>Adjunto</th>
+<!--                     <th>Adjunto</th> -->
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -34,11 +34,11 @@
                         <td>{{ $contrato->duracion }}</td>
                         <td>{{ $contrato->fechaInicio }}</td>
                         <td>{{ $contrato->fechaFin }}</td>
-                        <td>
+<!--                         <td>
                             <a title="Adjunto" href="{{ $contrato->adjunto }}" target="_blank">
                                <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
                             </a>
-                        </td>
+                        </td> -->
                         <td>
                             <a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('contratos.show',$contrato->id) }}" class="btn btn-default btn-xs">
                                 <i class="fa fa-eye" aria-hidden="true"></i>

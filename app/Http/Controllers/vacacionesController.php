@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Vacacion;
 use App\TipoVacaciones;
 use App\Empleado;
+use App\Adjunto;
 
 class vacacionesController extends Controller
 {
@@ -56,10 +57,15 @@ class vacacionesController extends Controller
 
         $ausentismo->empleado_id = $empleado[0]->id;
         $ausentismo->tipoVacaciones_id = $request->tipoVacacion;
-        $ausentismo->fechaInicio = $request->fechaInicio;
-        $ausentismo->fechaFin = $request->fechaFin;
-        $ausentismo->detalles = $request->detalles;
+        $ausentismo->fechaInicio = $request->fechaInicioAusentismo;
+        $ausentismo->fechaFin = $request->fechaFinAusentismo;
+        $ausentismo->detalles = $request->detallesAusentismo;
         $ausentismo->save();
+
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'vacaciones', 'vacacionesModulo', $ausentismo->id);
+        }
 
         flash('Ausentismo de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('vacaciones.index');
@@ -127,6 +133,11 @@ class vacacionesController extends Controller
         $ausentismo->detalles = $request->detalles;
         $ausentismo->save();
 
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'vacaciones', 'vacacionesModulo', $ausentismo->id);
+        }
+
         flash('Ausentismo de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se editó exitosamente', 'warning')->important();
         return redirect()->route('vacaciones.index');
     }
@@ -149,11 +160,52 @@ class vacacionesController extends Controller
         return redirect()->route('vacaciones.index');
     }
 
+    public function createAjax(Request $request)
+    {
+        if($request->ajax()){   
+
+            $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+            $ausentismo = new Vacacion();
+
+            $ausentismo->empleado_id = $empleado[0]->id;
+            $ausentismo->tipoVacaciones_id = $request->tipoVacacion;
+            $ausentismo->fechaInicio = $request->fechaInicioAusentismo;
+            $ausentismo->fechaFin = $request->fechaFinAusentismo;
+            $ausentismo->detalles = $request->detallesAusentismo;
+            $ausentismo->save();
+
+            if ($request->hasFile('adjunto')) {
+                //Adjuntar archivo y asociarlo a registro creado
+                Adjunto::adjuntar($request, 'vacaciones', 'vacacionesSubpanel', $ausentismo->id);
+            }
+
+            $ausentismo = DB::table('vacaciones')
+                ->join('tiposVacaciones','vacaciones.tipoVacaciones_id','=','tiposVacaciones.id')
+                ->where('vacaciones.id','=',$ausentismo->id)
+                ->select('tiposVacaciones.tipoVacaciones','vacaciones.*')
+                ->get();
+
+            return response($ausentismo);
+
+        }
+    }
+
     public function showAjax($id)
     {
 
         $ausentismo = Vacacion::find($id);
 
         return $ausentismo;
+    }
+
+    public function destroyAjax($id)
+    {
+        $ausentismo = Vacacion::find($id);
+
+        $ausentismo->alive=false;
+        $ausentismo->save();
+
+        return response($id);
     }
 }

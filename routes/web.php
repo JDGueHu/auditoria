@@ -211,9 +211,17 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'vacacionesController@destroy',
 		'as' => 'vacaciones.destroy'
 	]);
+	Route::post('vacaciones/createAjax',[
+		'uses' => 'vacacionesController@createAjax',
+		'as' => 'vacaciones.createAjax'
+	]);
 	Route::get('vacaciones/{id}/showAjax',[
 		'uses' => 'vacacionesController@showAjax',
 		'as' => 'vacaciones.showAjax'
+	]);
+	Route::get('vacaciones/{id}/destroyAjax',[
+		'uses' => 'vacacionesController@destroyAjax',
+		'as' => 'vacaciones.destroyAjax'
 	]);
 
 	Route::resource('tiposSST','tiposSSTController');
@@ -234,9 +242,17 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'SSTController@destroy',
 		'as' => 'SST.destroy'
 	]);
+	Route::post('SST/createAjax',[
+		'uses' => 'SSTController@createAjax',
+		'as' => 'SST.createAjax'
+	]);
 	Route::get('SST/{id}/showAjax',[
 		'uses' => 'SSTController@showAjax',
 		'as' => 'SST.showAjax'
+	]);
+	Route::get('SST/{id}/destroyAjax',[
+		'uses' => 'SSTController@destroyAjax',
+		'as' => 'SST.destroyAjax'
 	]);
 
 	Route::resource('adjuntos','adjuntosController');

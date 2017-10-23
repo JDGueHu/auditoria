@@ -19,9 +19,28 @@ $(document).ready(function() {
 
     });
 
-///////////// Detalle de contrato
+     //// Eventos al hacer click en click en nuevo 
+     $('#nuevoAdjunto').on( 'click', function () {
 
+        $(".addRowAdjunto").removeClass("ocultar");
+        $(".editRowAdjunto").addClass("ocultar");
+        $(".ocultarShowAdjunto").removeClass("ocultar");
+
+        $("#nombre").val("");
+        $("#adjuntoAdjunto").val("");
+        $("#detallesAdjunto").val("");
+
+    } );
+
+    // Crear adjunto
+    $.fn.crearAdjuntoAjax = function(tipoCreacion) {
+
+    };
+
+    ///////////// Detalle de contrato
     $('#inlineAdjuntos tbody').on( 'click', '.buttonDetailAdjunto', function () {
+
+        $(".ocultarShowAdjunto").addClass("ocultar");
 
         var  cadena = $(this).parents('tr').children().eq(0).text();
         var array = cadena.split("-");
@@ -31,8 +50,8 @@ $(document).ready(function() {
               type: 'GET'
             }).done(function(response){
                 
-                $(".addRow").addClass("ocultar");
-                $(".editRow").addClass("ocultar");
+                $(".addRowAdjunto").addClass("ocultar");
+                $(".editRowAdjunto").addClass("ocultar");
                 
                 document.getElementById("nombre").setAttribute("readonly","readonly");
                 document.getElementById("detallesAdjunto").setAttribute("readonly","readonly");
@@ -45,7 +64,5 @@ $(document).ready(function() {
 
             });
     } );
-
-/////////////////////////////////////////////////
 
 } );

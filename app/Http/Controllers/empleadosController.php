@@ -144,6 +144,7 @@ class empleadosController extends Controller
             ->pluck('causa','id');
         $SSTs = SST::where('empleado_id','=',$id)->where('alive',true)->get();
         $adjuntos = Adjunto::where('empleado_id','=',$id)->where('alive',true)->get();
+        $tmp = uniqid();
 
         return view('administracion.empleados.show')
             ->with('empleado',$empleado)
@@ -166,7 +167,8 @@ class empleadosController extends Controller
             ->with('causasSSt_principales',$causasSSt_principales)
             ->with('causasSSt_complementarias',$causasSSt_complementarias)
             ->with('SSTs',$SSTs)
-            ->with('adjuntos',$adjuntos);
+            ->with('adjuntos',$adjuntos)
+            ->with('tmp',$tmp);
     }
 
     /**

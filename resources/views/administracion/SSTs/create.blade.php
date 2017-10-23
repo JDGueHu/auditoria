@@ -7,9 +7,9 @@
   <li class="active">Crear</li>
 </ol>
 
-{!! Form::open(['route' => 'SST.store', 'method' => 'POST', 'id' => 'crearSST']) !!} 
+{!! Form::open(['route' => 'SST.store', 'method' => 'POST', 'id' => 'crearSST', 'enctype' => 'multipart/form-data']) !!} 
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary crear_sst']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
 <a style="text-decoration: none;" href="{{ route('SST.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
@@ -76,7 +76,12 @@
                 {!! Form::label('causaComplementaria_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCausaComSST'])  !!}
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-6 separarBottom ocultarShow_sst">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+            </div>
+        </div>
         <div class="row">  
             <div class="col-md-12 separarBottom">
                 {!! Form::label('detalles','Detalles')  !!}
@@ -89,7 +94,7 @@
 </div>
 
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn crear_sst']) !!}
 <a style="text-decoration: none;" href="{{ route('SST.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>

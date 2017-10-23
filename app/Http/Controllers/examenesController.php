@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Examen;
 use App\Empleado;
 use App\RestriccionMedica;
+use App\Adjunto;
 
 class examenesController extends Controller
 {
@@ -60,6 +61,11 @@ class examenesController extends Controller
         $examen->concepto = $request->concepto;
         $examen->save();
 
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'examenes', 'examenModulo', $examen->id);
+        }
+
         DB::table('restriccionesMedicas')
             ->where('id_examen','=', $request->tmp)
             ->update(['id_examen' => $examen->id]);
@@ -76,16 +82,18 @@ class examenesController extends Controller
      */
     public function show($id)
     {
-        $examen = Examen::find($id);
-        $restricciones = RestriccionMedica::where('id_examen','=',$examen->id)->where('alive',true)->get();
-        $empleado = DB::table('empleados')
-        ->join('tiposDocumento','empleados.tipoDocumento_id','=','tiposDocumento.id')
-        ->where('empleados.id','=',$examen->empleado_id)
-        ->select('tiposDocumento.tipoDocumento','empleados.identificacion','empleados.nombres','empleados.apellidos')
+
+        $examen = DB::table('examenes')
+        ->join('empleados','examenes.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->where('examenes.id',$id)
+        ->where('examenes.alive',true)
+        ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','examenes.*')
         ->get();
 
+        $restricciones = RestriccionMedica::where('id_examen','=',$examen[0]->id)->where('alive',true)->get();
+
         return view('administracion.examenes.show')
-            ->with('empleado',$empleado)
             ->with('examen',$examen)
             ->with('restricciones',$restricciones);
     }
@@ -98,18 +106,20 @@ class examenesController extends Controller
      */
     public function edit($id)
     {
-        $examen = Examen::find($id);
-        $restricciones = RestriccionMedica::where('id_examen','=',$examen->id)->where('alive',true)->get();
-        $empleado = DB::table('empleados')
-        ->join('tiposDocumento','empleados.tipoDocumento_id','=','tiposDocumento.id')
-        ->where('empleados.id','=',$examen->empleado_id)
-        ->select('tiposDocumento.tipoDocumento','empleados.identificacion','empleados.nombres','empleados.apellidos')
+
+        $examen = DB::table('examenes')
+        ->join('empleados','examenes.empleado_id','=','empleados.id')
+        ->join('tiposDocumento', 'empleados.tipoDocumento_id','=','tiposDocumento.id')
+        ->where('examenes.id',$id)
+        ->where('examenes.alive',true)
+        ->select('empleados.id as empleado_id','empleados.nombres','empleados.apellidos','tiposDocumento.tipoDocumento', 'empleados.identificacion','examenes.*')
         ->get();
+
+        $restricciones = RestriccionMedica::where('id_examen','=',$examen[0]->id)->where('alive',true)->get();
 
         $tmp = uniqid();
 
         return view('administracion.examenes.edit')
-            ->with('empleado',$empleado)
             ->with('examen',$examen)
             ->with('restricciones',$restricciones)
             ->with('tmp',$tmp);
@@ -132,6 +142,11 @@ class examenesController extends Controller
         $examen->fechaExamen = $request->fechaExamen;
         $examen->concepto = $request->concepto;
         $examen->save();
+
+        if ($request->hasFile('adjunto')) {
+            //Adjuntar archivo y asociarlo a registro creado
+            Adjunto::adjuntar($request, 'examenes', 'examenModulo', $examen->id);
+        }
 
         DB::table('restriccionesMedicas')
             ->where('id_examen','=', $request->tmp)
@@ -166,4 +181,48 @@ class examenesController extends Controller
 
         return $examen;
     }
+
+    public function createAjax(Request $request)
+    {
+
+        if($request->ajax()){   
+
+            $examen = new Examen();
+            $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+            $examen->empleado_id = $empleado[0]->id;
+            $examen->tipoExamen = $request->tipoExamen;
+            $examen->fechaExamen = $request->fechaExamen;
+            $examen->concepto = $request->concepto;
+            $examen->save();
+
+            if ($request->hasFile('adjunto')) {
+                //Adjuntar archivo y asociarlo a registro creado
+                Adjunto::adjuntar($request, 'examenes', 'examenSubpanel', $examen->id);
+            }
+
+            DB::table('restriccionesMedicas')
+            ->where('id_examen','=', $request->tmp)
+            ->update(['id_examen' => $examen->id]);
+
+            $examen = DB::table('examenes')
+                ->where('examenes.id','=',$examen->id)
+                ->select('examenes.*')
+                ->get();
+
+            return response($examen);
+            //->json($contratos)
+        }
+    }
+
+    public function destroyAjax($id)
+    {
+        $examen = Examen::find($id);
+
+        $examen->alive=false;
+        $examen->save();
+
+        return response($id);
+    }
+
 }

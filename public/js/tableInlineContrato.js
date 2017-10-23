@@ -147,7 +147,6 @@ $(document).ready(function() {
           processData: false,
 		  data : form_data
 		}).done(function(response){
-
 			
         	t.row.add( [
 	            response[0].tipoContrato,

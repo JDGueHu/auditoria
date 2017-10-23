@@ -50,7 +50,7 @@ function validarExamen(ajax){
 		if (ajax == 0){
 			$('#examen').submit();
 		}else{
-			$.fn.crearExamenAjax();
+			$.fn.crearAusentismoAjax(ajax);
 		}		
 	}
 

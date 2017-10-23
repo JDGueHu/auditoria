@@ -42,7 +42,9 @@ $(document).ready(function() {
     });
 
     $('#nuevoExamen').on( 'click', function () {
+        $(".ocultarShowExamen").removeClass("ocultar");
         $(".agregarExamenSubpanel").removeClass("ocultar");
+        $("#secionRestriccionesModal").removeClass("ocultar");
         tR.clear().draw();;
 
         $("#tipoExamen").val("");
@@ -94,7 +96,7 @@ $(document).ready(function() {
                 //console.log(response);  
                 tR.row.add( [
                 response.restriccion+'<span style="opacity:0">z$&'+response.id+'</span>',
-                '<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroy"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+                '<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyRestriccion"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
             ] ).draw( false );            
             });
         }
@@ -102,19 +104,18 @@ $(document).ready(function() {
 
 
 
-    // Eliminar items en tabla
-         
-    $('#restriccionesInlineTable tbody').on( 'click', '.buttonDestroy', function () {
+    // Eliminar restriccion medica en tabla         
+    $('#restriccionesInlineTable tbody').on( 'click', '.buttonDestroyRestriccion', function () {
 
         var  cadena = $(this).parents('tr').children().eq(0).text();
         var array = cadena.split("z$&");
 
-        if ( $(this).parents('tr').hasClass('eliminar') ) {
-            $(this).parents('tr').removeClass('eliminar');
+        if ( $(this).parents('tr').hasClass('eliminarRestriccion') ) {
+            $(this).parents('tr').removeClass('eliminarRestriccion');
         }
         else {
-            t.$('tr.eliminar').removeClass('eliminar');
-            $(this).parents('tr').addClass('eliminar');
+            t.$('tr.eliminarRestriccion').removeClass('eliminarRestriccion');
+            $(this).parents('tr').addClass('eliminarRestriccion');
         }   
 
         $.confirm({
@@ -137,7 +138,7 @@ $(document).ready(function() {
                       type: 'GET'
                     }).done(function(response){
                       //console.log(response);
-                      t.row('.eliminar').remove().draw( false );
+                      tR.row('.eliminarRestriccion').remove().draw( false );
                     });
                 },
                 cancel: function () {}
@@ -149,31 +150,82 @@ $(document).ready(function() {
 
     ///// Crear examen Ajax
     $.fn.crearExamenAjax = function(tipoCreacion) {
-        var intExt = $('#tipoExamen').val();  
-        var nivelEstudio_id = $('#fechaExamen').val();        
-        var areaEstudio_id = $('#concepto').val(); 
-        var adjunto = $('#adjuntoFormacion').prop('files')[0];
+
+        var identificacion = $('#identificacion').val();
+        var tipoExamen = $('#tipoExamen').val();
+        var fechaExamen = $('#fechaExamen').val();      
+        var adjunto = $('#adjuntoExamen').prop('files')[0];
+        var concepto = $('#concepto').val();    
+        var tmp = $('#tmp').val();    
 
         var form_data = new FormData();
         form_data.append('identificacion', identificacion);
-        form_data.append('tipoEstudio', tipoEstudio);
-        form_data.append('intExt', intExt);
-        form_data.append('nivelEstudio_id', nivelEstudio_id);
-        form_data.append('areaEstudio_id', areaEstudio_id);
-        form_data.append('titulacion', titulacion);
-        form_data.append('institucionEducativa', institucionEducativa);
-        form_data.append('estado', estadoFormacion);
-        form_data.append('fechaInicio', fechaInicioFormacion);
-        form_data.append('fechaFin', fechaFinFormacion);
-        form_data.append('ciudadNacimiento', ciudadNacimientoFormacion);
+        form_data.append('tipoExamen', tipoExamen);
+        form_data.append('fechaExamen', fechaExamen);
+        form_data.append('concepto', concepto);
+        form_data.append('tmp', tmp);
         form_data.append('adjunto', adjunto);
+
+        $.ajax({
+          url: '../../administracion/examenes/createAjax',
+          headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+          type: 'POST',
+          datatype:'json',
+          contentType: false,
+          cache: false,
+          processData: false,
+          data : form_data
+        }).done(function(response){
+            //console.log(response);
+
+            t.row.add( [
+                response[0].tipoExamen+'<span style="opacity:0">-'+response[0].id+'</span>',
+                response[0].fechaExamen,
+                '<a title="Adjunto" href="'+response[0].adjunto+'" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Archivo adjunto</a>',
+                '<a title="Detalles" class="btn btn-default btn-xs buttonDetailExamenes"><i class="fa fa-eye" aria-hidden="true"></i></a>&nbsp;<a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyExamen"><i class="fa fa-trash-o" aria-hidden="true"></i></a>'
+            ] ).draw( false );
+
+            $("#tipoExamen").val("");
+            $("#fechaExamen").val("");
+            $("#adjuntoExamen").val("");
+            $("#concepto").val("");
+            $('#modalExamenes').modal('toggle');
+        });
+
     };
 
+    // Eliminar examen       
+    $('#inlineExamenes tbody').on( 'click', '.buttonDestroyExamen', function () {
 
+        var validate = confirm('Va a eliminar un examen ¿Desea continuar?');
+
+        if (validate == true) {
+            if ( $(this).parents('tr').hasClass('eliminar') ) {
+                $(this).parents('tr').removeClass('eliminar');
+            }
+            else {
+                t.$('tr.eliminar').removeClass('eliminar');
+                $(this).parents('tr').addClass('eliminar');
+            }   
+
+            var  cadena = $(this).parents('tr').children().eq(0).text();
+            var array = cadena.split("-");
+
+            $.ajax({
+                  url: '../../administracion/examenes/'+array[1]+'/destroyAjax',
+                  type: 'GET'
+                }).done(function(response){
+                    //console.log(response);
+                  t.row('.eliminar').remove().draw( false );
+                });
+        }
+
+    });
 
     ///////////// Detalle de examen
     $('#inlineExamenes tbody').on( 'click', '.buttonDetailExamenes', function () {
 
+        $(".ocultarShowExamen").addClass("ocultar");
         $(".agregarExamenSubpanel").addClass("ocultar");
 
         var  cadena = $(this).parents('tr').children().eq(0).text();
@@ -185,7 +237,8 @@ $(document).ready(function() {
             }).done(function(response){
                 
                 $(".addRow").addClass("ocultar");
-                $(".editRow").addClass("ocultar");        
+                $(".editRow").addClass("ocultar");      
+                $("#secionRestriccionesModal").addClass("ocultar");  
                 $("#tipoExamen").prop( "disabled", true );
                 document.getElementById("fechaExamen").setAttribute("readonly","readonly");
                 document.getElementById("concepto").setAttribute("readonly","readonly");
@@ -205,7 +258,8 @@ $(document).ready(function() {
                         
                         response.forEach(function(item) {
                             tR.row.add( [
-                                item.restriccion
+                                item.restriccion,
+                                ' '
                             ] ).draw( false );
                         });
 

@@ -13,7 +13,7 @@
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
 
-<h1 id="nombreEmpleado">{{$empleado[0]->nombres}} {{$empleado[0]->apellidos}}</h1>
+<h1 id="nombreEmpleado">{{$examen[0]->nombres}} {{$examen[0]->apellidos}}</h1>
 <div class="panel panel-primary">    
     <div class="panel-heading">Datos básicos</div>
     <div class="panel-body">
@@ -21,28 +21,36 @@
         <div class="row">   
             <div class="col-md-4 separarBottom">
                 {!! Form::label('tipoIdentificacion','Tipo identificación')  !!}
-                {!! Form::text('tipoIdentificacion',$empleado[0]->tipoDocumento, ['class' => 'form-control', 'id'=>'tipoIdentificacion', 'required', 'readonly'])  !!}
+                {!! Form::text('tipoIdentificacion',$examen[0]->tipoDocumento, ['class' => 'form-control', 'id'=>'tipoIdentificacion', 'required', 'readonly'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
                 {!! Form::label('identificacion','Identificación')  !!}
-                {!! Form::text('identificacion',$empleado[0]->identificacion, ['class' => 'form-control', 'required', 'id'=>'identificacion', 'readonly'])  !!}
+                {!! Form::text('identificacion',$examen[0]->identificacion, ['class' => 'form-control', 'required', 'id'=>'identificacion', 'readonly'])  !!}
             </div>
         </div>
         <hr>
         <div class="row">
             <div class="col-md-4 separarBottom">
                 {!! Form::label('tipoExamen','Tipo')  !!}
-                {!! Form::select('tipoExamen', ['Ingreso'=>'Ingreso','Periodico'=>'Periodico','Extraordinario'=>'Extraordinario','Retiro'=>'Retiro'], $examen->tipoExamen, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoExamen', 'required','disabled'])  !!} 
+                {!! Form::select('tipoExamen', ['Ingreso'=>'Ingreso','Periodico'=>'Periodico','Extraordinario'=>'Extraordinario','Retiro'=>'Retiro'], $examen[0]->tipoExamen, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoExamen', 'required','disabled'])  !!} 
             </div> 
             <div class="col-md-4 separarBottom">
                 {!! Form::label('fechaExamen','Fecha del examen')  !!}
-                {!! Form::date('fechaExamen',$examen->fechaExamen, ['class' => 'form-control', 'required', 'id'=>'fechaExamen','readonly'])  !!}
+                {!! Form::date('fechaExamen',$examen[0]->fechaExamen, ['class' => 'form-control', 'required', 'id'=>'fechaExamen','readonly'])  !!}
             </div> 
+        </div>
+        <div class="row">
+            <div class="col-md-8 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                <a title="Adjunto" href="{{ $examen[0]->adjunto }}" target="_blank">
+                    {{ $examen[0]->adjunto  }}
+                </a>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12 separarBottom">
                 {!! Form::label('concepto','Concepto médico')  !!}
-                {!! Form::textarea('concepto',$examen->concepto, ['class' => 'form-control', 'required', 'id'=>'concepto','size' => '30x3','readonly'])  !!}
+                {!! Form::textarea('concepto',$examen[0]->concepto, ['class' => 'form-control', 'required', 'id'=>'concepto','size' => '30x3','readonly'])  !!}
             </div>
         </div>
     </div>

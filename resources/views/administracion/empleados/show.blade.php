@@ -442,7 +442,7 @@
     </div>
 </div>
 
-<input type="hidden" id='tmp' name='tmp' value='{{ $empleado->identificacion }}'> <!-- Para agregar el id temporal en la restriccion medica, se va a usar la identificacion del empleado -->
+<input type="hidden" id='tmp' name='tmp' value='{{ $tmp }}'> <!-- Para agregar el id temporal en la restriccion medica, se va a usar la identificacion del empleado -->
 <div class="panel panel-info">    
     <div class="panel-heading" role="button" data-toggle="collapse" href="#ventana6" aria-expanded="false" aria-controls="ventana6">Exámenes</div>
         <div class="collapse" id="ventana6">
@@ -460,12 +460,12 @@
                   <div class="modal-body">
                     {!! Form::open(['enctype' => 'multipart/form-data']) !!}
                         <div class="row">
-                            <div class="col-md-4 separarBottom">
+                            <div class="col-md-6 separarBottom">
                                 {!! Form::label('tipoExamen','Tipo')  !!}
                                 {!! Form::select('tipoExamen', ['Ingreso'=>'Ingreso','Periodico'=>'Periodico','Extraordinario'=>'Extraordinario','Retiro'=>'Retiro'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione un tipo de formación','id'=>'tipoExamen', 'required'])  !!} 
                                 {!! Form::label('tipoExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoExamen'])  !!}
                             </div> 
-                            <div class="col-md-4 separarBottom">
+                            <div class="col-md-6 separarBottom">
                                 {!! Form::label('fechaExamen','Fecha del examen')  !!}
                                 {!! Form::date('fechaExamen',null, ['class' => 'form-control', 'required', 'id'=>'fechaExamen'])  !!}
                                 {!! Form::label('fechaExamen','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaExamen'])  !!}
@@ -485,27 +485,31 @@
                             </div>
                         </div>
                         <hr>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12 separarBottom">
-                                {!! Form::label('restriccion','Restricción')  !!}
-                                {!! Form::textarea('restriccion',null, ['class' => 'form-control', 'id'=>'restriccion','size' => '30x2'])  !!}
-                                {!! Form::label('restriccion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRestriccion'])  !!}
-                            </div> 
-                            <div class="col-md-4 separarBottom">
-                                {!! Form::button('Agregar', ['class'=>' btn btn-danger', 'id'=>'addRestriccionMedica']) !!}
-                            </div> 
-                        </div>   
-                        <hr>                     
-                        <table id="restriccionesInlineTable" class="display" cellspacing="0" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>Restricciones médicas</th>
-                                </tr>
-                                <tbody>
-                                </tbody>
-                            </thead>
-                        </table>
+                        <span id="secionRestriccionesModal">
+                        <hr>                        
+                            <div class="row">
+                                <div class="col-md-12 separarBottom">
+                                    {!! Form::label('restriccion','Restricción')  !!}
+                                    {!! Form::textarea('restriccion',null, ['class' => 'form-control', 'id'=>'restriccion','size' => '30x2'])  !!}
+                                    {!! Form::label('restriccion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRestriccion'])  !!}
+                                </div> 
+                                <div class="col-md-4 separarBottom">
+                                    {!! Form::button('Agregar', ['class'=>' btn btn-danger', 'id'=>'addRestriccionMedica']) !!}
+                                </div> 
+                            </div>                           
+                            <hr> 
+                        </span>                    
+                            <table id="restriccionesInlineTable" class="display" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Restricciones médicas</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                    <tbody>
+                                    </tbody>
+                                </thead>
+                            </table>
+
                     {!! Form::close() !!}
                   </div>
                   <div class="modal-footer">
@@ -521,6 +525,7 @@
                     <tr>
                         <th>Tipo examen</th>
                         <th>Fecha</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -529,8 +534,16 @@
                                 <td>{{ $examen->tipoExamen}}<span style="opacity: 0">-{{$examen->id }}</td>
                                 <td>{{ $examen->fechaExamen}}</td>
                                 <td>
+                                    <a title="Adjunto" href="{{ $formacion->adjunto }}" target="_blank">
+                                       <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
+                                    </a>
+                                </td>
+                                <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailExamenes">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyExamen">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -548,6 +561,8 @@
         <div class="collapse" id="ventana7">
         <div class="panel-body">
 
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevoVacaciones', 'data-toggle'=>'modal', 'data-target'=>'#modalAusentismo']) !!}
+
             <!-- Modal Ausentismo-->
             <div class="modal fade" id="modalAusentismo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -556,14 +571,17 @@
                     <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">Ausentismo</span></h5>
                   </div>
                   <div class="modal-body">
+                    {!! Form::open(['enctype' => 'multipart/form-data']) !!}
                         <div class="row">   
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('tipoVacacion','Tipo ausentismo')  !!}
                                 {!! Form::select('tipoVacacion', $tiposAusentismo, null, ['class' => 'form-control', 'placeholder' => 'Seleccione tipo de ausentismo','id'=>'tipoVacacion','required'])  !!} 
+                                {!! Form::label('tipoVacacion','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoVecaciones'])  !!}
                             </div>
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('fechaInicioAusentismo','Fecha de inicio')  !!}
                                 {!! Form::date('fechaInicioAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'fechaInicioAusentismo'])  !!}
+                                {!! Form::label('fechaInicioAusentismo','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaIniVacaciones'])  !!}
                             </div>
                         </div>
 
@@ -571,24 +589,32 @@
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('fechaFinAusentismo','Fecha de finalización')  !!}
                                 {!! Form::date('fechaFinAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'fechaFinAusentismo', 'readonly'])  !!}
+                                {!! Form::label('fechaFinAusentismo','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaFinVacaciones'])  !!}
                             </div>
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('diasAusentismo','Número de días')  !!}
                                 {!! Form::text('diasAusentismo',null, ['class' => 'form-control', 'readonly', 'id'=>'diasAusentismo'])  !!}
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-8 separarBottom ocultarShowAusentismo">
+                                {!! Form::label('adjuntoAusentismo','Adjunto')  !!}
+                                {{ Form::file('adjuntoAusentismo', ['class' => 'form-control','id'=>'adjuntoAusentismo']) }}
+                            </div>
+                        </div>
                         <div class="row">  
                             <div class="col-md-12 separarBottom">
                                 {!! Form::label('detallesAusentismo','Detalles')  !!}
                                 {!! Form::textarea('detallesAusentismo',null, ['class' => 'form-control', 'required', 'id'=>'detallesAusentismo','size' => '30x3'])  !!}
+                                {!! Form::label('detallesAusentismo','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoDetallesVacaciones'])  !!}
                             </div>
                         </div>
+                    {!! Form::close() !!}
                   </div>
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRowAusentismo']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRowAusentismo']) !!}
                   </div>
                 </div>
               </div>
@@ -600,6 +626,7 @@
                         <th>Tipo de ausentismo</th>
                         <th>Fecha inicio</th>
                         <th>Fecha fin</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -609,8 +636,16 @@
                                 <td>{{ $ausentismo->fechaInicio}}</td>
                                 <td>{{ $ausentismo->fechaFin }}</td>
                                 <td>
+                                    <a title="Adjunto" href="{{ $ausentismo->adjunto }}" target="_blank">
+                                       <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
+                                    </a>
+                                </td>
+                                <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailAusentismo">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyAusentismo">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -628,6 +663,8 @@
         <div class="collapse" id="ventana8">
         <div class="panel-body">
 
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevo_sst', 'data-toggle'=>'modal', 'data-target'=>'#modalSST']) !!}
+
             <!-- Modal SST-->
             <div class="modal fade" id="modalSST" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -636,15 +673,17 @@
                     <h5 class="modal-title" id="exampleModalLongTitle"><span style="font-size: 16px">SST</span></h5>
                   </div>
                   <div class="modal-body">
-
+                    {!! Form::open(['enctype' => 'multipart/form-data']) !!}
                         <div class="row">   
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('tipoSST_id','Tipo SST')  !!}
                                 {!! Form::select('tipoSST_id', $tipoSST, null, ['class' => 'form-control', 'placeholder' => 'Seleccione tipo de SST','id'=>'tipoSST_id','required'])  !!} 
+                                {!! Form::label('tipoSST_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoTipoSST'])  !!}
                             </div>
                             <div class="col-md-6 separarBottom">
                                 {!! Form::label('fechaSST','Fecha')  !!}
                                 {!! Form::date('fechaSST',null, ['class' => 'form-control', 'required', 'id'=>'fechaSST'])  !!}
+                                {!! Form::label('fechaSST','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoFechaSST'])  !!}
                             </div>
                         </div>
 
@@ -652,6 +691,7 @@
                             <div class="col-md-12 separarBottom">
                                 {!! Form::label('causaPrincipal_id','Causa principal')  !!}
                                 {!! Form::select('causaPrincipal_id', $causasSSt_principales, null, ['class' => 'form-control chosen', 'placeholder' => 'Seleccione una causa','id'=>'causaPrincipal_id','required'])  !!} 
+                                {!! Form::label('causaPrincipal_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCausaPrinSST'])  !!}
                             </div>
                         </div>
 
@@ -661,20 +701,26 @@
                                 {!! Form::select('causaComplementaria_id', $causasSSt_complementarias, null, ['class' => 'form-control chosen', 'placeholder' => 'Seleccione una causa','id'=>'causaComplementaria_id','required'])  !!} 
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-md-8 separarBottom ocultarShow_sst">
+                                {!! Form::label('adjunto_sst','Adjunto')  !!}
+                                {{ Form::file('adjunto_sst', ['class' => 'form-control','id'=>'adjunto_sst']) }}
+                            </div>
+                        </div>
                         <div class="row">  
                             <div class="col-md-12 separarBottom">
                                 {!! Form::label('detallesSST','Detalles')  !!}
                                 {!! Form::textarea('detallesSST',null, ['class' => 'form-control', 'required', 'id'=>'detallesSST','size' => '30x3'])  !!}
+                                {!! Form::label('detalles','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoDetallesSST'])  !!}
                             </div>
                         </div>
-
+                    {!! Form::close() !!}
                   </div>
 
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow_sst']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow_sst']) !!}
                   </div>
                 </div>
               </div>
@@ -685,6 +731,7 @@
                     <tr>
                         <th>Tipo SST</th>
                         <th>Fecha</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -693,8 +740,16 @@
                                 <td>{{ $SST->TipoSST->tipoSST}}<span style="opacity: 0">-{{$SST->id }}</span></td>
                                 <td>{{ $SST->fechaSST }}</td>
                                 <td>
+                                    <a title="Adjunto" href="{{ $SST->adjunto }}" target="_blank">
+                                       <i class="fa fa-file" aria-hidden="true"></i>  Archivo adjunto
+                                    </a>
+                                </td>
+                                <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailSST">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroySST">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
@@ -712,6 +767,8 @@
         <div class="collapse" id="ventana9">
         <div class="panel-body">
 
+            {!! Form::button('Nuevo', ['class'=>'btn btn-primary separarTop separarBottomButtonn', 'id'=>'nuevoAdjunto', 'data-toggle'=>'modal', 'data-target'=>'#modalAdjunto']) !!}
+
             <!-- Modal Adjunto-->
             <div class="modal fade" id="modalAdjunto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -725,15 +782,15 @@
                         <div class="col-md-8 separarBottom">
                             {!! Form::label('nombre','Nombre adjunto')  !!}
                             {!! Form::text('nombre',null, ['class' => 'form-control', 'id'=>'nombre'])  !!}
+                            {!! Form::label('nombre','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoNombreAdjunto'])  !!}
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 separarBottom">
-                            {!! Form::label('ruta','Ruta')  !!}
-                            <a title="Adjunto" href="#" id="linkHref" target="_blank">
-                                <span id="ruta"></span>
-                            </a>
+                        <div class="col-md-8 separarBottom ocultarShowAdjunto">
+                            {!! Form::label('adjuntoAdjunto','Adjunto')  !!}
+                            {{ Form::file('adjuntoAdjunto', ['class' => 'form-control','id'=>'adjuntoAdjunto']) }}
+                            {!! Form::label('adjuntoAdjunto','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoRutaAdjunto'])  !!}
                         </div> 
                     </div>
 
@@ -748,8 +805,8 @@
 
                   <div class="modal-footer">
                     {!! Form::button('Cerrar', ['class'=>'btn btn-secondary', 'data-dismiss'=>'modal']) !!}
-                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRow']) !!}
-                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRow']) !!}
+                    {!! Form::button('Agregar', ['class'=>'btn btn-primary addRowAdjunto']) !!}
+                    {!! Form::button('Editar', ['class'=>'btn btn-primary editRowAdjunto']) !!}
                   </div>
                 </div>
               </div>
@@ -804,13 +861,19 @@
     <script src="{{ asset('js/contratos/shared.js') }}"></script>
     <script src="{{ asset('js/tableInlineContrato.js') }}"></script>
 
-    <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
     <script src="{{ asset('js/formacion/shared.js') }}"></script>
+    <script src="{{ asset('js/tableInlineFormaciones.js') }}"></script>
+    
 
     <script src="{{ asset('js/examenes/create.js') }}"></script>
     <script src="{{ asset('js/tableInlineExamenes.js') }}"></script>
 
+    <script src="{{ asset('js/vacaciones/shared.js') }}"></script>
     <script src="{{ asset('js/tableInlineAusentismos.js') }}"></script>
+
+    <script src="{{ asset('js/SST/shared.js') }}"></script>
     <script src="{{ asset('js/tableInlineSST.js') }}"></script>
+
+    <script src="{{ asset('js/adjuntos/shared.js') }}"></script>
     <script src="{{ asset('js/tableInlineAdjuntos.js') }}"></script>
 @endsection

@@ -57,7 +57,14 @@
                 {!! Form::label('causaComplementaria_id','Campo requerido', ['class' => 'textoAlerta ocultar','id'=>'requeridoCausaComSST'])  !!}
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-8 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                <a title="Adjunto" href="{{ $SST[0]->adjunto }}" target="_blank">
+                    {{ $SST[0]->adjunto  }}
+                </a>
+            </div>
+        </div>
         <div class="row">  
             <div class="col-md-12 separarBottom">
                 {!! Form::label('detalles','Detalles')  !!}

@@ -224,10 +224,10 @@ class formacionesController extends Controller
 
     public function destroyAjax($id)
     {
-        $contrato = Formacion::find($id);
+        $formacion = Formacion::find($id);
 
-        $contrato->alive=false;
-        $contrato->save();
+        $formacion->alive=false;
+        $formacion->save();
 
         return response($id);
     }

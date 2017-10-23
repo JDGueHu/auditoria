@@ -50,7 +50,14 @@
                 {!! Form::text('dias',null, ['class' => 'form-control', 'readonly', 'id'=>'dias'])  !!}
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-8 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                <a title="Adjunto" href="{{ $ausentismo[0]->adjunto }}" target="_blank">
+                    {{ $ausentismo[0]->adjunto  }}
+                </a>
+            </div>
+        </div>
         <div class="row">  
             <div class="col-md-12 separarBottom">
                 {!! Form::label('detalles','Detalles')  !!}

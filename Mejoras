@@ -12,6 +12,8 @@
 - Registros eliminados con llaves unicas por ejemplo usuarios
 - Adjunto en modulo de formación o que me muestre los adjuntos vinculando modulos 
 - Ajustar el enturatmiento MUY importante para mostrar archivos
+- LImpiar los inputs de adjutnso en la vista de detalle de empleados
+- Revisar campos detalle y edit cuando el adjunto no se adjunta porque el campo no es obligatorio
 
 
 A TENER EN CUENTA PARA INSTALAR EN SERVIDOR

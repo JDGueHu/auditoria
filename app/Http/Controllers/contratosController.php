@@ -74,7 +74,7 @@ class contratosController extends Controller
 
         if ($request->hasFile('adjunto')) {
             //Adjuntar archivo y asociarlo a registro creado
-            Adjunto::adjuntar($request, 'contratos', 'contratoModuloCrear', $contrato->id);
+            Adjunto::adjuntar($request, 'contratos', 'contratoModulo', $contrato->id);
         }
 
         //dd($contrato);
@@ -149,7 +149,7 @@ class contratosController extends Controller
 
         if ($request->hasFile('adjunto')) {
             //Adjuntar archivo y asociarlo a registro creado
-            Adjunto::adjuntar($request, 'contratos', 'contratoModuloEditar', $contrato->id);
+            Adjunto::adjuntar($request, 'contratos', 'contratoModulo', $contrato->id);
         }
 
         flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se editó exitosamente', 'warning')->important();

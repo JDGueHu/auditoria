@@ -7,9 +7,9 @@
   <li class="active">Detalles</li>
 </ol>
 
-{!! Form::model($ausentismo,['route' => ['vacaciones.update',$ausentismo[0]->id], 'method' => 'PUT', 'id' => 'createVacaciones']) !!}
+{!! Form::model($ausentismo,['route' => ['vacaciones.update',$ausentismo[0]->id], 'method' => 'PUT', 'id' => 'vacaciones','enctype' => 'multipart/form-data']) !!}
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary crearAusentismo']) !!}
 <a style="text-decoration: none;" href="{{ route('vacaciones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
@@ -51,7 +51,15 @@
                 {!! Form::text('dias',null, ['class' => 'form-control', 'readonly', 'id'=>'dias'])  !!}
             </div>
         </div>
-
+        <div class="row">
+            <div class="col-md-8 separarBottom">
+                {!! Form::label('adjunto','Adjunto')  !!}
+                {{ Form::file('adjunto', ['class' => 'form-control','id'=>'adjunto']) }}
+                <a title="Adjunto" href="{{ $ausentismo[0]->adjunto }}" target="_blank">
+                    {{ $ausentismo[0]->adjunto  }}
+                </a>
+            </div>
+        </div>
         <div class="row">  
             <div class="col-md-12 separarBottom">
                 {!! Form::label('detalles','Detalles')  !!}
@@ -62,7 +70,7 @@
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn crearAusentismo']) !!}
 <a style="text-decoration: none;" href="{{ route('vacaciones.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
