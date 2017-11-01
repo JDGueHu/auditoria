@@ -17,7 +17,7 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Nombre adjunto</th>
-					<th>Ruta</th>
+					<th>Adjunto</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>

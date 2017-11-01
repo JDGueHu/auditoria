@@ -260,9 +260,30 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'adjuntosController@destroy',
 		'as' => 'adjuntos.destroy'
 	]);
+	Route::post('adjuntos/createAjax',[
+		'uses' => 'adjuntosController@createAjax',
+		'as' => 'adjuntos.createAjax'
+	]);
 	Route::get('adjuntos/{id}/showAjax',[
 		'uses' => 'adjuntosController@showAjax',
 		'as' => 'adjuntos.showAjax'
 	]);
+	Route::get('adjuntos/{id}/destroyAjax',[
+		'uses' => 'adjuntosController@destroyAjax',
+		'as' => 'adjuntos.destroyAjax'
+	]);
 
+});
+
+Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
+
+	Route::resource('roles','rolesController');
+	Route::get('roles/{id}/destroy',[
+		'uses' => 'rolesController@destroy',
+		'as' => 'roles.destroy'
+	]);
+	Route::post('roles/matriz',[
+		'uses' => 'rolesController@matriz',
+		'as' => 'roles.matriz'
+	]);
 });

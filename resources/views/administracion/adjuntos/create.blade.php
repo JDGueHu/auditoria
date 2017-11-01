@@ -9,7 +9,7 @@
 
 {!! Form::open(['route' => 'adjuntos.store', 'method' => 'POST', 'enctype' => 'multipart/form-data','id'=>'crearAdjunto']) !!} 
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary crearAdjunto']) !!}
 {!! Form::button('Buscar empleado', ['class'=>'btn btn-success', 'id'=>'buscarEmpleado','data-toggle'=>'modal', 'data-target'=>'#exampleModalLong']) !!}
 <a style="text-decoration: none;" href="{{ route('adjuntos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
@@ -72,7 +72,7 @@
     </div>
 </div>
 
-{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn validateForm']) !!}
+{!! Form::button('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn crearAdjunto']) !!}
 <a style="text-decoration: none;" href="{{ route('adjuntos.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>

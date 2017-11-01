@@ -80,6 +80,7 @@ $(document).ready(function() {
             $("#detallesAusentismo").val("");
             $('#modalAusentismo').modal('toggle');
         });
+        
     };
 
     // Eliminar ausentismo       

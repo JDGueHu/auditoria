@@ -18,7 +18,6 @@ $(document).ready(function() {
 
 
 	//////////////// Quitar alertas requerido
-
 	$( "#nombre" ).change(function(){
 		if($("#nombre").val() != ""){
 			$("#requeridoNombreAdjunto").addClass( "ocultar" );

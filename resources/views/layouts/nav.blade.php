@@ -34,7 +34,7 @@
               <!-- <li class="divider"></li> -->
               <!-- <li class="divider"></li> -->
 
-              <!-- <li class="dropdown-submenu">
+<!--                <li class="dropdown-submenu">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-angle-double-down" aria-hidden="true"></i>&nbsp;Listas desplegables&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i>
                   </a>
@@ -56,7 +56,7 @@
                           </ul>
                       </li> 
                   </ul> 
-              </li>-->
+              </li> -->
           </ul>
         </li>
 
@@ -88,6 +88,26 @@
             <!--li role="separator" class="divider"></li-->                
           </ul>
         </li>
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-table colorNavIcon" aria-hidden="true"></i>&nbsp;Matrices&nbsp;<i class="fa fa-angle-down" aria-hidden="true"></i></b>
+          </a>
+          <ul class="dropdown-menu multi-level">
+
+               <li class="dropdown-submenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Roles <i class="fa fa-user-circle" aria-hidden="true"></i>
+                  </a>
+                 <ul class="dropdown-menu">
+                    <li><a href="{{ route('roles.index') }}">Parametrizar</a></li>
+                    <li><a href="{{ route('roles.matriz') }}">Ver matriz</a></li>
+                  </ul> 
+              </li>
+          </ul>
+        </li>
+
+
 
       </ul>   
       <ul class="nav navbar-nav navbar-right">

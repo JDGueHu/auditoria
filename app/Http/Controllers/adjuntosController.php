@@ -68,7 +68,7 @@ class adjuntosController extends Controller
         $adjunto->save();
 
         //Adjuntar archivo y asociarlo a registro creado
-        Adjunto::adjuntar($request, 'adjuntos', 'Adjuntos', $adjunto->id);
+        Adjunto::adjuntar($request, 'adjuntos', 'adjuntosModulo', $adjunto->id);
 
         flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('adjuntos.index');
@@ -134,6 +134,37 @@ class adjuntosController extends Controller
         return redirect()->route('adjuntos.index');
     }
 
+
+    public function createAjax(Request $request)
+    {
+
+        if($request->ajax()){   
+
+            $adjunto = new Adjunto();
+            $empleado = Empleado::where('identificacion','=',$request->identificacion)->get();
+
+            $adjunto->empleado_id = $empleado[0]->id;
+            $adjunto->nombre = $request->nombre;
+            $adjunto->adjunto = '/calidad/public/storage/'; //En el metodo de adjuntar se corrige
+            $adjunto->detalles = $request->detallesAdjunto;
+            $adjunto->save();
+
+            if ($request->hasFile('adjunto')) {
+                //Adjuntar archivo y asociarlo a registro creado
+                Adjunto::adjuntar($request, 'adjuntos', 'adjuntoSubpanel', $adjunto->id);
+            }
+
+            $adjunto = DB::table('adjuntos')
+                ->where('adjuntos.id','=',$adjunto->id)
+                ->where('adjuntos.alive',true)
+                ->select('adjuntos.*')
+                ->get();
+
+            return response($adjunto);
+            //->json($contratos)
+        }
+    }
+
     public function showAjax($id)
     {
 
@@ -141,4 +172,15 @@ class adjuntosController extends Controller
 
         return $adjunto;
     }
+
+    public function destroyAjax($id)
+    {
+        $adjunto = Adjunto::find($id);
+
+        $adjunto->alive=false;
+        $adjunto->save();
+
+        return response($id);
+    }
+    
 }

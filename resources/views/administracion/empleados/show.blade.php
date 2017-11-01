@@ -815,8 +815,8 @@
             <table id="inlineAdjuntos" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Nombre adjunto</th>
-                        <th>Ruta</th>
+                        <th>Nombre</th>
+                        <th>Adjunto</th>
                         <th>Acciones</th>
                     </tr>
                     <tbody>
@@ -824,13 +824,16 @@
                             <tr>
                                 <td>{{ $adjunto->nombre}}<span style="opacity: 0">-{{$adjunto->id }}</span></td>
                                 <td>
-                                    <a title="Adjunto" href="{{ $adjunto->ruta }}" target="_blank">
-                                    {{ $adjunto->ruta }}
+                                    <a title="Adjunto" href="{{ $adjunto->adjunto }}" target="_blank">
+                                        <i class="fa fa-file" aria-hidden="true"></i> Archivo adjunto
                                     </a>
                                 </td>
                                 <td>
                                     <a title="Detalles" class="btn btn-default btn-xs buttonDetailAdjunto">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </a>
+                                    <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyAdjunto">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>
