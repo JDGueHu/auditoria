@@ -20,6 +20,7 @@ class AgregarResponsabilidadesRolTabla extends Migration
             $table->foreign('rol_id')->references('id')->on('roles_matriz');
 
             $table->string('responsabilidad');
+            $table->boolean('alive')->default(true);
 
             $table->timestamps();
         });

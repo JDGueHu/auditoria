@@ -17,7 +17,9 @@ class AgregarRolesMatrizTabla extends Migration
             $table->increments('id');
 
             $table->string('rol')->unique();
-            $table->string('descripción')->nullable();
+            $table->string('descripcion')->nullable();
+
+            $table->boolean('alive')->default(true);
 
             $table->timestamps();
         });

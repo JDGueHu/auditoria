@@ -282,6 +282,10 @@ Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
 		'uses' => 'rolesController@destroy',
 		'as' => 'roles.destroy'
 	]);
+	Route::post('roles/createResponsabilidadAjax',[
+		'uses' => 'rolesController@createResponsabilidadAjax',
+		'as' => 'roles.createResponsabilidadAjax'
+	]);
 	Route::post('roles/matriz',[
 		'uses' => 'rolesController@matriz',
 		'as' => 'roles.matriz'

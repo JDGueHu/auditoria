@@ -27,7 +27,7 @@ $(document).ready(function() {
 		validarExamen(0);
 	});
 
-});
+ 
 
 
 function validarExamen(ajax){ 
@@ -50,7 +50,7 @@ function validarExamen(ajax){
 		if (ajax == 0){
 			$('#examen').submit();
 		}else{
-			$.fn.crearAusentismoAjax(ajax);
+			$.fn.crearExamenAjax(ajax);
 		}		
 	}
 

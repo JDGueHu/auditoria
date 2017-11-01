@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Rol_responsabilidad;
 
 class rolesController extends Controller
 {
@@ -13,7 +14,10 @@ class rolesController extends Controller
      */
     public function index()
     {
-        dd("Hola");
+        $roles_responsabilidades = rol_responsabilidad::where('alive',true)->get();
+
+        return view('matrices.roles.index')
+            ->with('roles_responsabilidades',$roles_responsabilidades);
     }
 
     /**
@@ -23,7 +27,10 @@ class rolesController extends Controller
      */
     public function create()
     {
-        //
+        $tmp = uniqid();
+
+        return view('matrices.roles.create')
+            ->with('tmp',$tmp);
     }
 
     /**
@@ -80,6 +87,15 @@ class rolesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function createResponsabilidadAjax(Request $request)
+    {
+        if($request->ajax()){   
+
+            return response("Hola ve");
+
+        }
     }
 
     public function matriz()
