@@ -108,6 +108,12 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'as' => 'areasEstudio.destroy'
 	]);
 
+	Route::resource('tipoRequisitoLegal','tipoRequisitoLegalController');
+	Route::get('tipoRequisitoLegal/{id}/destroy',[
+		'uses' => 'tipoRequisitoLegalController@destroy',
+		'as' => 'tipoRequisitoLegal.destroy'
+	]);
+
 	Route::resource('usuarios','usuariosController');
 	Route::get('usuarios/{id}/destroy',[
 		'uses' => 'usuariosController@destroy',
@@ -286,7 +292,11 @@ Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
 		'uses' => 'rolesController@createResponsabilidadAjax',
 		'as' => 'roles.createResponsabilidadAjax'
 	]);
-	Route::post('roles/matriz',[
+	Route::get('roles/{id}/destroyResponsabilidadAjax',[
+		'uses' => 'rolesController@destroyResponsabilidadAjax',
+		'as' => 'roles.destroyResponsabilidadAjax'
+	]);
+	Route::get('roles/consultar/matriz',[
 		'uses' => 'rolesController@matriz',
 		'as' => 'roles.matriz'
 	]);

@@ -146,7 +146,6 @@ $(document).ready(function() {
         });
 
     });
-    ///////////////////////////////////////////////////////
 
     ///// Crear examen Ajax
     $.fn.crearExamenAjax = function(tipoCreacion) {

@@ -4,10 +4,10 @@
 
 <ol class="breadcrumb">
   <li><a href="{{ route('roles.index') }}"><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;&nbsp;Roles y responsabilidades</a></li>
-  <li class="active">Crear</li>
+  <li class="active">Editar</li>
 </ol>
 
-{!! Form::open(['route' => 'roles.store', 'method' => 'POST','id'=>'rol_respon','enctype' => 'multipart/form-data']) !!} 
+{!! Form::model($rol,['route' => ['roles.update',$rol->id], 'method' => 'PUT','enctype' => 'multipart/form-data']) !!}
 
 {!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
 <a style="text-decoration: none;" href="{{ route('roles.index') }}">
@@ -21,7 +21,7 @@
         <div class="row">   
             <div class="col-md-4 separarBottom">
                 {!! Form::label('rol','Rol')  !!}
-                {!! Form::text('rol',null, ['class' => 'form-control', 'id'=>'rol', 'required'])  !!}
+                {!! Form::text('rol',null, ['class' => 'form-control', 'id'=>'rol'])  !!}
             </div>
             <div class="col-md-8 separarBottom">
                 {!! Form::label('descripcion','Descripción')  !!}
@@ -50,10 +50,20 @@
         <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
-                        <th>Responsabilidad</th>
+                        <th>Responsabilidades</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
+                <tbody>
+                @foreach($responsabilidades as $responsabilidad)
+                    <tr>
+                        <td>{{$responsabilidad->responsabilidad}}<span style="opacity:0">-{{ $responsabilidad->id}}</td>
+                        <td>
+                            <a title="Eliminar" class="btn btn-danger btn-xs buttonDestroyResponsabilidad"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
             </table>
 
         </div>

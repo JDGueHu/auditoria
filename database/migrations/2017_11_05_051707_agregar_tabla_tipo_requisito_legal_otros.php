@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AgregarResponsabilidadesRolTabla extends Migration
+class AgregarTablaTipoRequisitoLegalOtros extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class AgregarResponsabilidadesRolTabla extends Migration
      */
     public function up()
     {
-        Schema::create('responsabilidades_rol', function (Blueprint $table) {
+        Schema::create('tipo_requisito_legal', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('rol_id');
-            $table->string('responsabilidad');
+            $table->string('codigo')->nullable();
+            $table->string('tipo_requisito_legal')->unique();
+
             $table->boolean('alive')->default(true);
 
             $table->timestamps();
@@ -31,6 +32,6 @@ class AgregarResponsabilidadesRolTabla extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('responsabilidades_rol');
+        Schema::dropIfExists('tipo_requisito_legal');
     }
 }

@@ -19,6 +19,7 @@
             <a href="{{ route('nivelRiesgos.index') }}" class="list-group-item list-group-item-action">Riesgos</a>
             <a href="{{ route('tiposVacaciones.index') }}" class="list-group-item list-group-item-action">Tipos de ausentismo</a>
             <a href="{{ route('tiposContrato.index') }}" class="list-group-item list-group-item-action">Tipos de contrato</a>
+            <a href="{{ route('tipoRequisitoLegal.index') }}" class="list-group-item list-group-item-action">Tipos de requisitos legales</a>
             <a href="{{ route('tiposDocumento.index') }}" class="list-group-item list-group-item-action">Tipos de documento</a>
             <a href="{{ route('tiposSST.index') }}" class="list-group-item list-group-item-action">Tipos de SST</a>
 	</div>
