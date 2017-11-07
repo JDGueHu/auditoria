@@ -24,11 +24,24 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <!-- Se agrega clase duplicado para agregar clases al validar duplicidad -->
+                        <div class="duplicado form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Correo electrónico</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                            <div class="col-md-6">  
+
+                                <!-- Se agrega clase validarDuplicado para capturar onchange -->
+                                <input id="email" type="email" class="form-control validarDuplicado" name="email" value="{{ old('email') }}" required>
+
+                                <!-- Elementos para mostrar validacion -->
+                                <!-- Success -->
+                                <span id="inputSuccess1Status" class="ocultar glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                                <span id="inputSuccess2Status" class="ocultar sr-only">(success)</span>
+                                <!-- Error -->
+                                <span id="inputError1Status" class="ocultar glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                                <span id="inputError2Status" class="ocultar sr-only">(error)</span>
+
+
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -76,4 +89,9 @@
         </div>
     </div>
 </div>
+<input type="hidden" name="modulo" id="modulo" value="usuarios">
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/shared.js') }}"></script>
 @endsection

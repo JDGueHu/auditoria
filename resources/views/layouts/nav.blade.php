@@ -104,6 +104,16 @@
                     <li><a href="{{ route('roles.matriz') }}">Ver matriz</a></li>
                   </ul> 
               </li>
+               <li class="dropdown-submenu">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    Requisitos legales <i class="fa fa-gavel" aria-hidden="true"></i>
+                  </a>
+                 <ul class="dropdown-menu">
+                    <li><a href="{{ route('requisitosLegales.index') }}">Parametrizar</a></li>
+                    <li><a href="{{ route('requisitosLegales.matriz') }}">Ver matriz</a></li>
+                  </ul> 
+              </li>
+
           </ul>
         </li>
 

@@ -9,6 +9,7 @@
 	<div class="list-group">
             <a href="{{ route('areasEstudio.index') }}" class="list-group-item list-group-item-action">Áreas de formación</a>
       	<a href="{{ route('arl.index') }}" class="list-group-item list-group-item-action">ARL</a>
+            <a href="{{ route('autoridadRequisitoLegal.index') }}" class="list-group-item list-group-item-action">Autoridades requisitos legales</a>
             <a href="{{ route('cargos.index') }}" class="list-group-item list-group-item-action">Cargos</a>
             <a href="{{ route('causasSST.index') }}" class="list-group-item list-group-item-action">Causas SST</a>
             <a href="{{ route('centroTrabajo.index') }}" class="list-group-item list-group-item-action">Centros de trabajo</a>

@@ -15,7 +15,7 @@ class usuariosController extends Controller
      */
     public function index()
     {
-        $usuarios = User::where('alive',true)->get();
+        $usuarios = User::orderby('name')->get();
 
         return view('configuracion.usuarios.index')
             ->with('usuarios',$usuarios);
@@ -109,6 +109,17 @@ class usuariosController extends Controller
         $usuario->save();
 
         flash('Usuario de <b>'.$usuario->name.'</b> se eliminó exitosamente', 'danger')->important();
+        return redirect()->route('usuarios.index');
+    }
+
+    public function activar($id)
+    {
+        $usuario = User::find($id);
+
+        $usuario->alive = true;
+        $usuario->save();
+
+        flash('Usuario de <b>'.$usuario->name.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('usuarios.index');
     }
 }

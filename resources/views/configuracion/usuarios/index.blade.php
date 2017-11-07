@@ -15,6 +15,7 @@
 				<tr>
 					<th>Nombre y apellidos</th>
 					<th>Correo electrónico</th>
+					<th>Estado</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -23,14 +24,19 @@
 					<tr>
 						<td>{{ $usuario->name }}</td>
 						<td>{{ $usuario->email }}</td>
+						@if($usuario->alive)
+							<td><span class="label label-success">Activo</span></td>
+						@else
+							<td><span class="label label-danger">Inactivo</span></td>
+						@endif
 						<td>
 <!-- 							<a title="Detalles" href="{{ route('usuarios.show',$usuario->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
-							</a>
-							<a title="Editar" href="{{ route('usuarios.edit',$usuario->id) }}" class="btn btn-warning btn-xs">
-								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a> -->
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('usuarios.destroy',$usuario->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a title="Activar" href="{{ route('usuarios.activar',$usuario->id) }}" class="btn btn-success btn-xs">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('usuarios.destroy',$usuario->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-trash-o" aria-hidden="true"></i>
 							</a>
 						</td>

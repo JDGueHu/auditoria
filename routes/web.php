@@ -32,6 +32,18 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 Route::get('/home', 'HomeController@index');
 
+
+
+
+Route::group(['prefix'=>'validar','middleware' => 'auth'],function(){
+
+	Route::post('validarDuplicado',[
+		'uses' => 'validarController@validar_duplicado',
+		'as' => 'validarDuplicado'
+	]);
+
+});
+
 Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 
 	Route::resource('centroTrabajo','centroTrabajoController');
@@ -114,10 +126,20 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'as' => 'tipoRequisitoLegal.destroy'
 	]);
 
+	Route::resource('autoridadRequisitoLegal','autoridadRequisitoLegalController');
+	Route::get('autoridadRequisitoLegal/{id}/destroy',[
+		'uses' => 'autoridadRequisitoLegalController@destroy',
+		'as' => 'autoridadRequisitoLegal.destroy'
+	]);
+
 	Route::resource('usuarios','usuariosController');
 	Route::get('usuarios/{id}/destroy',[
 		'uses' => 'usuariosController@destroy',
 		'as' => 'usuarios.destroy'
+	]);
+	Route::get('usuarios/{id}/activar',[
+		'uses' => 'usuariosController@activar',
+		'as' => 'usuarios.activar'
 	]);
 
 });
@@ -300,4 +322,15 @@ Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
 		'uses' => 'rolesController@matriz',
 		'as' => 'roles.matriz'
 	]);
+
+	Route::resource('requisitosLegales','requisitosLegalesController');
+	Route::get('requisitosLegales/{id}/destroy',[
+		'uses' => 'requisitosLegalesController@destroy',
+		'as' => 'requisitosLegales.destroy'
+	]);
+	Route::get('requisitosLegales/consultar/matriz',[
+		'uses' => 'requisitosLegalesController@matriz',
+		'as' => 'requisitosLegales.matriz'
+	]);
+	
 });
