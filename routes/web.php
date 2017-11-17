@@ -42,6 +42,11 @@ Route::group(['prefix'=>'validar','middleware' => 'auth'],function(){
 		'as' => 'validarDuplicado'
 	]);
 
+	Route::get('validar_duplicado_backend/{tipo_error}/{ruta}/{modulo}/{dato}',[
+		'uses' => 'validarController@validar_duplicado_backend',
+		'as' => 'validar_duplicado_backend'
+	]);
+
 });
 
 Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
@@ -69,6 +74,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'uses' => 'cargosController@destroy',
 		'as' => 'cargos.destroy'
 	]);
+	Route::get('cargos/{id}/activar',[
+		'uses' => 'cargosController@activar',
+		'as' => 'cargos.activar'
+	]);
 
 	Route::resource('eps','epsController');
 	Route::get('eps/{id}/destroy',[
@@ -80,6 +89,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 	Route::get('arl/{id}/destroy',[
 		'uses' => 'arlController@destroy',
 		'as' => 'arl.destroy'
+	]);
+	Route::get('arl/{id}/activar',[
+		'uses' => 'arlController@activar',
+		'as' => 'arl.activar'
 	]);
 
 	Route::resource('fondosPensiones','fondosPensionesController');
@@ -119,6 +132,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'uses' => 'areasEstudioController@destroy',
 		'as' => 'areasEstudio.destroy'
 	]);
+	Route::get('areasEstudio/{id}/activar',[
+		'uses' => 'areasEstudioController@activar',
+		'as' => 'areasEstudio.activar'
+	]);
 
 	Route::resource('tipoRequisitoLegal','tipoRequisitoLegalController');
 	Route::get('tipoRequisitoLegal/{id}/destroy',[
@@ -130,6 +147,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 	Route::get('autoridadRequisitoLegal/{id}/destroy',[
 		'uses' => 'autoridadRequisitoLegalController@destroy',
 		'as' => 'autoridadRequisitoLegal.destroy'
+	]);
+	Route::get('autoridadRequisitoLegal/{id}/activar',[
+		'uses' => 'autoridadRequisitoLegalController@activar',
+		'as' => 'autoridadRequisitoLegal.activar'
 	]);
 
 	Route::resource('usuarios','usuariosController');
@@ -263,6 +284,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 	Route::get('causasSST/{id}/destroy',[
 		'uses' => 'causasSSTController@destroy',
 		'as' => 'causasSST.destroy'
+	]);
+	Route::get('causasSST/{id}/activar',[
+		'uses' => 'causasSSTController@activar',
+		'as' => 'causasSST.activar'
 	]);
 
 	Route::resource('SST','SSTController');

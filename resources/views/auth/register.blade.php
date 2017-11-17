@@ -75,7 +75,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary boton_duplicado">
                                     Registrar
                                 </button>
                                 <a style="text-decoration: none;" href="{{ route('usuarios.index') }}">

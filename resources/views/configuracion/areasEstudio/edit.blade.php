@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('areaEstudio','Área formación')  !!}
-                {!! Form::text('areaEstudio',$areaEstudio->areaEstudio, ['class' => 'form-control', 'id'=>'areaEstudio','required'])  !!}
+                {!! Form::text('areaEstudio',$areaEstudio->areaEstudio, ['class' => 'form-control mayusculas', 'id'=>'areaEstudio','required'])  !!}
             </div>
         </div>
 

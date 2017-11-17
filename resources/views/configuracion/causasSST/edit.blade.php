@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-4 separarBottom">
                 {!! Form::label('causa','Causa')  !!}
-                {!! Form::text('causa', $causaSST->causa, ['class' => 'form-control', 'required', 'id'=>'causa'])  !!}
+                {!! Form::text('causa', $causaSST->causa, ['class' => 'form-control mayusculas', 'required', 'id'=>'causa'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
                 <label for="principal">¿Causa principal?</label>

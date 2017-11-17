@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('cargo','Cargo')  !!}
-                {!! Form::text('cargo',$cargo->cargo, ['class' => 'form-control', 'required', 'id'=>'cargo'])  !!}
+                {!! Form::text('cargo',$cargo->cargo, ['class' => 'form-control mayusculas', 'required', 'id'=>'cargo'])  !!}
             </div>
         </div>
 

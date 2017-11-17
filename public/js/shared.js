@@ -83,68 +83,88 @@ $(document).ready(function() {
 
     });
 
-
+    //// Para validar registro duplicado en todos los modulos
     $( ".validarDuplicado" ).change(function(){
-        alert($(this).val());
 
-        var modulo = $('#modulo').val();
-        var dato = $(this).val();   
+        if ($('.validarDuplicado').val() == ''){
 
-        var form_data = new FormData();
-        form_data.append('modulo', modulo);
-        form_data.append('dato', dato);
+            //// SE ELIMINAN TODOS LOS ELEMENTOS FRONT cuando el campo está vacio
 
-        var pathname = window.location.pathname;
-        var url;
+            //Ocultar contenido de validacion de error si hubo una previamente
+            $(".duplicado").removeClass("has-success");
+            $('#inputSuccess1Status').addClass("ocultar");
+            $('#inputSuccess2Status').addClass("ocultar");
 
-        if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
-            url = '../../../validar/validarDuplicado';
-        }else{
-            url = '../../validar/validarDuplicado';
+            //Ocultar contenido de validacion de error si hubo una previamente
+            $(".duplicado").removeClass("has-error");
+            $('#inputError1Status').addClass("ocultar");
+            $('#inputError2Status').addClass("ocultar");
+
         }
+        else{
 
-        $.ajax({
-          url: url,
-          headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
-          type: 'POST',
-          datatype:'json',
-          contentType: false,
-          cache: false,
-          processData: false,
-          data : form_data
-        }).done(function(response){
-            //console.log(response);
+            var modulo = $('#modulo').val();
+            var dato = $(this).val();   
 
-            $('.duplicado').addClass("has-feedback");
+            var form_data = new FormData();
+            form_data.append('modulo', modulo);
+            form_data.append('dato', dato);
 
-            // Si el dato que se esta ingresando no exixte en la base de datos
-            if(response == 0){
+            var pathname = window.location.pathname;
+            var url;
 
-                //Ocultar contenido de validacion de error si hubo una previamente
-                $(".duplicado").removeClass("has-error");
-                $('#inputError1Status').addClass("ocultar");
-                $('#inputError2Status').addClass("ocultar");
-
-                // Mostrar el contenido indicando que el dato es válido
-                $('.duplicado').addClass("has-success");
-                $("#inputSuccess1Status").removeClass("ocultar");
-                $("#inputSuccess2Status").removeClass("ocultar");
-
+            if(pathname.substring(pathname.length - 4, pathname.length) == "edit"){
+                url = '../../../validar/validarDuplicado';
             }else{
-
-                //Ocultar contenido de validacion de error si hubo una previamente
-                $(".duplicado").removeClass("has-success");
-                $('#inputSuccess1Status').addClass("ocultar");
-                $('#inputSuccess2Status').addClass("ocultar");
-
-                // Mostrar el contenido indicando que el dato es válido
-                $('.duplicado').addClass("has-error");
-                $("#inputError1Status").removeClass("ocultar");
-                $("#inputError2Status").removeClass("ocultar");  
-
+                url = '../../validar/validarDuplicado';
             }
 
-        });
+            $.ajax({
+              url: url,
+              headers: {'X-CSRF-TOKEN': $('input[name=_token]').val()},
+              type: 'POST',
+              datatype:'json',
+              contentType: false,
+              cache: false,
+              processData: false,
+              data : form_data
+            }).done(function(response){
+                //console.log(response);
+
+                $('.duplicado').addClass("has-feedback");
+
+                // Si el dato que se esta ingresando no exixte en la base de datos
+                if(response == 0){
+
+                    //Ocultar contenido de validacion de error si hubo una previamente
+                    $(".duplicado").removeClass("has-error");
+                    $('#inputError1Status').addClass("ocultar");
+                    $('#inputError2Status').addClass("ocultar");
+
+                    // Mostrar el contenido indicando que el dato es válido
+                    $('.duplicado').addClass("has-success");
+                    $("#inputSuccess1Status").removeClass("ocultar");
+                    $("#inputSuccess2Status").removeClass("ocultar");
+                    $(".boton_duplicado").attr("disabled", false);
+
+                }else{
+
+                    //Ocultar contenido de validacion de error si hubo una previamente
+                    $(".duplicado").removeClass("has-success");
+                    $('#inputSuccess1Status').addClass("ocultar");
+                    $('#inputSuccess2Status').addClass("ocultar");
+
+                    // Mostrar el contenido indicando que el dato es válido
+                    $('.duplicado').addClass("has-error");
+                    $("#inputError1Status").removeClass("ocultar");
+                    $("#inputError2Status").removeClass("ocultar");  
+                    // Deshabilitar el boton si existe el dato en base de datos
+                    $(".boton_duplicado").attr("disabled", true);
+
+                }
+
+            });
+        }
 
     });
 

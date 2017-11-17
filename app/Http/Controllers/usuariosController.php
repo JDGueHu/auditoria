@@ -108,7 +108,7 @@ class usuariosController extends Controller
         $usuario->alive = false;
         $usuario->save();
 
-        flash('Usuario de <b>'.$usuario->name.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Usuario de <b>'.$usuario->name.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('usuarios.index');
     }
 

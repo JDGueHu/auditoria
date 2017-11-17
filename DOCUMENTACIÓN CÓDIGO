@@ -1,0 +1,50 @@
+DOCUMENTACIÓN CÓDIGO
+
+
+-FUNCIONALIDAD PARA VALIDAR REGISTROS DUPLICADOS
+
+VALIDACION BACKEND
+
+*En las vistas create y edit agregar la clase mayuscula al input sobre el que se valida duplicidad
+*En la vista index agregar columan tipo Estado para mostrar el alive de los registros
+*Crear ruta para el metodo activar
+*En el controlador del modulo que se esta actualizando, agregar el metodo activar que pasa alive a true
+*En la vista index agregar la opcion activar
+*Modificar el icon de eliminar y cambiar el nombre de la opcion a inactivar
+*Agregar try/catch en controlador por posible duplicado validacion backend
+*Agregar funcion para mayusculas en metodos store y update en el campo sobre el que se valida duplicado
+*Modificar los datos de la funcion de validacion en el catch para el modulo 
+
+
+VALIDACION FRONTEND
+* Agregar clase mayusculas para que el campo donde se va a validar el duplicado solo permita mayusculas (para casos específicos) ademas entrar al controlador del modulo y agregar en el guardado de ese campo  la funcion php strtoupper() para guardar en mayusculas en caso que se evite la validacion front
+* Se implementa una función ajax por medio de un evento onchange sobre la clase llamada validarDuplicado en el script shared aplicada a un input.
+* Para que la funcion de validacion de duplicados opere correctamente, en la vista donde está el input sobre el que se va a registrar el evento de cambio, se debe agregar un input de tipo hidden con el nombre del módulo.
+* Los módulos deben estar indexados con el paso anterior porque en el controlador validarController existe un método llamado validar_duplicado donde se debe estar creado el módulo en un array de modulos donde se debe indicar la tabla y el campo con el que se va a comprar la duplicidad.
+* Debajo dle input que se va a usar para validar el duplicado se deben agregar los siguientes elementos:
+    <!-- Elementos para mostrar validacion -->
+    <!-- Success -->
+    <span id="inputSuccess1Status" class="ocultar glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+    <span id="inputSuccess2Status" class="ocultar sr-only">(success)</span>
+    <!-- Error -->
+    <span id="inputError1Status" class="ocultar glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <span id="inputError2Status" class="ocultar sr-only">(error)</span>
+  La clase ocultar debe existir .ocultar{display: none}
+* El div contenedor del input que activa el evento de validacion debe contener la clase duplicado para que se ubique y se apliquen lo definido en la respuesta ajax
+* Agregar al botón que guarda los registros la clase boton_duplicado para que se inactive o active si el registros que va a guardar pasa por la validación
+
+EJEMPLO
+
+                <div class="duplicado">
+                    {!! Form::label('areaEstudio','Área de formación')  !!}
+                    {!! Form::text('areaEstudio',null, ['class' => 'form-control mayusculas validarDuplicado', 'required', 'id'=>'areaEstudio'])  !!}
+
+                    <!-- Elementos para mostrar validacion -->
+                    <!-- Success -->
+                    <span id="inputSuccess1Status" class="ocultar glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status" class="ocultar sr-only">(success)</span>
+                    <!-- Error -->
+                    <span id="inputError1Status" class="ocultar glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="ocultar sr-only">(error)</span>
+
+                </div>

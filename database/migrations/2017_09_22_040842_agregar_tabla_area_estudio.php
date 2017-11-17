@@ -17,7 +17,7 @@ class AgregarTablaAreaEstudio extends Migration
             $table->increments('id');
 
             $table->string('codigo')->nullable();
-            $table->string('areaEstudio');
+            $table->string('areaEstudio')->unique();
 
             $table->boolean('alive')->default(true);
 

@@ -14,7 +14,7 @@ class arlController extends Controller
      */
     public function index()
     {
-        $arls = ARL::where('alive',true)->get();
+        $arls = ARL::get();
 
         return view('configuracion.arl.index')
             ->with('arls',$arls);
@@ -39,14 +39,22 @@ class arlController extends Controller
      */
     public function store(Request $request)
     {
-        $arl = new ARL();
 
-        $arl->codigo = $request->codigo;
-        $arl->arl = $request->arl;
-        $arl->save();
+        try{
 
-        flash('ARL <b>'.$arl->arl.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('arl.index');
+            $arl = new ARL();
+
+            $arl->codigo = $request->codigo;
+            $arl->arl = strtoupper($request->arl);
+            $arl->save();
+
+            flash('ARL <b>'.$arl->arl.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('arl.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'arl.index','modulo' => 'ARL','dato' => strtoupper($request->arl)]);
+        }
+
     }
 
     /**
@@ -87,7 +95,7 @@ class arlController extends Controller
         $arl = ARL::find($id);
 
         $arl->codigo = $request->codigo;
-        $arl->arl = $request->arl;
+        $arl->arl = strtoupper($request->arl);
         $arl->save();
 
         flash('ARL <b>'.$arl->arl.'</b> se edito exitosamente', 'warning')->important();
@@ -107,7 +115,18 @@ class arlController extends Controller
         $arl->alive = false;
         $arl->save();
 
-        flash('ARL <b>'.$arl->arl.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('ARL <b>'.$arl->arl.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('arl.index');
+    }
+
+    public function activar($id)
+    {
+        $arl = ARL::find($id);
+
+        $arl->alive = true;
+        $arl->save();
+
+        flash('ARL <b>'.$arl->arl.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('arl.index');
     }
 }

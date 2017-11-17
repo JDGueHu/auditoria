@@ -16,11 +16,12 @@ class validarController extends Controller
 	    	// Array de moodulos donde se indica la tabla y el campo para comparar duplicado
 	    	$modulos = [
 	    		"usuarios" => "users,email",
+	    		"areas_estudio" => "areasEstudio,areaEstudio",
 	    	];
 
 	    	$tabla = "";
 	    	$campo = "";
-	    	$resultado = null;
+	    	$resultado;
 
 	    	foreach ($modulos as $llave => $valor) {
 
@@ -48,6 +49,19 @@ class validarController extends Controller
 	    	return response($resultado);
 
         }
+    }
+
+    public function validar_duplicado_backend($tipo_error,$ruta,$modulo,$dato)
+    {
+    	
+    	if($tipo_error === '23000'){ //Validacion de error por duplicidad de registro
+            flash('Ya existe el registro <b>'.$dato.'</b> en el módulo <b>'.$modulo.'</b>','danger')->important();
+        }else{
+        	flash('Ha ocurrido un error al procesar su solicitud en el sistema, por favor comuníquese con su proveedor','danger')->important();
+        }
+        
+        return redirect()->route($ruta);
+        
     }
 
 }

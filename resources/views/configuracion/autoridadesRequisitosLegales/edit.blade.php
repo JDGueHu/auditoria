@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('tipo_autoridad','Autoridad requisito legal')  !!}
-                {!! Form::text('tipo_autoridad',$autoridad->tipo_autoridad, ['class' => 'form-control', 'required', 'id'=>'tipo_autoridad'])  !!}
+                {!! Form::text('tipo_autoridad',$autoridad->tipo_autoridad, ['class' => 'form-control mayusculas', 'required', 'id'=>'tipo_autoridad'])  !!}
             </div>
         </div>
 

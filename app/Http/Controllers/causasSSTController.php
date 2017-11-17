@@ -14,7 +14,7 @@ class causasSSTController extends Controller
      */
     public function index()
     {
-        $causasSST = CausaSST::where('alive',true)->get();
+        $causasSST = CausaSST::get();
 
         return view('configuracion.causasSST.index')
             ->with('causasSST',$causasSST);
@@ -38,15 +38,22 @@ class causasSSTController extends Controller
      */
     public function store(Request $request)
     {
-        $causaSST = new CausaSST();
+        try{
 
-        $causaSST->codigo = $request->codigo;
-        $causaSST->causa = $request->causa;
-        $causaSST->principal = $request->principal == 'value' ? true : false;
-        $causaSST->save();
+            $causaSST = new CausaSST();
 
-        flash('Causa SST <b>'.$causaSST->causa.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('causasSST.index');
+            $causaSST->codigo = $request->codigo;
+            $causaSST->causa = strtoupper($request->causa);
+            $causaSST->principal = $request->principal == 'value' ? true : false;
+            $causaSST->save();
+
+            flash('Causa SST <b>'.$causaSST->causa.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('causasSST.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'causasSST.index','modulo' => 'Causas SST','dato' => strtoupper($request->causa)]);
+        }
+
     }
 
     /**
@@ -89,7 +96,7 @@ class causasSSTController extends Controller
         $causaSST = CausaSST::find($id);
 
         $causaSST->codigo = $request->codigo;
-        $causaSST->causa = $request->causa;
+        $causaSST->causa = strtoupper($request->causa);
         $causaSST->principal = $request->principal == 'value' ? true : false;
         $causaSST->save();
 
@@ -110,7 +117,18 @@ class causasSSTController extends Controller
         $causaSST->alive = false;
         $causaSST->save();
 
-        flash('Causa SST <b>'.$causaSST->causa.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Causa SST <b>'.$causaSST->causa.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('causasSST.index');
+    }
+
+    public function activar($id)
+    {
+        $causaSST = CausaSST::find($id);
+
+        $causaSST->alive = true;
+        $causaSST->save();
+
+        flash('Causa SST <b>'.$causaSST->causa.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('causasSST.index');
     }
 }

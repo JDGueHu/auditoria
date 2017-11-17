@@ -25,14 +25,15 @@
                 {!! Form::text('codigo',null, ['class' => 'form-control', 'id'=>'codigo'])  !!}
             </div>
             <div class="col-md-6 separarBottom">
-                {!! Form::label('areaEstudio','Área formación')  !!}
-                {!! Form::text('areaEstudio',null, ['class' => 'form-control', 'required', 'id'=>'areaEstudio'])  !!}
+                {!! Form::label('areaEstudio','Área de formación')  !!}
+                {!! Form::text('areaEstudio',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'areaEstudio'])  !!}
             </div>
         </div>
 
     </div>
 </div>
 
+<input type="hidden" name="modulo" id="modulo" value="areas_estudio">
 
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
 <a style="text-decoration: none;" href="{{ route('areasEstudio.index') }}">
@@ -41,4 +42,8 @@
 
 {!! Form::close() !!}
 
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/shared.js') }}"></script>
 @endsection

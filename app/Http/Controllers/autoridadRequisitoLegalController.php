@@ -14,7 +14,7 @@ class autoridadRequisitoLegalController extends Controller
      */
     public function index()
     {
-        $tiposAutoridades = AutoridadRequisitoLegal::where('alive',true)->get();
+        $tiposAutoridades = AutoridadRequisitoLegal::get();
 
         return view('configuracion.autoridadesRequisitosLegales.index')
             ->with('tiposAutoridades',$tiposAutoridades);
@@ -38,14 +38,22 @@ class autoridadRequisitoLegalController extends Controller
      */
     public function store(Request $request)
     {
-        $autoridad = new AutoridadRequisitoLegal();
 
-        $autoridad->codigo = $request->codigo;
-        $autoridad->tipo_autoridad = $request->tipo_autoridad;
-        $autoridad->save();
+        try{
 
-        flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('autoridadRequisitoLegal.index');
+            $autoridad = new AutoridadRequisitoLegal();
+
+            $autoridad->codigo = $request->codigo;
+            $autoridad->tipo_autoridad = strtoupper($request->tipo_autoridad);
+            $autoridad->save();
+
+            flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('autoridadRequisitoLegal.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'autoridadRequisitoLegal.index','modulo' => 'Autoridades de requisitos legales','dato' => strtoupper($request->tipo_autoridad)]);
+        }
+
     }
 
     /**
@@ -88,7 +96,7 @@ class autoridadRequisitoLegalController extends Controller
         $autoridad = AutoridadRequisitoLegal::find($id);
 
         $autoridad->codigo = $request->codigo;
-        $autoridad->tipo_autoridad = $request->tipo_autoridad;
+        $autoridad->tipo_autoridad = strtoupper($request->tipo_autoridad);
         $autoridad->save();
 
         flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se modificó exitosamente', 'warning')->important();
@@ -108,7 +116,18 @@ class autoridadRequisitoLegalController extends Controller
         $autoridad->alive = false;
         $autoridad->save();
 
-        flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('autoridadRequisitoLegal.index');
+    }
+
+    public function activar($id)
+    {
+        $autoridad = AutoridadRequisitoLegal::find($id);
+
+        $autoridad->alive = true;
+        $autoridad->save();
+
+        flash('Autoridad de requisito legal <b>'.$autoridad->tipo_autoridad.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('autoridadRequisitoLegal.index');
     }
 }

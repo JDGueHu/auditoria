@@ -18,6 +18,7 @@
 					<th>Código</th>
 					<th>Causa</th>
 					<th>Tipo causa</th>
+					<th>Estado</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -31,6 +32,11 @@
 						@else
 						    <td><span class="label label-warning">Complementaria</span></td>
 						@endif
+						@if($causaSST->alive)
+							<td><span class="label label-success">Activo</span></td>
+						@else
+							<td><span class="label label-danger">Inactivo</span></td>
+						@endif
 						
 						<td>
 							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('causasSST.show',$causaSST->id) }}" class="btn btn-default btn-xs">
@@ -39,8 +45,11 @@
 							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('causasSST.edit',$causaSST->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('causasSST.destroy',$causaSST->id) }}" class="btn btn-danger btn-xs confirm_F">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('causasSST.activar',$causaSST->id) }}" class="btn btn-success btn-xs">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('causasSST.destroy',$causaSST->id) }}" class="btn btn-danger btn-xs confirm_F">
+								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>

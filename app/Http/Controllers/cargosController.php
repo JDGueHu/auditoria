@@ -14,7 +14,7 @@ class cargosController extends Controller
      */
     public function index()
     {
-        $cargos = Cargo::where('alive',true)->get();
+        $cargos = Cargo::get();
 
         return view('configuracion.cargos.index')->with('cargos',$cargos);
     }
@@ -37,14 +37,21 @@ class cargosController extends Controller
      */
     public function store(Request $request)
     {
+        try{
+
         $cargo = new Cargo();
 
         $cargo->codigo = $request->codigo;
-        $cargo->cargo = $request->cargo;
+        $cargo->cargo = strtoupper($request->cargo);
         $cargo->save();
 
         flash('Cargo <b>'.$cargo->cargo.'</b> se creó exitosamente', 'success')->important();
         return redirect()->route('cargos.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'cargos.index','modulo' => 'Cargos','dato' => strtoupper($request->cargo)]);
+        }
+
     }
 
     /**
@@ -85,7 +92,7 @@ class cargosController extends Controller
         $cargo = Cargo::find($id);
 
         $cargo->codigo = $request->codigo;
-        $cargo->cargo = $request->cargo;
+        $cargo->cargo = strtoupper($request->cargo);
         $cargo->save();
 
         flash('Cargo <b>'.$cargo->cargo.'</b> se editó exitosamente', 'warning')->important();
@@ -106,7 +113,18 @@ class cargosController extends Controller
         $cargo->alive = false;
         $cargo->save();
 
-        flash('Cargo <b>'.$cargo->cargo.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Cargo <b>'.$cargo->cargo.'</b> se eliminó inactivó', 'danger')->important();
+        return redirect()->route('cargos.index');
+    }
+
+    public function activar($id)
+    {
+        $cargo = Cargo::find($id);
+
+        $cargo->alive = true;
+        $cargo->save();
+
+        flash('Cargo <b>'.$cargo->cargo.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('cargos.index');
     }
 }

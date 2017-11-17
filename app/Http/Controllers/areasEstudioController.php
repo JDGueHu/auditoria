@@ -14,7 +14,7 @@ class areasEstudioController extends Controller
      */
     public function index()
     {
-        $areasEstudio = AreaEstudio::where('alive',true)->get();
+        $areasEstudio = AreaEstudio::get();
 
         return view('configuracion.areasEstudio.index')
             ->with('areasEstudio',$areasEstudio);
@@ -38,14 +38,21 @@ class areasEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        $areaEstudio = new AreaEstudio();
+        try{
 
-        $areaEstudio->codigo = $request->codigo;
-        $areaEstudio->areaEstudio = $request->areaEstudio;
-        $areaEstudio->save();
+            $areaEstudio = new AreaEstudio();
 
-        flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('areasEstudio.index');
+            $areaEstudio->codigo = $request->codigo;
+            $areaEstudio->areaEstudio = strtoupper($request->areaEstudio); //Pasar a mayúsculas
+            $areaEstudio->save();
+
+            flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('areasEstudio.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'areasEstudio.index','modulo' => 'Áreas de formación','dato' => strtoupper($request->areaEstudio)]);
+        }
+        
     }
 
     /**
@@ -88,7 +95,7 @@ class areasEstudioController extends Controller
         $areaEstudio = AreaEstudio::find($id);
 
         $areaEstudio->codigo = $request->codigo;
-        $areaEstudio->areaEstudio = $request->areaEstudio;
+        $areaEstudio->areaEstudio = strtoupper($request->areaEstudio);
         $areaEstudio->save();
 
         flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se editó exitosamente', 'warning')->important();
@@ -108,7 +115,18 @@ class areasEstudioController extends Controller
         $areaEstudio->alive = false;
         $areaEstudio->save();
 
-        flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('areasEstudio.index');
+    }
+
+    public function activar($id)
+    {
+        $areaEstudio = AreaEstudio::find($id);
+
+        $areaEstudio->alive = true;
+        $areaEstudio->save();
+
+        flash('Área de formación <b>'.$areaEstudio->areaEstudio.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('areasEstudio.index');
     }
 }
