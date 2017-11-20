@@ -33,7 +33,7 @@
 <!-- 							<a title="Detalles" href="{{ route('usuarios.show',$usuario->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a> -->
-							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('usuarios.activar',$usuario->id) }}" class="btn btn-success btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('usuarios.activar',$usuario->id) }}" class="btn btn-success btn-xs confirm_activar_M">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</a>
 							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('usuarios.destroy',$usuario->id) }}" class="btn btn-danger btn-xs confirm_M">

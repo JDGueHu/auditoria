@@ -14,7 +14,7 @@ class epsController extends Controller
      */
     public function index()
     {
-        $epss = EPS::where('alive',true)->get();
+        $epss = EPS::get();
 
         return view('configuracion.eps.index')
             ->with('epss',$epss);
@@ -39,14 +39,21 @@ class epsController extends Controller
      */
     public function store(Request $request)
     {
-        $eps = new EPS();
 
-        $eps->codigo = $request->codigo;
-        $eps->eps = $request->eps;
-        $eps->save();
+        try{
 
-        flash('EPS <b>'.$eps->eps.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('eps.index');
+            $eps = new EPS();
+
+            $eps->codigo = $request->codigo;
+            $eps->eps = strtoupper($request->eps);
+            $eps->save();
+
+            flash('EPS <b>'.$eps->eps.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('eps.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'eps.index','modulo' => 'EPS','dato' => strtoupper($request->eps)]);
+        }
     }
 
     /**
@@ -87,7 +94,7 @@ class epsController extends Controller
         $eps = EPS::find($id);
 
         $eps->codigo = $request->codigo;
-        $eps->eps = $request->eps;
+        $eps->eps = strtoupper($request->eps);
         $eps->save();
 
         flash('EPS <b>'.$eps->eps.'</b> se edito exitosamente', 'warning')->important();
@@ -107,7 +114,18 @@ class epsController extends Controller
         $eps->alive = false;
         $eps->save();
 
-        flash('EPS <b>'.$eps->eps.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('EPS <b>'.$eps->eps.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('eps.index');
+    }
+
+    public function activar($id)
+    {
+        $eps = EPS::find($id);
+
+        $eps->alive = true;
+        $eps->save();
+
+        flash('EPS <b>'.$eps->eps.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('eps.index');
     }
 }

@@ -17,7 +17,7 @@ class AgregarTablaNivelEstudio extends Migration
             $table->increments('id');
 
             $table->string('codigo')->nullable();
-            $table->string('nivelEstudio');
+            $table->string('nivelEstudio')->unique();
             $table->integer('orden');
 
             $table->string('tipoEstudio'); // si es academica o complementaria

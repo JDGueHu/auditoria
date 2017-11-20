@@ -14,7 +14,7 @@ class tipoRequisitoLegalController extends Controller
      */
     public function index()
     {
-        $tiposRequisitos = TipoRequisitoLegal::where('alive',true)->get();
+        $tiposRequisitos = TipoRequisitoLegal::get();
 
         return view('configuracion.tiposRequisitosLegales.index')
             ->with('tiposRequisitos',$tiposRequisitos);
@@ -38,14 +38,21 @@ class tipoRequisitoLegalController extends Controller
      */
     public function store(Request $request)
     {
-        $tipoRequisito = new TipoRequisitoLegal();
+        try{
 
-        $tipoRequisito->codigo = $request->codigo;
-        $tipoRequisito->tipo_requisito_legal = $request->tipo_requisito_legal;
-        $tipoRequisito->save();
+            $tipoRequisito = new TipoRequisitoLegal();
 
-        flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('tipoRequisitoLegal.index');
+            $tipoRequisito->codigo = $request->codigo;
+            $tipoRequisito->tipo_requisito_legal = strtoupper($request->tipo_requisito_legal);
+            $tipoRequisito->save();
+
+            flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('tipoRequisitoLegal.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'tipoRequisitoLegal.index','modulo' => 'Tipos de requisitos legales','dato' => strtoupper($request->tipo_requisito_legal)]);
+        }
+        
     }
 
     /**
@@ -88,7 +95,7 @@ class tipoRequisitoLegalController extends Controller
         $tipoRequisito = TipoRequisitoLegal::find($id);
 
         $tipoRequisito->codigo = $request->codigo;
-        $tipoRequisito->tipo_requisito_legal = $request->tipo_requisito_legal;
+        $tipoRequisito->tipo_requisito_legal = strtoupper($request->tipo_requisito_legal);
         $tipoRequisito->save();
 
         flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se editó exitosamente', 'warning')->important();
@@ -108,7 +115,18 @@ class tipoRequisitoLegalController extends Controller
         $tipoRequisito->alive = false;
         $tipoRequisito->save();
 
-        flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('tipoRequisitoLegal.index');
+    }
+
+    public function activar($id)
+    {
+        $tipoRequisito = TipoRequisitoLegal::find($id);
+
+        $tipoRequisito->alive = true;
+        $tipoRequisito->save();
+
+        flash('Tipo de requisito legal <b>'.$tipoRequisito->tipo_requisito_legal.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('tipoRequisitoLegal.index');
     }
 }

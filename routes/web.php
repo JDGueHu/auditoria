@@ -56,11 +56,19 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'uses' => 'centroTrabajoController@destroy',
 		'as' => 'centroTrabajo.destroy'
 	]);
+	Route::get('centroTrabajo/{id}/activar',[
+		'uses' => 'centroTrabajoController@activar',
+		'as' => 'centroTrabajo.activar'
+	]);
 
 	Route::resource('nivelRiesgos','nivelRiesgosController');
 	Route::get('nivelRiesgos/{id}/destroy',[
 		'uses' => 'nivelRiesgosController@destroy',
 		'as' => 'nivelRiesgos.destroy'
+	]);
+	Route::get('nivelRiesgos/{id}/activar',[
+		'uses' => 'nivelRiesgosController@activar',
+		'as' => 'nivelRiesgos.activar'
 	]);
 
 	Route::resource('tiposDocumento','tiposDocumentoController');
@@ -68,7 +76,11 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'uses' => 'tiposDocumentoController@destroy',
 		'as' => 'tiposDocumento.destroy'
 	]);
-
+	Route::get('tiposDocumento/{id}/activar',[
+		'uses' => 'tiposDocumentoController@activar',
+		'as' => 'tiposDocumento.activar'
+	]);
+	
 	Route::resource('cargos','cargosController');
 	Route::get('cargos/{id}/destroy',[
 		'uses' => 'cargosController@destroy',
@@ -83,6 +95,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 	Route::get('eps/{id}/destroy',[
 		'uses' => 'epsController@destroy',
 		'as' => 'eps.destroy'
+	]);
+	Route::get('eps/{id}/activar',[
+		'uses' => 'epsController@activar',
+		'as' => 'eps.activar'
 	]);
 
 	Route::resource('arl','arlController');
@@ -100,17 +116,29 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 		'uses' => 'fondosPensionesController@destroy',
 		'as' => 'fondosPensiones.destroy'
 	]);
+	Route::get('fondosPensiones/{id}/activar',[
+		'uses' => 'fondosPensionesController@activar',
+		'as' => 'fondosPensiones.activar'
+	]);
 
 	Route::resource('fondosCesantias','fondosCesantiasController');
 	Route::get('fondosCesantias/{id}/destroy',[
 		'uses' => 'fondosCesantiasController@destroy',
 		'as' => 'fondosCesantias.destroy'
 	]);
+	Route::get('fondosCesantias/{id}/activar',[
+		'uses' => 'fondosCesantiasController@activar',
+		'as' => 'fondosCesantias.activar'
+	]);
 
 	Route::resource('tiposContrato','tiposContratoController');
 	Route::get('tiposContrato/{id}/destroy',[
 		'uses' => 'tiposContratoController@destroy',
 		'as' => 'tiposContrato.destroy'
+	]);
+	Route::get('tiposContrato/{id}/activar',[
+		'uses' => 'tiposContratoController@activar',
+		'as' => 'tiposContrato.activar'
 	]);
 
 	Route::get('tiposContrato/{id}/indefinido',[
@@ -125,6 +153,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 	Route::get('nivelesEstudio/{id}/destroy',[
 		'uses' => 'nivelesEstudioController@destroy',
 		'as' => 'nivelesEstudio.destroy'
+	]);
+	Route::get('nivelesEstudio/{id}/activar',[
+		'uses' => 'nivelesEstudioController@activar',
+		'as' => 'nivelesEstudio.activar'
 	]);
 
 	Route::resource('areasEstudio','areasEstudioController');
@@ -141,6 +173,10 @@ Route::group(['prefix'=>'configuracion','middleware' => 'auth'],function(){
 	Route::get('tipoRequisitoLegal/{id}/destroy',[
 		'uses' => 'tipoRequisitoLegalController@destroy',
 		'as' => 'tipoRequisitoLegal.destroy'
+	]);
+	Route::get('tipoRequisitoLegal/{id}/activar',[
+		'uses' => 'tipoRequisitoLegalController@activar',
+		'as' => 'tipoRequisitoLegal.activar'
 	]);
 
 	Route::resource('autoridadRequisitoLegal','autoridadRequisitoLegalController');
@@ -254,6 +290,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'tiposVacacionesController@destroy',
 		'as' => 'tiposVacaciones.destroy'
 	]);
+	Route::get('tiposVacaciones/{id}/activar',[
+		'uses' => 'tiposVacacionesController@activar',
+		'as' => 'tiposVacaciones.activar'
+	]);
 
 	Route::resource('vacaciones','vacacionesController');
 	Route::get('vacaciones/{id}/destroy',[
@@ -277,6 +317,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 	Route::get('tiposSST/{id}/destroy',[
 		'uses' => 'tiposSSTController@destroy',
 		'as' => 'tiposSST.destroy'
+	]);
+	Route::get('tiposSST/{id}/activar',[
+		'uses' => 'tiposSSTController@activar',
+		'as' => 'tiposSST.activar'
 	]);
 
 

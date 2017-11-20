@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('tipoDocumento','Tipo de documento')  !!}
-                {!! Form::text('tipoDocumento',null, ['class' => 'form-control', 'required', 'id'=>'tipoDocumento'])  !!}
+                {!! Form::text('tipoDocumento',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'tipoDocumento'])  !!}
             </div>
         </div>
 

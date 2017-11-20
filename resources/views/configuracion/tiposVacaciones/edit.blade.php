@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('tipoVacaciones','Tipo de ausentismo')  !!}
-                {!! Form::text('tipoVacaciones',$tipoVacaciones->tipoVacaciones, ['class' => 'form-control', 'required', 'id'=>'tipoVacaciones'])  !!}
+                {!! Form::text('tipoVacaciones',$tipoVacaciones->tipoVacaciones, ['class' => 'form-control mayusculas', 'required', 'id'=>'tipoVacaciones'])  !!}
             </div>
         </div>
 

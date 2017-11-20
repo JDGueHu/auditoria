@@ -14,7 +14,7 @@ class tiposSSTController extends Controller
      */
     public function index()
     {
-        $tiposSST = TipoSST::where('alive',true)->get();
+        $tiposSST = TipoSST::get();
 
         return view('configuracion.tiposSST.index')
             ->with('tiposSST',$tiposSST);
@@ -38,15 +38,21 @@ class tiposSSTController extends Controller
      */
     public function store(Request $request)
     {
-        $tipoSST = new TipoSST();
+        try{
 
-        $tipoSST->codigo = $request->codigo;
-        $tipoSST->tipoSST = $request->tipoSST;
-        $tipoSST->save();
+            $tipoSST = new TipoSST();
+
+            $tipoSST->codigo = $request->codigo;
+            $tipoSST->tipoSST = strtoupper($request->tipoSST);
+            $tipoSST->save();
 
 
-        flash('Tipo de SST <b>'.$tipoSST->tipoSST.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('tiposSST.index');
+            flash('Tipo de SST <b>'.$tipoSST->tipoSST.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('tiposSST.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'tiposSST.index','modulo' => 'Tipos de SST','dato' => strtoupper($request->tipoSST)]);
+        }
     }
 
     /**
@@ -89,7 +95,7 @@ class tiposSSTController extends Controller
         $tipoSST = TipoSST::find($id);
 
         $tipoSST->codigo = $request->codigo;
-        $tipoSST->tipoSST = $request->tipoSST;
+        $tipoSST->tipoSST = strtoupper($request->tipoSST);
         $tipoSST->save();
 
 
@@ -111,7 +117,18 @@ class tiposSSTController extends Controller
         $tipoSST->save();
 
 
-        flash('Tipo de SST <b>'.$tipoSST->tipoSST.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Tipo de SST <b>'.$tipoSST->tipoSST.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('tiposSST.index');
+    }
+
+    public function activar($id)
+    {
+        $tipoSST = TipoSST::find($id);
+
+        $tipoSST->alive = true;
+        $tipoSST->save();
+
+        flash('Tipo de SST <b>'.$tipoSST->tipoSST.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('tiposSST.index');
     }
 }

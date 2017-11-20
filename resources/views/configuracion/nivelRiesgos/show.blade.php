@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+  <li><a href="{{ route('nivelRiesgos.index') }}">Nivel de riesgo</a></li>
   <li class="active">Detalles</li>
 </ol>
 

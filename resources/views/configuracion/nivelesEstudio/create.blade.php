@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-4 separarBottom">
                 {!! Form::label('nivelEstudio','Nivel de estudio')  !!}
-                {!! Form::text('nivelEstudio',null, ['class' => 'form-control', 'required', 'id'=>'nivelEstudio'])  !!}
+                {!! Form::text('nivelEstudio',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'nivelEstudio'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
                 {!! Form::label('orden','Orden')  !!}

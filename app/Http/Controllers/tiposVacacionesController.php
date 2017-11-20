@@ -14,7 +14,7 @@ class tiposVacacionesController extends Controller
      */
     public function index()
     {
-        $tiposVacaciones = TipoVacaciones::where('alive',true)->get();
+        $tiposVacaciones = TipoVacaciones::get();
 
         return view('configuracion.tiposVacaciones.index')
             ->with('tiposVacaciones',$tiposVacaciones);
@@ -38,14 +38,21 @@ class tiposVacacionesController extends Controller
      */
     public function store(Request $request)
     {
-        $tiposVacaciones = new TipoVacaciones();
+        
+        try{
 
-        $tiposVacaciones->codigo = $request->codigo;
-        $tiposVacaciones->tipoVacaciones = $request->tipoVacaciones;
-        $tiposVacaciones->save();
+            $tiposVacaciones = new TipoVacaciones();
 
-        flash('Tipo de vacaciones <b>'.$tiposVacaciones->tipoVacaciones.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('tiposVacaciones.index');
+            $tiposVacaciones->codigo = $request->codigo;
+            $tiposVacaciones->tipoVacaciones = strtoupper($request->tipoVacaciones);
+            $tiposVacaciones->save();
+
+            flash('Tipo de vacaciones <b>'.$tiposVacaciones->tipoVacaciones.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('tiposVacaciones.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'tiposVacaciones.index','modulo' => 'Tipos de ausentismo','dato' => strtoupper($request->tipoVacaciones)]);
+        }
     }
 
     /**
@@ -88,7 +95,7 @@ class tiposVacacionesController extends Controller
         $tipoVacaciones = TipoVacaciones::find($id);
 
         $tipoVacaciones->codigo = $request->codigo;
-        $tipoVacaciones->tipoVacaciones = $request->tipoVacaciones;
+        $tipoVacaciones->tipoVacaciones = strtoupper($request->tipoVacaciones);
         $tipoVacaciones->save();
 
         flash('Tipo de vacaciones <b>'.$tipoVacaciones->tipoVacaciones.'</b> se editó exitosamente', 'warning')->important();
@@ -108,7 +115,18 @@ class tiposVacacionesController extends Controller
         $tipoVacaciones->alive = false;
         $tipoVacaciones->save();
 
-        flash('Tipo de vacaciones <b>'.$tipoVacaciones->tipoVacaciones.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Tipo de vacaciones <b>'.$tipoVacaciones->tipoVacaciones.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('tiposVacaciones.index');
+    }
+
+    public function activar($id)
+    {
+        $tipoVacaciones = TipoVacaciones::find($id);
+
+        $tipoVacaciones->alive = true;
+        $tipoVacaciones->save();
+
+        flash('Tipo de vacaciones <b>'.$tipoVacaciones->tipoVacaciones.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('tiposVacaciones.index');
     }
 }

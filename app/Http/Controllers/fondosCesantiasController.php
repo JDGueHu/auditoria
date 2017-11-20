@@ -14,7 +14,7 @@ class fondosCesantiasController extends Controller
      */
     public function index()
     {
-        $fondosCesantias = FondosCesantias::where('alive',true)->get();
+        $fondosCesantias = FondosCesantias::get();
 
         return view('configuracion.fondosCesantias.index')
             ->with('fondosCesantias',$fondosCesantias);
@@ -38,14 +38,21 @@ class fondosCesantiasController extends Controller
      */
     public function store(Request $request)
     {
-        $fondoCesantias = new FondosCesantias();
+        try{
 
-        $fondoCesantias->codigo = $request->codigo;
-        $fondoCesantias->fondosCesantias = $request->fondoCesantias;
-        $fondoCesantias->save();
+            $fondoCesantias = new FondosCesantias();
 
-        flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('fondosCesantias.index');
+            $fondoCesantias->codigo = $request->codigo;
+            $fondoCesantias->fondosCesantias = strtoupper($request->fondoCesantias);
+            $fondoCesantias->save();
+
+            flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('fondosCesantias.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'fondosCesantias.index','modulo' => 'Fondos de cesantias','dato' => strtoupper($request->fondoCesantias)]);
+        }
+
     }
 
     /**
@@ -86,7 +93,7 @@ class fondosCesantiasController extends Controller
         $fondoCesantias = FondosCesantias::find($id);
 
         $fondoCesantias->codigo = $request->codigo;
-        $fondoCesantias->fondosCesantias = $request->fondoCesantias;
+        $fondoCesantias->fondosCesantias = strtoupper($request->fondoCesantias);
         $fondoCesantias->save();
 
         flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se edito exitosamente', 'warning')->important();
@@ -106,7 +113,18 @@ class fondosCesantiasController extends Controller
         $fondoCesantias->alive = false;
         $fondoCesantias->save();
 
-        flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se inhabilitó exitosamente', 'danger')->important();
+        return redirect()->route('fondosCesantias.index');
+    }
+
+    public function activar($id)
+    {
+        $fondoCesantias = FondosCesantias::find($id);
+
+        $fondoCesantias->alive = true;
+        $fondoCesantias->save();
+
+        flash('Fondo de cesantías <b>'.$fondoCesantias->fondosCesantias.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('fondosCesantias.index');
     }
 }

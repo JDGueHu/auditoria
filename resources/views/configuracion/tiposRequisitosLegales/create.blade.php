@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('tipo_requisito_legal','Tipo de requisito legal')  !!}
-                {!! Form::text('tipo_requisito_legal',null, ['class' => 'form-control', 'required', 'id'=>'tipo_requisito_legal'])  !!}
+                {!! Form::text('tipo_requisito_legal',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'tipo_requisito_legal'])  !!}
             </div>
         </div>
 

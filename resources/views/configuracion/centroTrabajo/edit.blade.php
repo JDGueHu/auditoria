@@ -25,7 +25,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('centroTrabajo','Centro de operación')  !!}
-                {!! Form::text('centroTrabajo', $centroTrabajo->centroTrabajo, ['class' => 'form-control', 'required', 'id'=>'centroTrabajo'])  !!}
+                {!! Form::text('centroTrabajo', $centroTrabajo->centroTrabajo, ['class' => 'form-control mayusculas', 'required', 'id'=>'centroTrabajo'])  !!}
             </div>
         </div>
 

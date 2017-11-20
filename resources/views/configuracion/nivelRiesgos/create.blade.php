@@ -3,7 +3,7 @@
 @section('content')
 
 <ol class="breadcrumb">
-  <li><a href="{{ route('nivelRiesgos.index') }}">Riesgos</a></li>
+  <li><a href="{{ route('nivelRiesgos.index') }}">Nivel de riesgo</a></li>
   <li class="active">Crear</li>
 </ol>
 
@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('valor','Valor(%)')  !!}
-                {!! Form::number('valor',null, ['class' => 'form-control', 'required', 'id'=>'valor', 'step'=>'0.0001'])  !!}
+                {!! Form::number('valor',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'valor', 'step'=>'0.0001'])  !!}
             </div>
         </div>
 

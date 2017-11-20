@@ -27,7 +27,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('fondoPensiones','Fondo de pensiones')  !!}
-                {!! Form::text('fondoPensiones',$fondoPensiones->fondosPensiones, ['class' => 'form-control', 'required', 'id'=>'fondoPensiones'])  !!}
+                {!! Form::text('fondoPensiones',$fondoPensiones->fondosPensiones, ['class' => 'form-control mayusculas', 'required', 'id'=>'fondoPensiones'])  !!}
             </div>
         </div>
 

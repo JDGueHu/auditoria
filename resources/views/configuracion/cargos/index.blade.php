@@ -38,7 +38,7 @@
 							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('cargos.edit',$cargo->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('cargos.activar',$cargo->id) }}" class="btn btn-success btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('cargos.activar',$cargo->id) }}" class="btn btn-success btn-xs confirm_activar_M">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</a>
 							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('cargos.destroy',$cargo->id) }}" class="btn btn-danger btn-xs confirm_M">

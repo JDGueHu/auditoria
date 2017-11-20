@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('eps','EPS')  !!}
-                {!! Form::text('eps',null, ['class' => 'form-control', 'required', 'id'=>'eps'])  !!}
+                {!! Form::text('eps',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'eps'])  !!}
             </div>
         </div>
 

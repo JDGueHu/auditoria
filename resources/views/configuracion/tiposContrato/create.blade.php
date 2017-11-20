@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-4 separarBottom">
                 {!! Form::label('tipoContrato','Tipo de contrato')  !!}
-                {!! Form::text('tipoContrato',null, ['class' => 'form-control', 'required', 'id'=>'tipoContrato'])  !!}
+                {!! Form::text('tipoContrato',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'tipoContrato'])  !!}
             </div>
             <div class="col-md-4 separarBottom">
                 <label for="terminoIndefinido">¿Termino indefinido?</label>

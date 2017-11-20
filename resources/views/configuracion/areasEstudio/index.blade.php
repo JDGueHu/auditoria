@@ -38,7 +38,7 @@
 							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('areasEstudio.edit',$areaEstudio->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('areasEstudio.activar',$areaEstudio->id) }}" class="btn btn-success btn-xs">
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('areasEstudio.activar',$areaEstudio->id) }}" class="btn btn-success btn-xs confirm_activar_F">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</a>
 							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('areasEstudio.destroy',$areaEstudio->id) }}" class="btn btn-danger btn-xs confirm_F">

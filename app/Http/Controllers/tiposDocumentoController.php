@@ -14,7 +14,7 @@ class tiposDocumentoController extends Controller
      */
     public function index()
     {
-        $tiposDocumento = TipoDocumento::where('alive',true)->get();
+        $tiposDocumento = TipoDocumento::get();
         return view('configuracion.tiposDocumento.index')->with('tiposDocumento',$tiposDocumento);
 
 
@@ -38,14 +38,20 @@ class tiposDocumentoController extends Controller
      */
     public function store(Request $request)
     {
-        $tipoDocumento = new TipoDocumento();
+        try{
 
-        $tipoDocumento->sigla = $request->sigla;
-        $tipoDocumento->tipoDocumento = $request->tipoDocumento;
-        $tipoDocumento->save();
+            $tipoDocumento = new TipoDocumento();
 
-        flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('tiposDocumento.index');
+            $tipoDocumento->sigla = $request->sigla;
+            $tipoDocumento->tipoDocumento = strtoupper($request->tipoDocumento);
+            $tipoDocumento->save();
+
+            flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('tiposDocumento.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'tiposDocumento.index','modulo' => 'Tipos de documento','dato' => strtoupper($request->tipoDocumento)]);
+        }
     }
 
     /**
@@ -86,7 +92,7 @@ class tiposDocumentoController extends Controller
         $tipoDocumento = TipoDocumento::find($id);
 
         $tipoDocumento->sigla = $request->sigla;
-        $tipoDocumento->tipoDocumento = $request->tipoDocumento;
+        $tipoDocumento->tipoDocumento = strtoupper($request->tipoDocumento);
         $tipoDocumento->save();
 
         flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se editó exitosamente', 'warning')->important();
@@ -106,7 +112,18 @@ class tiposDocumentoController extends Controller
         $tipoDocumento->alive = false;
         $tipoDocumento->save();
 
-        flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('tiposDocumento.index');
+    }
+
+    public function activar($id)
+    {
+        $tipoDocumento = TipoDocumento::find($id);
+
+        $tipoDocumento->alive = true;
+        $tipoDocumento->save();
+
+        flash('Tipo de documento <b>'.$tipoDocumento->tipoDocumento.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('tiposDocumento.index');
     }
 }

@@ -15,7 +15,7 @@ class centroTrabajoController extends Controller
      */
     public function index()
     {
-        $centrosTrabajo = CentroTrabajo::where('alive',true)->orderby('centroTrabajo')->get();
+        $centrosTrabajo = CentroTrabajo::get();
 
         return view('configuracion.centroTrabajo.index')
             ->with('centrosTrabajo',$centrosTrabajo);
@@ -42,15 +42,22 @@ class centroTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        $centroTrabajo = new CentroTrabajo();
 
-        $centroTrabajo->identificador = $request->identificador;
-        $centroTrabajo->centroTrabajo = $request->centroTrabajo;
-        $centroTrabajo->nivelRiesgo_id = $request->riesgo;
-        $centroTrabajo->save();
+        try{
 
-        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('centroTrabajo.index');
+            $centroTrabajo = new CentroTrabajo();
+
+            $centroTrabajo->identificador = $request->identificador;
+            $centroTrabajo->centroTrabajo = strtoupper($request->centroTrabajo);
+            $centroTrabajo->nivelRiesgo_id = $request->riesgo;
+            $centroTrabajo->save();
+
+            flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('centroTrabajo.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'centroTrabajo.index','modulo' => 'Centros de trabajo','dato' => strtoupper($request->centroTrabajo)]);
+        }
     }
 
     /**
@@ -97,7 +104,7 @@ class centroTrabajoController extends Controller
         $centroTrabajo = CentroTrabajo::find($id);
 
         $centroTrabajo->identificador = $request->identificador;
-        $centroTrabajo->centroTrabajo = $request->centroTrabajo;
+        $centroTrabajo->centroTrabajo = strtoupper($request->centroTrabajo);
         $centroTrabajo->nivelRiesgo_id = $request->riesgo;
         $centroTrabajo->save();
 
@@ -118,7 +125,18 @@ class centroTrabajoController extends Controller
         $centroTrabajo->alive = false;
         $centroTrabajo->save();
 
-        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('centroTrabajo.index');
+    }
+
+    public function activar($id)
+    {
+        $centroTrabajo = CentroTrabajo::find($id);
+
+        $centroTrabajo->alive = true;
+        $centroTrabajo->save();
+
+        flash('Centro de trabajo <b>'.$centroTrabajo->centroTrabajo.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('centroTrabajo.index');
     }
 }

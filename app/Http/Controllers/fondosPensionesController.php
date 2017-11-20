@@ -14,7 +14,7 @@ class fondosPensionesController extends Controller
      */
     public function index()
     {
-        $fondosPensiones = FondosPensiones::where('alive',true)->get();
+        $fondosPensiones = FondosPensiones::get();
 
         return view('configuracion.fondosPensiones.index')
             ->with('fondosPensiones',$fondosPensiones);
@@ -38,14 +38,21 @@ class fondosPensionesController extends Controller
      */
     public function store(Request $request)
     {
-        $fondoPensiones = new FondosPensiones();
 
-        $fondoPensiones->codigo = $request->codigo;
-        $fondoPensiones->fondosPensiones = $request->fondoPensiones;
-        $fondoPensiones->save();
+        try{
 
-        flash('Fondo de pensiones <b>'.$fondoPensiones->fondoPensiones.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('fondosPensiones.index');
+            $fondoPensiones = new FondosPensiones();
+
+            $fondoPensiones->codigo = $request->codigo;
+            $fondoPensiones->fondosPensiones = strtoupper($request->fondoPensiones);
+            $fondoPensiones->save();
+
+            flash('Fondo de pensiones <b>'.$fondoPensiones->fondoPensiones.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('fondosPensiones.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'fondosPensiones.index','modulo' => 'Fondos de pensiones','dato' => strtoupper($request->fondoPensiones)]);
+        }
     }
 
     /**
@@ -86,7 +93,7 @@ class fondosPensionesController extends Controller
         $fondoPensiones = FondosPensiones::find($id);
 
         $fondoPensiones->codigo = $request->codigo;
-        $fondoPensiones->fondosPensiones = $request->fondoPensiones;
+        $fondoPensiones->fondosPensiones = strtoupper($request->fondoPensiones);
         $fondoPensiones->save();
 
         flash('Fondo de pensiones <b>'.$fondoPensiones->fondosPensiones.'</b> se edito exitosamente', 'warning')->important();
@@ -106,7 +113,18 @@ class fondosPensionesController extends Controller
         $fondoPensiones->alive = false;
         $fondoPensiones->save();
 
-        flash('Fondo de penciones <b>'.$fondoPensiones->fondosPensiones.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Fondo de penciones <b>'.$fondoPensiones->fondosPensiones.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('fondosPensiones.index');
+    }
+
+    public function activar($id)
+    {
+        $fondoPensiones = FondosPensiones::find($id);
+
+        $fondoPensiones->alive = true;
+        $fondoPensiones->save();
+
+        flash('Fondo de penciones <b>'.$fondoPensiones->fondosPensiones.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('fondosPensiones.index');
     }
 }

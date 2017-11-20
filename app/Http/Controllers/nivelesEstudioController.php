@@ -14,7 +14,7 @@ class nivelesEstudioController extends Controller
      */
     public function index()
     {
-        $nivelesEstudio = NivelEstudio::where('alive',true)->orderby('orden')->get();
+        $nivelesEstudio = NivelEstudio::get();
 
         return view('configuracion.nivelesEstudio.index')
             ->with('nivelesEstudio',$nivelesEstudio);
@@ -39,16 +39,22 @@ class nivelesEstudioController extends Controller
      */
     public function store(Request $request)
     {
-        $nivelEstudio = new NivelEstudio();
+        try{
 
-        $nivelEstudio->codigo = $request->codigo;
-        $nivelEstudio->nivelEstudio = $request->nivelEstudio;
-        $nivelEstudio->orden = $request->orden;
-        $nivelEstudio->tipoEstudio = $request->tipoEstudio;
-        $nivelEstudio->save();
+            $nivelEstudio = new NivelEstudio();
 
-        flash('Nivel de formación <b>'.$nivelEstudio->nivelEstudio.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('nivelesEstudio.index');
+            $nivelEstudio->codigo = $request->codigo;
+            $nivelEstudio->nivelEstudio = strtoupper($request->nivelEstudio);
+            $nivelEstudio->orden = $request->orden;
+            $nivelEstudio->tipoEstudio = $request->tipoEstudio;
+            $nivelEstudio->save();
+
+            flash('Nivel de formación <b>'.$nivelEstudio->nivelEstudio.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('nivelesEstudio.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'nivelesEstudio.index','modulo' => 'Niveles de formación','dato' => strtoupper($request->nivelEstudio)]);
+        }
     }
 
     /**
@@ -92,7 +98,7 @@ class nivelesEstudioController extends Controller
         $nivelEstudio = NivelEstudio::find($id);
 
         $nivelEstudio->codigo = $request->codigo;
-        $nivelEstudio->nivelEstudio = $request->nivelEstudio;
+        $nivelEstudio->nivelEstudio = strtoupper($request->nivelEstudio);
         $nivelEstudio->orden = $request->orden;
         $nivelEstudio->tipoEstudio = $request->tipoEstudio;
         $nivelEstudio->save();
@@ -114,7 +120,18 @@ class nivelesEstudioController extends Controller
         $nivelEstudio->alive = false;
         $nivelEstudio->save();
 
-        flash('Nivel de formación <b>'.$nivelEstudio->nivelEstudio.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Nivel de formación <b>'.$nivelEstudio->nivelEstudio.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('nivelesEstudio.index');
+    }
+
+    public function activar($id)
+    {
+        $nivelEstudio = NivelEstudio::find($id);
+
+        $nivelEstudio->alive = true;
+        $nivelEstudio->save();
+
+        flash('Área de formación <b>'.$nivelEstudio->nivelEstudio.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('nivelesEstudio.index');
     }
 }

@@ -26,7 +26,7 @@
             </div>
             <div class="col-md-6 separarBottom">
                 {!! Form::label('fondoCesantias','Fondo de cesantías')  !!}
-                {!! Form::text('fondoCesantias',null, ['class' => 'form-control', 'required', 'id'=>'fondoCesantias'])  !!}
+                {!! Form::text('fondoCesantias',null, ['class' => 'form-control mayusculas', 'required', 'id'=>'fondoCesantias'])  !!}
             </div>
         </div>
 

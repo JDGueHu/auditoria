@@ -14,7 +14,7 @@ class nivelRiesgosController extends Controller
      */
     public function index()
     {
-        $nivelRiesgos = NivelRiesgo::where('alive',true)->orderby('riesgo')->get();
+        $nivelRiesgos = NivelRiesgo::get();
         return view('configuracion.nivelRiesgos.index')->with('nivelRiesgos',$nivelRiesgos);
     }
 
@@ -36,13 +36,19 @@ class nivelRiesgosController extends Controller
      */
     public function store(Request $request)
     {
-        $nivelRiesgos = new NivelRiesgo();
-        $nivelRiesgos->riesgo = $request->riesgo;
-        $nivelRiesgos->valor = $request->valor;
-        $nivelRiesgos->save();
+        try{
 
-        flash('Riesgo <b>'.$nivelRiesgos->riesgo.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('nivelRiesgos.index');
+            $nivelRiesgos = new NivelRiesgo();
+            $nivelRiesgos->riesgo = strtoupper($request->riesgo);
+            $nivelRiesgos->valor = $request->valor;
+            $nivelRiesgos->save();
+
+            flash('Nivel de riesgo <b>'.$nivelRiesgos->riesgo.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('nivelRiesgos.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'nivelRiesgos.index','modulo' => 'Niveles de riesgos','dato' => strtoupper($request->riesgo)]);
+        }
     }
 
     /**
@@ -81,11 +87,11 @@ class nivelRiesgosController extends Controller
     public function update(Request $request, $id)
     {
         $nivelRiesgo = NivelRiesgo::find($id);
-        $nivelRiesgo->riesgo = $request->riesgo;
+        $nivelRiesgo->riesgo = strtoupper($request->riesgo);
         $nivelRiesgo->valor = $request->valor;
         $nivelRiesgo->save();
 
-        flash('Riesgo <b>'.$nivelRiesgo->riesgo.'</b> se editó exitosamente', 'warning')->important();
+        flash('Nivel de riesgo <b>'.$nivelRiesgo->riesgo.'</b> se editó exitosamente', 'warning')->important();
         return redirect()->route('nivelRiesgos.index');
     }
 
@@ -101,7 +107,18 @@ class nivelRiesgosController extends Controller
         $nivelRiesgo->alive = false;
         $nivelRiesgo->save();
 
-        flash('Riesgo <b>'.$nivelRiesgo->riesgo.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Nivel de riesgo <b>'.$nivelRiesgo->riesgo.'</b> se inactivó exitosamente', 'danger')->important();
+        return redirect()->route('nivelRiesgos.index');
+    }
+
+    public function activar($id)
+    {
+        $nivelRiesgo = NivelRiesgo::find($id);
+
+        $nivelRiesgo->alive = true;
+        $nivelRiesgo->save();
+
+        flash('Nivel de riesgo <b>'.$nivelRiesgo->riesgo.'</b> se activó exitosamente', 'success')->important();
         return redirect()->route('nivelRiesgos.index');
     }
 }

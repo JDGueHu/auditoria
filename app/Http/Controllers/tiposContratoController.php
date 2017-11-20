@@ -15,7 +15,7 @@ class tiposContratoController extends Controller
      */
     public function index()
     {
-        $tiposContrato = TipoContrato::where('alive',true)->get();
+        $tiposContrato = TipoContrato::get();
         return view('configuracion.tiposContrato.index')->with('tiposContrato',$tiposContrato);
     }
 
@@ -37,15 +37,21 @@ class tiposContratoController extends Controller
      */
     public function store(Request $request)
     {
-        $tipoContrato = new TipoContrato();
+        try{
+            
+            $tipoContrato = new TipoContrato();
 
-        $tipoContrato->codigo = $request->codigo;
-        $tipoContrato->tipoContrato = $request->tipoContrato;
-        $tipoContrato->terminoIndefinido = $request->terminoIndefinido == 'value' ? true : false;
-        $tipoContrato->save();
+            $tipoContrato->codigo = $request->codigo;
+            $tipoContrato->tipoContrato = strtoupper($request->tipoContrato);
+            $tipoContrato->terminoIndefinido = $request->terminoIndefinido == 'value' ? true : false;
+            $tipoContrato->save();
 
-        flash('Tipo de contrato <b>'.$tipoContrato->tipoContrato.'</b> se creó exitosamente', 'success')->important();
-        return redirect()->route('tiposContrato.index');
+            flash('Tipo de contrato <b>'.$tipoContrato->tipoContrato.'</b> se creó exitosamente', 'success')->important();
+            return redirect()->route('tiposContrato.index');
+
+        }catch(\Exception $e){
+            return redirect()->route('validar_duplicado_backend',['tipo_error' => $e->errorInfo[0],'ruta' => 'tiposContrato.index','modulo' => 'Tipos de contrato','dato' => strtoupper($request->tipoContrato)]);
+        }
     }
 
     /**
@@ -86,7 +92,7 @@ class tiposContratoController extends Controller
         $tipoContrato = TipoContrato::find($id);
 
         $tipoContrato->codigo = $request->codigo;
-        $tipoContrato->tipoContrato = $request->tipoContrato;
+        $tipoContrato->tipoContrato = strtoupper($request->tipoContrato);
         $tipoContrato->terminoIndefinido = $request->terminoIndefinido == 'value' ? true : false;
         $tipoContrato->save();
 
@@ -107,7 +113,7 @@ class tiposContratoController extends Controller
         $tipoContrato->alive = false;
         $tipoContrato->save();
 
-        flash('Tipo de contrato <b>'.$tipoContrato->tipoContrato.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Tipo de contrato <b>'.$tipoContrato->tipoContrato.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('tiposContrato.index');
     }
 
@@ -116,5 +122,16 @@ class tiposContratoController extends Controller
         $tipoContrato = TipoContrato::find($id);
 
         return $tipoContrato->terminoIndefinido;
+    }
+
+    public function activar($id)
+    {
+        $tipoContrato = TipoContrato::find($id);
+
+        $tipoContrato->alive = true;
+        $tipoContrato->save();
+
+        flash('Tipo de contrato <b>'.$tipoContrato->tipoContrato.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('tiposContrato.index');
     }
 }
