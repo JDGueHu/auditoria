@@ -19,7 +19,7 @@ class SSTController extends Controller
      */
     public function index()
     {
-        $SSTs = SST::where('alive',true)->get();
+        $SSTs = SST::get();
 
         return view('administracion.SSTs.index')
             ->with('SSTs',$SSTs);
@@ -177,7 +177,7 @@ class SSTController extends Controller
         $SST->alive = false;
         $SST->save();
 
-        flash('SST de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('SST de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('SST.index');
     }
 
@@ -230,5 +230,17 @@ class SSTController extends Controller
         $SST->save();
 
         return response($id);
+    }
+
+    public function activar($id)
+    {
+        $SST = SST::find($id);
+        $empleado = Empleado::find($SST->empleado_id);
+
+        $SST->alive = true;
+        $SST->save();
+
+        flash('SST de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('SST.index');
     }
 }

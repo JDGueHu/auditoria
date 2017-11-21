@@ -16,7 +16,8 @@ class validarController extends Controller
 	    	// Array de moodulos donde se indica la tabla y el campo para comparar duplicado
 	    	$modulos = [
 	    		"usuarios" => "users,email",
-	    		"areas_estudio" => "areasEstudio,areaEstudio",
+	    		"empleados" => "empleados,identificacion",
+	    		"roles_responsabilidades" => "roles_matriz,rol",
 	    	];
 
 	    	$tabla = "";

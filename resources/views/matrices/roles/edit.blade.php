@@ -21,7 +21,7 @@
         <div class="row">   
             <div class="col-md-4 separarBottom">
                 {!! Form::label('rol','Rol')  !!}
-                {!! Form::text('rol',null, ['class' => 'form-control', 'id'=>'rol'])  !!}
+                {!! Form::text('rol',null, ['class' => 'form-control mayusculas', 'id'=>'rol'])  !!}
             </div>
             <div class="col-md-8 separarBottom">
                 {!! Form::label('descripcion','Descripción')  !!}

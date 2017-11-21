@@ -18,7 +18,7 @@ class examenesController extends Controller
      */
     public function index()
     {
-        $examenes = Examen::where('alive',true)->get();
+        $examenes = Examen::get();
 
         return view('administracion.examenes.index')
             ->with('examenes',$examenes);
@@ -170,7 +170,7 @@ class examenesController extends Controller
         $examen->alive = false;
         $examen->save();
 
-        flash('Examen de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Examen de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('examenes.index');
     }
 
@@ -223,6 +223,18 @@ class examenesController extends Controller
         $examen->save();
 
         return response($id);
+    }
+
+    public function activar($id)
+    {
+        $examen = Examen::find($id);
+        $empleado = Empleado::where('id','=',$examen->empleado_id)->get();
+
+        $examen->alive = true;
+        $examen->save();
+
+        flash('Examen de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('examenes.index');
     }
 
 }

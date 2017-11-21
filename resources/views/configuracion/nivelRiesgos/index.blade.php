@@ -41,7 +41,7 @@
 							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('nivelRiesgos.activar',$nivelRiesgo->id) }}" class="btn btn-success btn-xs confirm_activar_M">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('nivelRiesgos.destroy',$nivelRiesgo->id) }}" class="btn btn-danger btn-xs confirm_M">
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('nivelRiesgos.destroy',$nivelRiesgo->id) }}" class="btn btn-danger btn-xs confirm_M">
 								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>

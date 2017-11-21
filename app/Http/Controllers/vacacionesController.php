@@ -18,7 +18,7 @@ class vacacionesController extends Controller
      */
     public function index()
     {
-        $ausentismos = Vacacion::where('alive',true)->get();
+        $ausentismos = Vacacion::get();
 
         return view('administracion.vacaciones.index')
             ->with('ausentismos',$ausentismos);
@@ -156,7 +156,7 @@ class vacacionesController extends Controller
         $ausentismo->alive = false;
         $ausentismo->save();
 
-        flash('Ausentismo de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Ausentismo de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('vacaciones.index');
     }
 
@@ -207,5 +207,17 @@ class vacacionesController extends Controller
         $ausentismo->save();
 
         return response($id);
+    }
+
+    public function activar($id)
+    {
+        $ausentismo = Vacacion::find($id);
+        $empleado = Empleado::find($ausentismo->empleado_id);
+
+        $ausentismo->alive = true;
+        $ausentismo->save();
+
+        flash('Ausentismo de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('vacaciones.index');
     }
 }

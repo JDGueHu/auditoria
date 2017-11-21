@@ -18,7 +18,7 @@ class adjuntosController extends Controller
      */
     public function index()
     {
-        $adjuntos = Adjunto::where('alive',true)->get();
+        $adjuntos = Adjunto::get();
         return view('administracion.adjuntos.index')
             ->with('adjuntos',$adjuntos);
     }
@@ -130,7 +130,7 @@ class adjuntosController extends Controller
         $adjunto->alive = false;
         $adjunto->save();
 
-        flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('adjuntos.index');
     }
 
@@ -181,6 +181,18 @@ class adjuntosController extends Controller
         $adjunto->save();
 
         return response($id);
+    }
+
+    public function activar($id)
+    {
+        $adjunto = Adjunto::find($id);
+        $empleado = Empleado::where('id','=',$adjunto->empleado_id)->get();
+
+        $adjunto->alive = true;
+        $adjunto->save();
+
+        flash('Adjunto de <b>'.$empleado[0]->nombres.' '.$empleado[0]->apellidos.'</b> se eliminó exitosamente', 'success')->important();
+        return redirect()->route('adjuntos.index');
     }
     
 }

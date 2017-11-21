@@ -9,7 +9,7 @@
 
 {!! Form::open(['route' => 'roles.store', 'method' => 'POST','id'=>'rol_respon','enctype' => 'multipart/form-data']) !!} 
 
-{!! Form::submit('Guardar', ['class'=>'btn btn-primary']) !!}
+{!! Form::submit('Guardar', ['class'=>'btn btn-primary boton_duplicado']) !!}
 <a style="text-decoration: none;" href="{{ route('roles.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottom'])  !!}
 </a>
@@ -20,8 +20,24 @@
 
         <div class="row">   
             <div class="col-md-4 separarBottom">
-                {!! Form::label('rol','Rol')  !!}
-                {!! Form::text('rol',null, ['class' => 'form-control', 'id'=>'rol', 'required'])  !!}
+                <div class="duplicado">
+                    {!! Form::label('rol','Rol')  !!}
+                    {!! Form::text('rol',null, ['class' => 'form-control validarDuplicado', 'id'=>'rol', 'required'])  !!}
+
+                    <!-- Elementos para mostrar validacion -->
+                    <!-- Success -->
+                    <span id="inputSuccess1Status" class="ocultar glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputSuccess2Status" class="ocultar sr-only">(success)</span>
+                    <!-- Error -->
+                    <span id="inputError1Status" class="ocultar glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                    <span id="inputError2Status" class="ocultar sr-only">(error)</span>
+
+                    @if ($errors->has('rol'))
+                        <span style="color: red" class="help-block">
+                            <strong>{{ $errors->first('rol') }}</strong>
+                        </span>
+                    @endif
+                </div>
             </div>
             <div class="col-md-8 separarBottom">
                 {!! Form::label('descripcion','Descripción')  !!}
@@ -60,17 +76,18 @@
     </div>
 </div>
 
-{!! Form::submit('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn']) !!}
+{!! Form::submit('Guardar', ['class'=>'btn btn-primary separarTop separarBottomButtonn boton_duplicado']) !!}
 <a style="text-decoration: none;" href="{{ route('roles.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 
 <input type="hidden" id='tmp' name='tmp' value='{{ $tmp }}'>
-
+<input type="hidden" name="modulo" id="modulo" value="roles_responsabilidades">
 {!! Form::close() !!}
 
 @endsection
 
 @section('js')
     <script src="{{ asset('js/roles_responsabilidades/responsabilidad.js') }}"></script>
+    <script src="{{ asset('js/shared.js') }}"></script>
 @endsection

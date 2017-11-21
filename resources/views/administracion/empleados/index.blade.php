@@ -28,7 +28,7 @@
 						<td>{{ $empleado->nombres }}</td>
 						<td>{{ $empleado->apellidos }}</td>
 						<td>{{ $empleado->CentroTrabajo->centroTrabajo }}</td>
-						@if($empleado->estado == 'Activo')
+						@if($empleado->alive)
 							<td><span class="label label-success">{{ $empleado->estado }}</span></td>
 						@else
 							<td><span class="label label-danger">{{ $empleado->estado }}</span></td>
@@ -40,8 +40,11 @@
 							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('empleados.edit',$empleado->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('empleados.destroy',$empleado->id) }}" class="btn btn-danger btn-xs confirm_M">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('empleados.activar',$empleado->id) }}" class="btn btn-success btn-xs confirm_activar_M">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('empleados.destroy',$empleado->id) }}" class="btn btn-danger btn-xs confirm_M">
+								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>

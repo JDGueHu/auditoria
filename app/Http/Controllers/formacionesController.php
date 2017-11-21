@@ -19,7 +19,7 @@ class formacionesController extends Controller
      */
     public function index()
     {
-        $formaciones = Formacion::where('alive',true)->get();
+        $formaciones = Formacion::get();
 
         return view('administracion.formaciones.index')
             ->with('formaciones',$formaciones);
@@ -161,7 +161,7 @@ class formacionesController extends Controller
         $formacion->alive = false;
         $formacion->save();
 
-        flash('Formacion de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Formación de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('formaciones.index');
     }
 
@@ -230,5 +230,17 @@ class formacionesController extends Controller
         $formacion->save();
 
         return response($id);
+    }
+
+    public function activar($id)
+    {
+        $formacion = Formacion::find($id);
+        $empleado = Empleado::find($formacion->empleado_id);
+
+        $formacion->alive = true;
+        $formacion->save();
+
+        flash('Formación de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('formaciones.index');
     }
 }

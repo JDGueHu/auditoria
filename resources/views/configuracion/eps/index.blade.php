@@ -41,7 +41,7 @@
 							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('eps.activar',$eps->id) }}" class="btn btn-success btn-xs confirm_activar_F">
 								<i class="fa fa-check-square-o" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('eps.destroy',$eps->id) }}" class="btn btn-danger btn-xs confirm_F">
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('eps.destroy',$eps->id) }}" class="btn btn-danger btn-xs confirm_F">
 								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>

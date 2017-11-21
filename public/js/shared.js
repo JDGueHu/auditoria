@@ -106,6 +106,8 @@ $(document).ready(function() {
             var modulo = $('#modulo').val();
             var dato = $(this).val();   
 
+            //alert(modulo+" "+dato);
+
             var form_data = new FormData();
             form_data.append('modulo', modulo);
             form_data.append('dato', dato);

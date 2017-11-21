@@ -33,8 +33,6 @@
     </div>
 </div>
 
-<input type="hidden" name="modulo" id="modulo" value="areas_estudio">
-
 {!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
 <a style="text-decoration: none;" href="{{ route('areasEstudio.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Rol_responsabilidad;
 use App\Responsabilidad_rol;
@@ -16,7 +17,7 @@ class rolesController extends Controller
      */
     public function index()
     {
-        $roles_responsabilidades = Rol_responsabilidad::where('alive',true)->get();
+        $roles_responsabilidades = Rol_responsabilidad::get();
 
         return view('matrices.roles.index')
             ->with('roles_responsabilidades',$roles_responsabilidades);
@@ -35,6 +36,13 @@ class rolesController extends Controller
             ->with('tmp',$tmp);
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'rol' => 'unique:roles_matriz'
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -43,9 +51,11 @@ class rolesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validator($request->all())->validate();
+        
         $rol = new Rol_responsabilidad();
 
-        $rol->rol = $request->rol;
+        $rol->rol = strtoupper($request->rol);
         $rol->descripcion = $request->descripcion;
         $rol->save();
 
@@ -102,7 +112,7 @@ class rolesController extends Controller
     {
         $rol = Rol_responsabilidad::find($id);
 
-        $rol->rol = $request->rol;
+        $rol->rol = strtoupper($request->rol);
         $rol->descripcion = $request->descripcion;
         $rol->save();
 
@@ -126,7 +136,7 @@ class rolesController extends Controller
         $rol->alive = false;
         $rol->save();
 
-        flash('Rol <b>'.$rol->rol.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Rol <b>'.$rol->rol.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('roles.index');
 
     }
@@ -164,6 +174,17 @@ class rolesController extends Controller
         return view('matrices.roles.matriz')
             ->with('roles',$roles)
             ->with('responsabilidades',$responsabilidades);
+    }
+
+    public function activar($id)
+    {
+        $rol = Rol_responsabilidad::find($id);
+
+        $rol->alive = true;
+        $rol->save();
+
+        flash('Rol <b>'.$rol->rol.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('roles.index');
     }
 
 }

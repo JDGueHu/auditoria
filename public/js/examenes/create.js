@@ -27,7 +27,7 @@ $(document).ready(function() {
 		validarExamen(0);
 	});
 
- 
+ });
 
 
 function validarExamen(ajax){ 

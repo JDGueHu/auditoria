@@ -9,7 +9,7 @@
 
 {!! Form::open(['route' => 'empleados.store', 'method' => 'POST', 'id' => 'example-form']) !!}
 
-{!! Form::submit('Guardar',['class' => 'btn btn-primary separarBottom'])  !!}
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarBottom boton_duplicado'])  !!}
 <a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarBottom'])  !!}
 </a>
@@ -25,8 +25,26 @@
                     {!! Form::select('tipo_documento', $tiposDocumento, null, ['class' => 'form-control separarBottom', 'required', 'placeholder' => 'Seleccione un tipo de documento','id'=>'tipo_documento'])  !!} 
                 </div>
                 <div class="col-md-3 separarBottom">
-                    {!! Form::label('identificacion','Número de identidad')  !!}
-                    {!! Form::number('identificacion',null, ['class' => 'form-control', 'required', 'id'=>'identificacion'])  !!}
+
+                    <div class="duplicado">
+
+                        {!! Form::label('identificacion','Número de identidad')  !!}
+                        {!! Form::number('identificacion',null, ['class' => 'form-control validarDuplicado', 'required', 'id'=>'identificacion'])  !!}
+
+                        <!-- Elementos para mostrar validacion -->
+                        <!-- Success -->
+                        <span id="inputSuccess1Status" class="ocultar glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputSuccess2Status" class="ocultar sr-only">(success)</span>
+                        <!-- Error -->
+                        <span id="inputError1Status" class="ocultar glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span id="inputError2Status" class="ocultar sr-only">(error)</span>
+                    </div>
+
+                    @if ($errors->has('identificacion'))
+                        <span style="color: red" class="help-block">
+                            <strong>{{ $errors->first('identificacion') }}</strong>
+                        </span>
+                    @endif
                 </div>    
                 <div class="col-md-3 separarBottom">
                     {!! Form::label('nombres','Nombres')  !!}
@@ -186,10 +204,6 @@
                     {!! Form::label('tasa','Tasa (%)')  !!}
                     {!! Form::text('tasa',null, ['class' => 'form-control', 'id'=>'tasa', 'readonly'])  !!}
                 </div> 
-                <div class="col-md-3 separarBottom">
-                    {!! Form::label('estado','Estado')  !!}
-                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], 'Activo', ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un estado','id'=>'estado'])  !!} 
-                </div> 
 
             </div>
 
@@ -204,13 +218,13 @@
     </div>
 </div>
 
-{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn'])  !!}
+{!! Form::submit('Guardar',['class' => 'btn btn-primary separarTop separarBottomButtonn boton_duplicado'])  !!}
 <a style="text-decoration: none;" href="{{ route('empleados.index') }}">
     {!! Form::button('Regresar',['class' => 'btn btn-default separarTop separarBottomButtonn'])  !!}
 </a>
 
 {!! Form::close() !!}
-
+<input type="hidden" name="modulo" id="modulo" value="empleados">
 @endsection
 
 @section('js')

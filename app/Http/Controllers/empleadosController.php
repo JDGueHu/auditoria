@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Empleado;
 use App\TipoDocumento;
 use App\Cargo;
@@ -35,9 +36,16 @@ class empleadosController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::where('alive',true)->orderby('apellidos')->get();
+        $empleados = Empleado::orderby('apellidos')->get();
 
         return view('administracion.empleados.index')->with('empleados',$empleados);
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'identificacion' => 'unique:empleados'
+        ]);
     }
 
     /**
@@ -73,6 +81,8 @@ class empleadosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validator($request->all())->validate();
+
         $empleado = new Empleado();
 
         $empleado->tipoDocumento_id = $request->tipo_documento;
@@ -258,7 +268,7 @@ class empleadosController extends Controller
         $empleado->alive = false;
         $empleado->save();
 
-        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('empleados.index');
     }
 
@@ -274,5 +284,16 @@ class empleadosController extends Controller
 
             return response($riesgo);
         }
+    }
+
+    public function activar($id)
+    {
+        $empleado = Empleado::find($id);
+
+        $empleado->alive = true;
+        $empleado->save();
+
+        flash('Emplead@ <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('empleados.index');
     }
 }

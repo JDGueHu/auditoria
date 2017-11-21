@@ -20,7 +20,7 @@ class contratosController extends Controller
      */
     public function index()
     {
-        $contratos = Contrato::where('alive',true)->get();
+        $contratos = Contrato::get();
 
         $contratos = DB::table('contratos')
             ->join('empleados','contratos.empleado_id','=','empleados.id')
@@ -170,7 +170,7 @@ class contratosController extends Controller
         $contrato->alive = false;
         $contrato->save();
 
-        flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se eliminó exitosamente', 'danger')->important();
+        flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se inactivó exitosamente', 'danger')->important();
         return redirect()->route('contratos.index');
     }
 
@@ -231,6 +231,18 @@ class contratosController extends Controller
             ->get();
 
         return $contrato;
+    }
+
+    public function activar($id)
+    {
+        $contrato = Contrato::find($id);
+        $empleado = Empleado::find($contrato->empleado_id);
+
+        $contrato->alive = true;
+        $contrato->save();
+
+        flash('Contrato de <b>'.$empleado->nombres.' '.$empleado->apellidos.'</b> se activó exitosamente', 'success')->important();
+        return redirect()->route('contratos.index');
     }
 
 }

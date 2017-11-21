@@ -17,9 +17,9 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
 					<th>Tipo formación</th>
-					<th>Clasificación</th>
 					<th>Nivel de formación</th>
 					<th>Área de formación</th>
+					<th>Estado formación</th>
 					<th>Estado</th>
 					<th>Acciones</th>
 				</tr>
@@ -31,10 +31,14 @@
                         <td>{{ $formacion->Empleado->nombres }}</td> 
                         <td>{{ $formacion->Empleado->apellidos }}</td>  
 						<td>{{ $formacion->tipoEstudio }}</td>
-						<td>{{ $formacion->intExt }}</td>
 						<td>{{ $formacion->NivelEstudio->nivelEstudio }}</td>
 						<td>{{ $formacion->AreaEstudio->areaEstudio }}</td>
 						<td>{{ $formacion->estado }}</td>
+						@if($formacion->alive)
+							<td><span class="label label-success">Activo</span></td>
+						@else
+							<td><span class="label label-danger">Inactivo</span></td>
+						@endif
 						<td>
 							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('formaciones.show',$formacion->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
@@ -42,8 +46,11 @@
 							<a data-toggle="tooltip" data-placement="top" title="Editar" href="{{ route('formaciones.edit',$formacion->id) }}" class="btn btn-warning btn-xs">
 								<i class="fa fa-pencil" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('formaciones.destroy',$formacion->id) }}" class="btn btn-danger btn-xs confirm_F">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('formaciones.activar',$formacion->id) }}" class="btn btn-success btn-xs confirm_activar_F">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('formaciones.destroy',$formacion->id) }}" class="btn btn-danger btn-xs confirm_F">
+								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>

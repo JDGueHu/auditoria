@@ -7,6 +7,7 @@
     </ol>
 
     <a href="{{ route('requisitosLegales.create') }}" class="btn btn-primary separarTop">Crear</a>
+    <a href="{{ route('requisitosLegales.matriz') }}" class="btn btn-default separarTop">Ver matriz</a>
 
     <hr>
     <div class="table-responsive">

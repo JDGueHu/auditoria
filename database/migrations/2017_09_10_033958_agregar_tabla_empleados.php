@@ -51,7 +51,6 @@ class AgregarTablaEmpleados extends Migration
             $table->integer('centro_trabajo_id')->unsigned();
             $table->foreign('centro_trabajo_id')->references('id')->on('centrosTrabajo'); 
 
-            $table->string('estado');
             $table->date('fechaRetiro')->nullable();
 
             $table->boolean('alive')->default(true);

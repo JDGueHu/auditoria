@@ -212,6 +212,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'empleadosController@cargarRiesgo',
 		'as' => 'empleados.cargarRiesgo'
 	]);
+	Route::get('empleados/{id}/activar',[
+		'uses' => 'empleadosController@activar',
+		'as' => 'empleados.activar'
+	]);
 
 	Route::resource('contratos','contratosController');
 	Route::get('contratos/{id}/destroy',[
@@ -229,6 +233,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 	Route::get('contratos/{id}/destroyAjax',[
 		'uses' => 'contratosController@destroyAjax',
 		'as' => 'contratos.destroyAjax'
+	]);
+	Route::get('contratos/{id}/activar',[
+		'uses' => 'contratosController@activar',
+		'as' => 'contratos.activar'
 	]);
 
 	Route::resource('formaciones','formacionesController');
@@ -251,6 +259,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 	Route::get('formaciones/{id}/destroyAjax',[
 		'uses' => 'formacionesController@destroyAjax',
 		'as' => 'formaciones.destroyAjax'
+	]);
+	Route::get('formaciones/{id}/activar',[
+		'uses' => 'formacionesController@activar',
+		'as' => 'formaciones.activar'
 	]);
 
 	Route::resource('restriccionesMedicas','restriccionesMedicasController');
@@ -284,6 +296,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'examenesController@destroyAjax',
 		'as' => 'examenes.destroyAjax'
 	]);
+	Route::get('examenes/{id}/activar',[
+		'uses' => 'examenesController@activar',
+		'as' => 'examenes.activar'
+	]);
 
 	Route::resource('tiposVacaciones','tiposVacacionesController');
 	Route::get('tiposVacaciones/{id}/destroy',[
@@ -311,6 +327,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 	Route::get('vacaciones/{id}/destroyAjax',[
 		'uses' => 'vacacionesController@destroyAjax',
 		'as' => 'vacaciones.destroyAjax'
+	]);
+	Route::get('vacaciones/{id}/activar',[
+		'uses' => 'vacacionesController@activar',
+		'as' => 'vacaciones.activar'
 	]);
 
 	Route::resource('tiposSST','tiposSSTController');
@@ -351,6 +371,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'SSTController@destroyAjax',
 		'as' => 'SST.destroyAjax'
 	]);
+	Route::get('SST/{id}/activar',[
+		'uses' => 'SSTController@activar',
+		'as' => 'SST.activar'
+	]);
 
 	Route::resource('adjuntos','adjuntosController');
 	Route::get('adjuntos/{id}/destroy',[
@@ -369,7 +393,10 @@ Route::group(['prefix'=>'administracion','middleware' => 'auth'],function(){
 		'uses' => 'adjuntosController@destroyAjax',
 		'as' => 'adjuntos.destroyAjax'
 	]);
-
+	Route::get('adjuntos/{id}/activar',[
+		'uses' => 'adjuntosController@activar',
+		'as' => 'adjuntos.activar'
+	]);
 });
 
 Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
@@ -390,6 +417,10 @@ Route::group(['prefix'=>'matrices','middleware' => 'auth'],function(){
 	Route::get('roles/consultar/matriz',[
 		'uses' => 'rolesController@matriz',
 		'as' => 'roles.matriz'
+	]);
+	Route::get('roles/{id}/activar',[
+		'uses' => 'rolesController@activar',
+		'as' => 'roles.activar'
 	]);
 
 	Route::resource('requisitosLegales','requisitosLegalesController');

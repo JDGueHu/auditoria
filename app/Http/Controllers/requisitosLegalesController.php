@@ -22,6 +22,13 @@ class requisitosLegalesController extends Controller
             ->with('requisitos',$requisitos);
     }
 
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'rol' => 'unique:roles_matriz'
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

@@ -84,7 +84,7 @@ return [
     ],
     'string'               => 'El campo :attribute debe contener sólo caracteres.',
     'timezone'             => 'El campo :attribute debe contener una zona válida.',
-    'unique'               => 'El elemento :attribute ya está en uso.',
+    'unique'               => 'El dato en el campo :attribute ya está en uso.',
     'uploaded'             => 'El elemento :attribute falló al subir.',
     'url'                  => 'El formato de :attribute no corresponde con el de una URL válida.',
 

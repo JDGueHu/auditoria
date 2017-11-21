@@ -180,10 +180,6 @@
                     {!! Form::label('tasa','Tasa')  !!}
                     {!! Form::text('tasa',null, ['class' => 'form-control', 'id'=>'tasa', 'readonly'])  !!}
                 </div> 
-                <div class="col-md-3 separarBottom">
-                    {!! Form::label('estado','Estado')  !!}
-                    {!! Form::select('estado', ['Activo' => 'Activo', 'Inactivo' => 'Inactivo'], $empleado->estado, ['class' => 'form-control', 'required', 'placeholder' => 'Seleccione un estado','id'=>'estado'])  !!} 
-                </div> 
             </div>
 
             <div class="row">

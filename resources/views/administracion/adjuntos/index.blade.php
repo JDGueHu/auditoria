@@ -17,7 +17,8 @@
                     <th>Nombres</th>
                     <th>Apellidos</th>
                     <th>Nombre adjunto</th>
-					<th>Adjunto</th>
+					<!-- <th>Adjunto</th> -->
+					<th>Estado</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -28,17 +29,25 @@
                         <td>{{ $adjunto->Empleado->nombres }}</td> 
                         <td>{{ $adjunto->Empleado->apellidos }}</td>
 						<td>{{ $adjunto->nombre }}</td>
-						<td>
+<!-- 						<td>
 							<a title="Adjunto" href="{{ $adjunto->adjunto }}" target="_blank">
 							{{ $adjunto->adjunto }}
 							</a>
-						</td>
+						</td> -->
+						@if($adjunto->alive)
+							<td><span class="label label-success">Activo</span></td>
+						@else
+							<td><span class="label label-danger">Inactivo</span></td>
+						@endif
 						<td>
 							<a data-toggle="tooltip" data-placement="top" title="Detalles" href="{{ route('adjuntos.show',$adjunto->id) }}" class="btn btn-default btn-xs">
 								<i class="fa fa-eye" aria-hidden="true"></i>
 							</a>
-							<a data-toggle="tooltip" data-placement="top" title="Eliminar" href="{{ route('adjuntos.destroy',$adjunto->id) }}" class="btn btn-danger btn-xs confirm_M">
-								<i class="fa fa-trash-o" aria-hidden="true"></i>
+							<a data-toggle="tooltip" data-placement="top" title="Activar" href="{{ route('adjuntos.activar',$adjunto->id) }}" class="btn btn-success btn-xs confirm_activar_M">
+								<i class="fa fa-check-square-o" aria-hidden="true"></i>
+							</a>
+							<a data-toggle="tooltip" data-placement="top" title="Inactivar" href="{{ route('adjuntos.destroy',$adjunto->id) }}" class="btn btn-danger btn-xs confirm_M">
+								<i class="fa fa-times" aria-hidden="true"></i>
 							</a>
 						</td>
 					</tr>
