@@ -14,6 +14,6 @@ $(document).ready(function() {
             last:       "Última"
         	}
         },
-        pageLength: 6    
+        pageLength: 5    
     });
 } );

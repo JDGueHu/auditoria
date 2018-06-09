@@ -45,7 +45,7 @@ $(document).ready(function() {
         $(".ocultarShowExamen").removeClass("ocultar");
         $(".agregarExamenSubpanel").removeClass("ocultar");
         $("#secionRestriccionesModal").removeClass("ocultar");
-        tR.clear().draw();;
+        tR.clear().draw();
 
         $("#tipoExamen").val("");
         $("#fechaExamen").val("");
